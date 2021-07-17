@@ -1,6 +1,6 @@
 import { Application } from 'express';
 import * as userController from '../../src/components/user/controller';
 
-export const userRoutes = (app: Application): void => {
+module.exports = (app: Application): void => {
   app.route('/').get(userController.register);
 };

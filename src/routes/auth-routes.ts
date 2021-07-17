@@ -1,9 +1,11 @@
 import { Application, Router } from 'express';
-import * as userController from '../../src/components/user/controller';
+import * as authController from '../../src/components/auth/controller';
+import auth from '../components/middleware/auth';
+import user from '../components/middleware/user';
 
-export const authRoutes = (app: Application): void => {
-  app.route('/register').post(userController.register);
-  // app.route('/login').post(userController.register);
-  // app.route('/me').get(userController.register);
-  // app.route('/logout').get(userController.register);
+module.exports = (app: Application): void => {
+  app.route('/api/auth/register').post(authController.register);
+  app.route('/api/auth/login').post(authController.login);
+  app.route('/api/auth/me').get(user, auth, authController.me);
+  app.route('/api/auth/logout').get(user, auth, authController.logout);
 };

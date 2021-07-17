@@ -1,7 +1,6 @@
-import { Application } from 'express'
-import * as projectController from '../../src/components/projects/controller'
+import { Application } from 'express';
+import * as projectController from '../../src/components/projects/controller';
 
-export const projectRoutes = (app: Application): void => {
-  app.route('/')
-    .get(projectController.getProject)
-}
+module.exports = (app: Application): void => {
+  app.route('/api/').get(projectController.getProject);
+};

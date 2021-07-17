@@ -5,6 +5,7 @@ import {
   Index,
   BeforeInsert,
   OneToMany,
+  Generated,
 } from 'typeorm';
 import bcrypt from 'bcrypt';
 import { Exclude } from 'class-transformer';
@@ -20,6 +21,12 @@ export default class User extends Entity {
     Object.assign(this, user);
   }
 
+  @Exclude()
+  @Index()
+  @Generated('uuid')
+  @Column()
+  user_id: string;
+
   @Index()
   @IsEmail(undefined, { message: 'Must be a valid email address' })
   @Length(1, 255, { message: 'Email is empty' })
@@ -30,6 +37,18 @@ export default class User extends Entity {
   @Length(6, 255, { message: 'Must be 6 characters or more without spaces.' })
   @Column({ unique: true })
   username: string;
+
+  @Index()
+  @Column()
+  first_name: string;
+
+  @Index()
+  @Column()
+  last_name: string;
+
+  @Index()
+  @Column()
+  profile_img: string;
 
   @Exclude()
   @Index()

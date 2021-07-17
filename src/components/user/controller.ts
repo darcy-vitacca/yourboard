@@ -19,23 +19,24 @@ import { validate, isEmpty } from 'class-validator';
 export const register = async (req: Request, res: Response) => {
   const { email, username, password } = req.body;
   try {
-    let errors: any = {};
-    //validate data
-    const emailUserExists = await User.findOne({ email });
-    const usernameUserExists = await User.findOne({ username });
-    if (emailUserExists) errors.email = 'Email is already taken';
-    if (usernameUserExists) errors.username = 'Username is already taken';
-
-    if (Object.keys(errors).length > 0) {
-      return res.status(400).json(errors);
-    }
-    const user = new User({ email, username, password });
-    errors = await validate(user);
-    if (errors.length > 0) {
-      // return res.status(400).json(mapErrors(errors));
-    }
-    await user.save();
-    return res.json(user);
+    // let errors: any = {};
+    // //validate data
+    // const emailUserExists = await User.findOne({ email });
+    // const usernameUserExists = await User.findOne({ username });
+    // if (emailUserExists) errors.email = 'Email is already taken';
+    // if (usernameUserExists) errors.username = 'Username is already taken';
+    //
+    // if (Object.keys(errors).length > 0) {
+    //   return res.status(400).json(errors);
+    // }
+    // const user = new User({ email, username, password });
+    // errors = await validate(user);
+    // if (errors.length > 0) {
+    //   // return res.status(400).json(mapErrors(errors));
+    // }
+    // await user.save();
+    // return res.json(user);
+    return res.json('hit');
   } catch (err) {
     console.log(err);
     return res.status(500).json(err);
