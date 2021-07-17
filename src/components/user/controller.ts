@@ -34,10 +34,8 @@ export const register = async (req: Request, res: Response) => {
     if (errors.length > 0) {
       // return res.status(400).json(mapErrors(errors));
     }
-
     await user.save();
     return res.json(user);
-    return;
   } catch (err) {
     console.log(err);
     return res.status(500).json(err);
