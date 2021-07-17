@@ -10,6 +10,8 @@ import {
 import bcrypt from 'bcrypt';
 import { Exclude } from 'class-transformer';
 import Entity from './Entity';
+import Project from './Project';
+import Link from './Link';
 // import Post from './Post';
 // import Vote from './Vote';
 
@@ -38,15 +40,12 @@ export default class User extends Entity {
   @Column({ unique: true })
   username: string;
 
-  @Index()
   @Column()
   first_name: string;
 
-  @Index()
   @Column()
   last_name: string;
 
-  @Index()
   @Column({
     nullable: true,
   })
@@ -65,9 +64,12 @@ export default class User extends Entity {
   // @IsLowercase()
   password: string;
 
-  // @OneToMany(() => Post, (post) => post.user)
-  // posts: Post[];
-  //
+  @OneToMany(() => Project, (project) => project.user)
+  projects: Project[];
+
+  @OneToMany(() => Link, (link) => link.user)
+  links: Link[];
+
   // @OneToMany(() => Vote, (vote) => vote.user)
   // votes: Vote[];
 
