@@ -1,21 +1,43 @@
-import "reflect-metadata";
-import {createConnection} from "typeorm";
-import {User} from "./entities/User";
+import 'dotenv/config';
+import express from 'express';
+import 'reflect-metadata';
+import { createConnection } from 'typeorm';
+import morgan from 'morgan';
+import * as bodyParser from 'body-parser';
+import { linkRoutes, userRoutes, projectRoutes, authRoutes } from './routes';
+// import cors from 'cors'
 
-createConnection().then(async connection => {
+const PORT = process.env.PORT || 4000;
 
-    console.log("Inserting a new user into the database...");
-    const user = new User();
-    user.firstName = "Timber";
-    user.lastName = "Saw";
-    user.age = 25;
-    await connection.manager.save(user);
-    console.log("Saved a new user with id: " + user.id);
+const app = express();
+app.use(express.json());
+app.use(morgan('dev'));
 
-    console.log("Loading users from the database...");
-    const users = await connection.manager.find(User);
-    console.log("Loaded users: ", users);
+app.get('/', (req, res) => res.send('Hello World'));
 
-    console.log("Here you can setup and run express/koa/any other framework.");
+app.use('/api/auth', authRoutes);
+app.use('/api/users', userRoutes);
+app.use('/api/project', projectRoutes);
+app.use('/api/link', linkRoutes);
 
-}).catch(error => console.log(error));
+app.listen(PORT, async () => {
+  console.log(`Server running on Port ${PORT}`);
+  try {
+    await createConnection();
+    console.log('Databased connected');
+  } catch (err) {
+    console.log(err);
+  }
+});
+//
+// app.use(cors({
+//     credentials: true,
+//     origin: process.env.ORIGIN,
+//     optionsSuccessStatus: 200
+// }))
+//
+
+// app.get('/', (req, res) => {
+//     res.send('Hello World');
+// })
+//
