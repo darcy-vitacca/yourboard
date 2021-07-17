@@ -16,12 +16,14 @@ const mapErrors = (errors: Object[]) => {
 
 export const register = async (req: Request, res: Response) => {
   try {
-    const { email, username, password } = req.body;
+    const { email, username, password, first_name, last_name } = req.body;
 
     let errors: any = {};
     if (isEmpty(email)) errors.email = 'Email must not be empty';
     if (isEmpty(username)) errors.username = 'Username must not be empty';
     if (isEmpty(password)) errors.password = 'Password must not be empty';
+    if (isEmpty(first_name)) errors.first_name = 'First name must not be empty';
+    if (isEmpty(last_name)) errors.last_name = 'Last must not be empty';
 
     if (Object.keys(errors).length > 0) {
       return res.status(400).json(errors);
@@ -35,7 +37,7 @@ export const register = async (req: Request, res: Response) => {
     if (Object.keys(errors).length > 0) {
       return res.status(400).json(errors);
     }
-    const user = new User({ email, username, password });
+    const user = new User({ email, username, password, first_name, last_name });
     errors = await validate(user);
     if (errors.length > 0) {
       return res.status(400).json(mapErrors(errors));

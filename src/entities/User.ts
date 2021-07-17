@@ -47,7 +47,9 @@ export default class User extends Entity {
   last_name: string;
 
   @Index()
-  @Column()
+  @Column({
+    nullable: true,
+  })
   profile_img: string;
 
   @Exclude()
