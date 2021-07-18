@@ -3,8 +3,10 @@ import Routes from './Routes';
 import { GlobalStyle } from './styles/Global.styles';
 import { Header } from './shared/header';
 import { Footer } from './shared/footer';
+import axios from 'axios';
 
-function App() {
+const App = () => {
+  axios.defaults.baseURL = 'http://localhost:5000';
   return (
     <>
       <GlobalStyle />
@@ -13,6 +15,6 @@ function App() {
       <Footer />
     </>
   );
-}
+};
 
 export default App;

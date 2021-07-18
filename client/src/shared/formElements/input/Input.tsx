@@ -28,9 +28,9 @@ const Input = forwardRef<HTMLInputElement, IInputProps>(
             inputRef={ref}
             onChange={(e) => {}}
             onKeyPress={(e) => {
-              if (!/[0-9]/.test(e.key) && type === 'tel') {
-                e.preventDefault();
-              }
+              // if (!/[0-9]/.test(e.key) && type === 'tel') {
+              //   e.preventDefault();
+              // }
             }}
           />
 

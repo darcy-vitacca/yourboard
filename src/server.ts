@@ -34,7 +34,7 @@ app.use(
 require('./routes/auth-routes')(app);
 require('./routes/user-routes')(app);
 require('./routes/project-routes')(app);
-require('./routes/user-routes')(app);
+require('./routes/link-routes')(app);
 
 app.listen(PORT, async () => {
   console.log(`Server running on Port ${PORT}`);

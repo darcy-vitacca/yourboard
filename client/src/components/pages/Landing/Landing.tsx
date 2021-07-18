@@ -10,9 +10,13 @@ import { Markdown } from '../../../shared/markdown';
 import { Button } from '../../../shared/formElements/button';
 import { useHistory } from 'react-router';
 import Input from '../../../shared/formElements/input';
+import axios from 'axios';
 
 export const Landing = () => {
-  const { push } = useHistory();
+  const displayLinks = async () => {
+    const res = await axios.post('/api/project/scotpac');
+    console.log('res', res);
+  };
   return (
     <>
       <PageLayoutContainer>
@@ -20,13 +24,12 @@ export const Landing = () => {
           <Markdown children={'subHeading'} align="center" />
           <Input fieldName="test" />
           <ButtonGroupContainer align="center">
-            <Button onClick={() => push('/activate')} className="centerLeftBtn">
+            <Button onClick={() => displayLinks()} className="centerLeftBtn">
               {'activateCardButtonText'}
             </Button>
             <Button children={'balanceButtonText'} className="centerRightBtn" />
           </ButtonGroupContainer>
         </SectionContainer>
-
       </PageLayoutContainer>
     </>
   );

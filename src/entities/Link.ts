@@ -51,7 +51,9 @@ export default class Link extends Entity {
   @JoinColumn({ name: 'project_id', referencedColumnName: 'project_id' })
   project: Project;
 
-  @Column()
+  @Column({
+    nullable: true,
+  })
   subfolder_id: string;
   @ManyToOne(() => Subfolder, (subfolder: Subfolder) => subfolder.links)
   @JoinColumn({ name: 'subfolder_id', referencedColumnName: 'subfolder_id' })

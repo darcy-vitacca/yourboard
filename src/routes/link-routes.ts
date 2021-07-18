@@ -1,6 +1,9 @@
 import { Application } from 'express';
 import * as linkController from '../components/link/controller';
+import user from '../components/middleware/user';
+import auth from '../components/middleware/auth';
 
 module.exports = (app: Application): void => {
-  app.route('/api/').get(linkController.getLink);
+  app.route('/api/link/:project').get(user, linkController.getLinks);
+  app.route('/api/link/:project').post(user, auth, linkController.createLink);
 };

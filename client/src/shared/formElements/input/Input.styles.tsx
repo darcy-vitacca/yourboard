@@ -28,6 +28,8 @@ export const InputContainer = styled.div<IInputContainerProps>`
 
 export const InputElement = styled(TextField)`
   width: 100%;
+  color: white;
+  background-color: white;
   padding: 10px;
   .MuiFormLabel-root.Mui-focused {
     color: ${({ theme }) => theme.colors.primary.default};
