@@ -61,7 +61,6 @@ export const login = async (req: Request, res: Response) => {
     const user = await User.findOne({ email });
     if (!user) return res.status(404).json({ email: 'Email not found' });
 
-    console.log('user', user);
     //hashes input and compares new password
     const passwordMatches = await bcrypt.compare(password, user.password);
     if (!passwordMatches)

@@ -5,6 +5,8 @@ import {
   Index,
   ManyToOne,
   JoinColumn,
+  PrimaryGeneratedColumn,
+  Generated,
 } from 'typeorm';
 import Entity from './Entity';
 import User from './User';
@@ -17,6 +19,9 @@ export default class Link extends Entity {
     super();
     Object.assign(this, link);
   }
+  @Index()
+  @PrimaryGeneratedColumn('uuid')
+  link_id: string;
 
   @Index()
   @Column({
@@ -34,15 +39,22 @@ export default class Link extends Entity {
   })
   url_image: string;
 
+  @Column()
+  user_id: string;
   @ManyToOne(() => User)
   @JoinColumn({ name: 'user_id', referencedColumnName: 'user_id' })
   user: User;
 
-  @ManyToOne(() => Project, (project) => project.links)
+  @Column()
+  project_id: string;
+  @ManyToOne(() => Project)
   @JoinColumn({ name: 'project_id', referencedColumnName: 'project_id' })
   project: Project;
 
-  @ManyToOne(() => Subfolder, (subfolder) => subfolder.links)
+  @Column()
+  subfolder_id: string;
+  @ManyToOne(() => Subfolder, (subfolder: Subfolder) => subfolder.links)
+  @JoinColumn({ name: 'subfolder_id', referencedColumnName: 'subfolder_id' })
   subfolder: Subfolder;
 
   @Index()

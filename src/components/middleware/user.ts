@@ -10,9 +10,9 @@ export default async (req: Request, res: Response, next: NextFunction) => {
     const token = req.cookies.token;
     if (!token) return next();
 
-    const { username }: any = jwt.verify(token, process.env.JWT_SECRET!);
+    const { email }: any = await jwt.verify(token, process.env.JWT_SECRET!);
 
-    const user = await User.findOne({ username });
+    const user = await User.findOne({ email });
 
     res.locals.user = user;
 

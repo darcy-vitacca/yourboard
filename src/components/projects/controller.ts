@@ -1,9 +1,46 @@
-import { Request, Response } from 'express'
+import { Request, Response } from 'express';
+import User from '../../entities/User';
+import { isEmpty } from 'class-validator';
+import Project from '../../entities/Project';
 
-export const getProject = async (req: Request, res : Response) => {
+export const getProject = async (req: Request, res: Response) => {
   try {
-    return req
+    //get project via name and uuid
+    //get link
+    return req;
   } catch (err) {
     console.log(err);
   }
-}
+};
+
+export const createProject = async (req: Request, res: Response) => {
+  const { description, project_name, url_name } = req.body;
+  const user: User = res.locals.user;
+  try {
+    let errors: any = {};
+    if (isEmpty(description))
+      errors.description = 'Description must not be empty';
+    if (isEmpty(project_name))
+      errors.project_name = 'Project name must not be empty';
+    if (isEmpty(url_name)) errors.url_name = 'URL name must not be empty';
+    if (Object.keys(errors).length > 0) return res.status(400).json(errors);
+
+    const projectCheck = await Project.findOne({ url_name });
+    if (projectCheck)
+      errors.project_name =
+        'URL name already exists please choose a different one.';
+    if (Object.keys(errors).length > 0) return res.status(400).json(errors);
+
+    const project = await new Project({
+      description,
+      project_name,
+      url_name,
+      user,
+    });
+    await project.save();
+
+    return res.json(project);
+  } catch (err) {
+    console.log(err);
+  }
+};

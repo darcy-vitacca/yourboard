@@ -7,6 +7,7 @@ import {
   ManyToOne,
   JoinColumn,
   OneToMany,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
 import Entity from './Entity';
 import { Exclude } from 'class-transformer';
@@ -20,16 +21,22 @@ export default class Project extends Entity {
     super();
     Object.assign(this, project);
   }
-
   @Index()
-  @Generated('uuid')
-  @Column()
+  @PrimaryGeneratedColumn('uuid')
   project_id: string;
 
   @Index()
   @Column({ unique: true })
   project_name: string;
 
+  @Column()
+  description: string;
+
+  @Column({ unique: true })
+  url_name: string;
+
+  @Column({ unique: true })
+  user_id: string;
   @ManyToOne(() => User)
   @JoinColumn({ name: 'user_id', referencedColumnName: 'user_id' })
   user: User;
@@ -39,8 +46,4 @@ export default class Project extends Entity {
 
   @OneToMany(() => Subfolder, (subfolder) => subfolder.project)
   subfolders: Subfolder[];
-
-  @Index()
-  @Column({ unique: true })
-  description: string;
 }

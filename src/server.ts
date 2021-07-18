@@ -1,6 +1,6 @@
+import 'reflect-metadata';
 import 'dotenv/config';
 import express, { Application, RequestHandler } from 'express';
-import 'reflect-metadata';
 import { createConnection } from 'typeorm';
 import morgan from 'morgan';
 import trim from './components/middleware/trim';

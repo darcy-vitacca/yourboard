@@ -6,14 +6,13 @@ import {
   BeforeInsert,
   OneToMany,
   Generated,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
 import bcrypt from 'bcrypt';
 import { Exclude } from 'class-transformer';
 import Entity from './Entity';
 import Project from './Project';
 import Link from './Link';
-// import Post from './Post';
-// import Vote from './Vote';
 
 @TOEntity('users')
 export default class User extends Entity {
@@ -23,10 +22,7 @@ export default class User extends Entity {
     Object.assign(this, user);
   }
 
-  @Exclude()
-  @Index()
-  @Generated('uuid')
-  @Column()
+  @PrimaryGeneratedColumn('uuid')
   user_id: string;
 
   @Index()
@@ -64,14 +60,11 @@ export default class User extends Entity {
   // @IsLowercase()
   password: string;
 
-  @OneToMany(() => Project, (project) => project.user)
+  @OneToMany(() => Project, (project: Project) => project.user)
   projects: Project[];
 
-  @OneToMany(() => Link, (link) => link.user)
+  @OneToMany(() => Link, (link: Link) => link.user)
   links: Link[];
-
-  // @OneToMany(() => Vote, (vote) => vote.user)
-  // votes: Vote[];
 
   @BeforeInsert()
   async hashPassword() {
