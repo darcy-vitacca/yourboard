@@ -5,11 +5,12 @@ export const grey = '#7f7f7f';
 export const error = '#ff0033';
 export const primary = '#FEFEFE';
 export const secondary = '#F34B4C';
-export const background = '#0B0E11';
+export const background = "#0e2439" ;
 export const backgroundSecondary = '#151A21';
 export const backgroundThird = '#242C37';
 
-export const mainFontFamily = 'Montserrat';
+
+export const mainFontFamily = 'IBM Plex Sans';
 export const fontFamily =
   '-apple-system,system-ui,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif';
 
@@ -28,12 +29,16 @@ export const theme = {
     secondary: {
       default: secondary,
     },
-    black: {},
-    blue: {},
-    grey: {},
-    default: {},
-    red: {},
-    white: {},
+  blue100: "#d2d7db",
+  blue200: "#a5afb8",
+  blue300: "#798694",
+  blue400: "#4c5e71",
+  blue500: "#1f364d",
+  blue600: "#192b3e",
+  blue700: "#13202e",
+  blue800: "#0c161f",
+  blue900: "#060b0f",
+  grey400: "#9CA3AF",
     text: {
       default: primary,
       white: white,
@@ -42,7 +47,7 @@ export const theme = {
     error: error,
   },
   font: {
-    family: fontFamily,
+    family: mainFontFamily,
     size: {
       smallest: '12px',
       smaller: '13px',
@@ -75,7 +80,7 @@ export const theme = {
   },
   shadow: {},
   layout: {
-    background: grey,
+    background: background,
     backgroundSecondary: backgroundSecondary,
     borderRadius: '8px',
     buttonWidth: '200px',

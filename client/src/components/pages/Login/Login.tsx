@@ -9,24 +9,37 @@ import {
   SectionContainer,
 } from '../../../shared/Layout.styles';
 import { Markdown } from '../../../shared/markdown';
+import Input from '../../../shared/formElements/input';
+import { useForm } from 'react-hook-form';
 
-export const Page1 = () => {
+type FormValue = {
+  email: string;
+  password: string;
+};
+
+export const Login = () => {
   const { push } = useHistory();
+  const {
+    control,
+    register,
+    handleSubmit,
+    formState: { errors }, //we get errors out of the form state
+  } = useForm<FormValue>();
 
+  const onSubmit = (formData: any) => {
+    console.log('formData', formData);
+    push('/page2');
+  };
   return (
     <>
       <PageLayoutContainer>
         <SectionContainer>
-          <Markdown children={'heading'} />
-          <Markdown children={'subHeading'} />
-          <Markdown children={'activateCardText'} />
           <FormContainer>
-            <FormSectionContainer className="activateCardSection">
-              <ButtonGroupContainer>
-                <Button children={'Text'} />
-              </ButtonGroupContainer>
+            <FormSectionContainer>
+
+
             </FormSectionContainer>
-            <FormSectionContainer></FormSectionContainer>
+
           </FormContainer>
         </SectionContainer>
       </PageLayoutContainer>

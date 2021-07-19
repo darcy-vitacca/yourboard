@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Footer } from '../../../shared/footer';
 import { Header } from '../../../shared/header';
 import {
@@ -13,22 +13,19 @@ import Input from '../../../shared/formElements/input';
 import axios from 'axios';
 
 export const Landing = () => {
-  const displayLinks = async () => {
+  useEffect(() => {
+ (async () => {
     const res = await axios.post('/api/project/scotpac');
     console.log('res', res);
-  };
+  })();
+  }, []);
   return (
     <>
       <PageLayoutContainer>
         <SectionContainer align="center">
           <Markdown children={'subHeading'} align="center" />
           <Input fieldName="test" />
-          <ButtonGroupContainer align="center">
-            <Button onClick={() => displayLinks()} className="centerLeftBtn">
-              {'activateCardButtonText'}
-            </Button>
-            <Button children={'balanceButtonText'} className="centerRightBtn" />
-          </ButtonGroupContainer>
+
         </SectionContainer>
       </PageLayoutContainer>
     </>

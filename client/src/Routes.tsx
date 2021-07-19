@@ -3,8 +3,8 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import {
   Landing,
   NotFound,
-  Page1,
-  Page2,
+  Login,
+  Signup,
   Page3,
   Page4,
 } from './components/pages';
@@ -14,6 +14,8 @@ const Routes = () => {
     <Router>
       <Switch>
         <Route exact path="/" component={Landing} />
+        <Route exact path="/login" component={Login} />
+        <Route exact path="/signup" component={Signup} />
         <Route exact path="*" component={NotFound} />
       </Switch>
     </Router>

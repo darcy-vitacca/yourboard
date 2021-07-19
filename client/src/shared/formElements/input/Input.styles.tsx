@@ -28,40 +28,49 @@ export const InputContainer = styled.div<IInputContainerProps>`
 
 export const InputElement = styled(TextField)`
   width: 100%;
-  color: white;
-  background-color: white;
+  color: ${theme.colors.blue400}
+  background-color: ${theme.colors.blue400}
   padding: 10px;
   .MuiFormLabel-root.Mui-focused {
-    color: ${({ theme }) => theme.colors.primary.default};
+    color: ${theme.colors.blue400}
     font-family: ${mainFontFamily}, ${fontFamily};
   }
+  & .MuiFormLabel-root {
+  color: red
+}
   .MuiInputBase-input {
     font-size: 14px;
   }
+.MuiFilledInput-root {
+  background:${theme.colors.blue400}
+}
   .MuiOutlinedInput-input {
     padding: 14px;
+    
   }
   .MuiInputLabel-outlined {
-    font-size: 14px;
-    transform: translate(15px, 15px);
+    font-size: 18px;
+    transform: translate(10px, 13.5px);
     font-family: ${mainFontFamily}, ${fontFamily};
+    color: ${theme.colors.grey400};
+    background: transparent;
   }
   .MuiOutlinedInput-notchedOutline {
     border-radius: 0;
+    background-color: ${theme.colors.blue500};
   }
   .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
-    border-color: ${primary};
   }
   .MuiFormLabel-root.Mui-error {
-    color: ${grey};
+  }
+  .MuiFormLabel-root.Mui-disabled {
+    
   }
 `;
 
 export const inputTheme = createMuiTheme({
   palette: {
-    primary: {
-      main: theme.colors.primary.default,
-    },
+
     action: {
       hover: '#FF00000',
     },
