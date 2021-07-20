@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 import { ReactMarkdownProps } from 'react-markdown';
 import ReactMarkdownWithHtml from 'react-markdown/with-html';
 

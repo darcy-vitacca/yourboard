@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 import { Checkbox } from '@material-ui/core';
 
 export const CheckboxContainer = styled.div`

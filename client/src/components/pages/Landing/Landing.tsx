@@ -14,10 +14,10 @@ import axios from 'axios';
 
 export const Landing = () => {
   useEffect(() => {
- (async () => {
-    const res = await axios.post('/api/project/scotpac');
-    console.log('res', res);
-  })();
+    (async () => {
+      const res = await axios.post('/api/project/scotpac');
+      console.log('res', res);
+    })();
   }, []);
   return (
     <>
@@ -25,7 +25,6 @@ export const Landing = () => {
         <SectionContainer align="center">
           <Markdown children={'subHeading'} align="center" />
           <Input fieldName="test" />
-
         </SectionContainer>
       </PageLayoutContainer>
     </>

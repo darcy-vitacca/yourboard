@@ -3,10 +3,10 @@ import { useHistory } from 'react-router';
 import { Button } from '../../../shared/formElements/button';
 import {
   FormContainer,
-  FormSectionContainer,
   ButtonGroupContainer,
   PageLayoutContainer,
   SectionContainer,
+  LoginRegisterSectionContainer,
 } from '../../../shared/Layout.styles';
 import { Markdown } from '../../../shared/markdown';
 import Input from '../../../shared/formElements/input';
@@ -35,11 +35,7 @@ export const Login = () => {
       <PageLayoutContainer>
         <SectionContainer>
           <FormContainer>
-            <FormSectionContainer>
-
-
-            </FormSectionContainer>
-
+            <LoginRegisterSectionContainer></LoginRegisterSectionContainer>
           </FormContainer>
         </SectionContainer>
       </PageLayoutContainer>

@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 import { device } from '../styles/devices';
 
 export interface ISectionContainerProps {
@@ -58,19 +58,14 @@ export const SectionContainer = styled.div<ISectionContainerProps>`
 export const FormContainer = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: center;
   @media ${device.mobileLrg} {
     flex-direction: row;
   }
 `;
 
-export const FormSectionContainer = styled.div`
-  @media ${device.mobileLrg} {
-    &.activateCardSection,
-    &.balanceSection {
-      margin-right: 20px;
-      width: 65%;
-    }
-  }
+export const LoginRegisterSectionContainer = styled.div`
+  max-width: 240px;
 `;
 
 export const ButtonGroupContainer = styled.div<IButtonContainerProps>`

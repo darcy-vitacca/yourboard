@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 import TextField from '@material-ui/core/TextField';
 import {
   fontFamily,
@@ -26,17 +26,28 @@ export const InputContainer = styled.div<IInputContainerProps>`
       : 'inherit'};
 `;
 
+export const InputLabel = styled.label`
+  color: ${theme.colors.white};
+  font-size: 14px;
+`;
+
 export const InputElement = styled(TextField)`
   width: 100%;
   color: ${theme.colors.blue400}
   background-color: ${theme.colors.blue400}
   padding: 10px;
+  border-radius: 12px;
   .MuiFormLabel-root.Mui-focused {
-    color: ${theme.colors.blue400}
+    color: ${theme.colors.grey400};
     font-family: ${mainFontFamily}, ${fontFamily};
   }
-  & .MuiFormLabel-root {
-  color: red
+//border radius
+.MuiOutlinedInput-root {
+  & fieldset {
+    border-radius: 3px;
+  }
+}
+  &.MuiFormLabel-root {
 }
   .MuiInputBase-input {
     font-size: 14px;
@@ -44,7 +55,7 @@ export const InputElement = styled(TextField)`
 .MuiFilledInput-root {
   background:${theme.colors.blue400}
 }
-  .MuiOutlinedInput-input {
+  .MuiOutlinedInput-input { 
     padding: 14px;
     
   }
@@ -60,6 +71,7 @@ export const InputElement = styled(TextField)`
     background-color: ${theme.colors.blue500};
   }
   .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+    border-color: ${theme.colors.grey400};
   }
   .MuiFormLabel-root.Mui-error {
   }
@@ -68,11 +80,4 @@ export const InputElement = styled(TextField)`
   }
 `;
 
-export const inputTheme = createMuiTheme({
-  palette: {
-
-    action: {
-      hover: '#FF00000',
-    },
-  },
-});
+export const inputTheme = createMuiTheme({});

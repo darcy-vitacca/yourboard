@@ -1,4 +1,14 @@
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 import { device } from '../../../styles/devices';
+import { Link } from 'react-router-dom';
 
-export const Container = styled.div``;
+export const LoginRegisterLinkContainer = styled.div`
+  display: flex;
+`;
+
+export const StyledLink = styled(Link)`
+  margin-left: 2.2px;
+  font-size: 14px;
+  text-decoration: none;
+  color: ${({ theme }) => theme.colors.green500};
+`;

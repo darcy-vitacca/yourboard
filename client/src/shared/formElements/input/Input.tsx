@@ -2,7 +2,12 @@ import { MuiThemeProvider } from '@material-ui/core';
 import React, { forwardRef } from 'react';
 
 import { Markdown } from '../../markdown';
-import { InputElement, InputContainer, inputTheme } from './Input.styles';
+import {
+  InputElement,
+  InputContainer,
+  inputTheme,
+  InputLabel,
+} from './Input.styles';
 
 export interface IInputProps {
   name?: string;
@@ -12,12 +17,14 @@ export interface IInputProps {
   width?: '25%' | '50%' | '75%' | '100%';
   maxLength?: number;
   fieldName: string;
+  helperText?: string;
 }
 
 const Input = forwardRef<HTMLInputElement, IInputProps>(
-  ({ type, label, validation, width, maxLength }, ref) => {
+  ({ type, label, validation, width, maxLength, helperText }, ref) => {
     return (
       <MuiThemeProvider theme={inputTheme}>
+        {helperText && <InputLabel>{helperText}</InputLabel>}
         <InputContainer width={width}>
           <InputElement
             label={label}

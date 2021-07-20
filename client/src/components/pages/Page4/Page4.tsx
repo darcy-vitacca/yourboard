@@ -23,12 +23,7 @@ export const Page4 = () => {
             align="center"
             className="termsInstructionsText"
           />
-          <ButtonGroupContainer align="center">
-            <Button
-              onClick={() => push('/terms')}
-              children={'termsButtonText'}
-            />
-          </ButtonGroupContainer>
+          <ButtonGroupContainer align="center"></ButtonGroupContainer>
         </SectionContainer>
       </PageLayoutContainer>
     </>
