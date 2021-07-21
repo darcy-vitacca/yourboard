@@ -7,7 +7,7 @@ export const LoginRegisterLinkContainer = styled.div`
 `;
 
 export const StyledLink = styled(Link)`
-  margin-left: 2.2px;
+  margin-left: 4px;
   font-size: 14px;
   text-decoration: none;
   color: ${({ theme }) => theme.colors.green500};

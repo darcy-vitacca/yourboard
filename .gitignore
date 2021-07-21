@@ -1,10 +1,10 @@
-.idea/
+../.idea/
 .vscode/
 node_modules/
 build/
 tmp/
 temp/
-dist/
+server/dist/
 .env/
 .prettierrc/
 .env

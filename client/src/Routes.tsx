@@ -1,13 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import {
-  Landing,
-  NotFound,
-  Login,
-  Signup,
-  Page3,
-  Page4,
-} from './components/pages';
+import { Landing, NotFound, Login, Signup } from './components/pages';
 
 const Routes = () => {
   return (

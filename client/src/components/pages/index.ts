@@ -1,6 +1,4 @@
-export { Landing } from './Landing'
-export { Login } from './Login'
-export { Signup } from './Signup'
-export { Page3 } from './Page3'
-export { Page4 } from './Page4'
-export { NotFound } from './NotFound'
+export { Landing } from './Landing';
+export { Login } from './Login';
+export { Signup } from './Signup';
+export { NotFound } from './NotFound';

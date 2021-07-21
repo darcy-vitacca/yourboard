@@ -19,12 +19,6 @@ type FormValue = {
 
 export const Login = () => {
   const { push } = useHistory();
-  const {
-    control,
-    register,
-    handleSubmit,
-    formState: { errors }, //we get errors out of the form state
-  } = useForm<FormValue>();
 
   const onSubmit = (formData: any) => {
     console.log('formData', formData);

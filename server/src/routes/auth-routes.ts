@@ -1,5 +1,5 @@
 import { Application, Router } from 'express';
-import * as authController from '../../src/components/auth/controller';
+import * as authController from '../components/auth/controller';
 import auth from '../components/middleware/auth';
 import user from '../components/middleware/user';
 
