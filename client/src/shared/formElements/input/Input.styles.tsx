@@ -1,5 +1,4 @@
 import styled from 'styled-components/macro';
-import TextField from '@material-ui/core/TextField';
 import {
   fontFamily,
   mainFontFamily,
@@ -7,7 +6,7 @@ import {
   grey,
   theme,
 } from '../../../styles/theme';
-import { createMuiTheme } from '@material-ui/core';
+import  TextField  from '@material-ui/core/TextField';
 
 export interface IInputContainerProps {
   width?: '25%' | '50%' | '75%' | '100%';
@@ -33,10 +32,13 @@ export const InputLabel = styled.label`
 
 export const InputElement = styled(TextField)`
   width: 100%;
-  color: ${theme.colors.blue400}
+  color: ${theme.colors.white}
   background-color: ${theme.colors.blue400}
   padding: 10px;
   border-radius: 12px;
+.MuiInputBase-root {
+  color: ${theme.colors.white}
+},
   .MuiFormLabel-root.Mui-focused {
     color: ${theme.colors.grey400};
     font-family: ${mainFontFamily}, ${fontFamily};
@@ -51,13 +53,16 @@ export const InputElement = styled(TextField)`
 }
   .MuiInputBase-input {
     font-size: 14px;
+    color: ${theme.colors.white}
   }
 .MuiFilledInput-root {
   background:${theme.colors.blue400}
+  color: ${theme.colors.white}
 }
   .MuiOutlinedInput-input { 
     padding: 14px;
-    
+    color: ${theme.colors.white};
+    z-index: 1;
   }
   .MuiInputLabel-outlined {
     font-size: 18px;
@@ -76,8 +81,12 @@ export const InputElement = styled(TextField)`
   .MuiFormLabel-root.Mui-error {
   }
   .MuiFormLabel-root.Mui-disabled {
-    
+
+  }
+  //placeholder
+    input {
+    ::placeholder {
+    }
   }
 `;
 
-export const inputTheme = createMuiTheme({});

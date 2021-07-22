@@ -7,11 +7,13 @@ import {
   SectionContainer,
 } from '../../../shared/Layout.styles';
 import { useHistory } from 'react-router';
-import { useForm, FormProvider } from 'react-hook-form';
+import { useForm, FormProvider, Controller } from 'react-hook-form';
 import Input from '../../../shared/formElements/input';
 import { Markdown } from '../../../shared/markdown';
 import { Button } from '../../../shared/formElements/button';
 import { LoginRegisterLinkContainer, StyledLink } from './Signup.styles';
+import { TextField } from '@material-ui/core';
+import axios from 'axios';
 
 interface FormValue {
   email: string;
@@ -21,44 +23,45 @@ interface FormValue {
   lastName: string;
 }
 const defaultValues = {
-  email: 'sadsa',
-  username: 'sadsa',
-  password: 'asdsa',
-  firstName: 'asd',
-  lastName: 'dsadsa',
+  email: '',
+  username: '',
+  password: '',
+  firstName: '',
+  lastName: '',
 };
 
 export const Signup = () => {
   const { push } = useHistory();
-  type FormInputs = {
-    firstName: string;
-    lastName: string;
-  };
 
-  const methods = useForm<FormInputs>({
+
+  const methods = useForm<FormValue>({
     mode: 'onSubmit',
     reValidateMode: 'onChange',
-    // @ts-ignore
     defaultValues: defaultValues,
     resolver: undefined,
     context: undefined,
     criteriaMode: 'firstError',
     shouldFocusError: true,
-    shouldUnregister: false,
   });
   const {
     handleSubmit,
     register,
     watch,
+    control,
     formState: { errors },
   } = methods;
   console.log('watch()', watch());
 
-  const onSubmit = (formData: any) => {
+  const onSubmit = async (formData: any) => {
+    try {
     console.log('formData', formData);
-    push('/login');
+    const res = axios.post('/api/auth/register', formData)
+      console.log('res', res);
+
+    } catch (err) {
+      console.log(err);
+    }
   };
-  console.log('methods', methods);
   return (
     <>
       <PageLayoutContainer>
@@ -75,6 +78,7 @@ export const Signup = () => {
                     width="100%"
                     helperText="Email"
                     label="EMAIL"
+                    control={control}
                     defaultValue={''}
                   />
                   <Input
@@ -83,6 +87,7 @@ export const Signup = () => {
                     width="100%"
                     helperText="Username (6 characters or more without spaces)"
                     label="USERNAME"
+                     control={control}
                     defaultValue={''}
                   />
                   <Input
@@ -91,6 +96,7 @@ export const Signup = () => {
                     width="100%"
                     helperText="Password (A combination of 8 letters and numbers, including uppercase and lower case, without spaces)"
                     label="PASSWORD"
+                     control={control}
                     defaultValue={''}
                   />
                   <Input
@@ -99,6 +105,7 @@ export const Signup = () => {
                     width="100%"
                     label="FIRST NAME"
                     helperText="First Name"
+                    control={control}
                     defaultValue={''}
                   />
                   <Input
@@ -107,9 +114,11 @@ export const Signup = () => {
                     width="100%"
                     label="LAST NAME"
                     helperText="Last Name"
+                     control={control}
                     defaultValue={''}
                   />
-                  <Button text="Register" width="100%" />
+
+                  <Button text="Register" width="100%" type="submit" />
                   <LoginRegisterLinkContainer>
                     <Markdown children="Already a yourboard member?" />
                     <StyledLink to="/login">LOGIN </StyledLink>

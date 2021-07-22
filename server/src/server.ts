@@ -1,5 +1,5 @@
 import 'reflect-metadata';
-import 'dotenv/config';
+require('dotenv').config({ path: '../.env'})
 import express, { Application, RequestHandler } from 'express';
 import { createConnection } from 'typeorm';
 import morgan from 'morgan';

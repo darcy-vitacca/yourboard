@@ -1,4 +1,4 @@
-import { MuiThemeProvider } from '@material-ui/core';
+import { MuiThemeProvider, TextField } from '@material-ui/core';
 import React, { forwardRef } from 'react';
 import { Controller, useForm, useFormContext } from 'react-hook-form';
 
@@ -6,7 +6,6 @@ import { Markdown } from '../../markdown';
 import {
   InputElement,
   InputContainer,
-  inputTheme,
   InputLabel,
 } from './Input.styles';
 
@@ -19,6 +18,7 @@ export interface IInputProps {
   maxLength?: number;
   helperText?: string;
   defaultValue: string;
+  control?: any;
 }
 
 const Input = forwardRef<HTMLInputElement, IInputProps>(
@@ -32,10 +32,12 @@ const Input = forwardRef<HTMLInputElement, IInputProps>(
       helperText,
       name,
       defaultValue,
+      control
     },
     ref
   ) => {
-    const { control } = useFormContext();
+    const { setValue } = useFormContext();
+
     return (
       <>
         {helperText && <InputLabel>{helperText}</InputLabel>}
@@ -47,20 +49,21 @@ const Input = forwardRef<HTMLInputElement, IInputProps>(
             render={({ field }) => (
               <InputElement
                 {...field}
-                label={label}
+                // label={label}
+                placeholder={label}
                 type={type}
-                onChange={(e) => {console.log(e)}}
                 variant="outlined"
+                inputRef={ref}
                 inputProps={{ maxLength: maxLength }}
+                InputLabelProps={{ shrink: true }}
+                // InputLabelProps={{ shrink: this.state.value ? true: false }}
                 error={!!validation}
-                onKeyPress={(e) => {
-                  if (!/[0-9]/.test(e.key) && type === 'tel') {
-                    e.preventDefault();
-                  }
-                }}
               />
             )}
           />
+
+
+
 
           {validation && (
             <Markdown children={validation} className="validationText" />

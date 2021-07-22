@@ -1,4 +1,3 @@
-import { getConnection } from 'typeorm';
 import { Request, Response } from 'express';
 import User from '../../entities/User';
 import Link from '../../entities/Link';
@@ -32,7 +31,7 @@ export const createLink = async (req: Request, res: Response) => {
       url_image,
       position,
       user,
-      project_id: project.project_id,
+      project_id: project?.project_id,
     });
     await link.save();
 
