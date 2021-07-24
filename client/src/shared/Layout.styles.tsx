@@ -1,4 +1,5 @@
 import styled from 'styled-components/macro';
+import { Link } from 'react-router-dom';
 import { device } from '../styles/devices';
 
 export interface ISectionContainerProps {
@@ -66,6 +67,7 @@ export const FormContainer = styled.div`
 
 export const LoginRegisterSectionContainer = styled.div`
   max-width: 240px;
+  margin-top: 60px;
 `;
 
 export const ButtonGroupContainer = styled.div<IButtonContainerProps>`
@@ -120,4 +122,16 @@ export const ImageSplitFormSection = styled.img`
   max-width: 470px;
   margin: 10px 0;
   border-radius: 12px;
+`;
+
+
+export const LoginRegisterLinkContainer = styled.div`
+  display: flex;
+`;
+
+export const StyledLink = styled(Link)`
+  margin-left: 4px;
+  font-size: 14px;
+  text-decoration: none;
+  color: ${({ theme }) => theme.colors.green500};
 `;

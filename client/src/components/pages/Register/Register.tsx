@@ -1,18 +1,16 @@
 import React from 'react';
 import {
   Form,
-  FormContainer,
+  FormContainer, LoginRegisterLinkContainer,
   LoginRegisterSectionContainer,
   PageLayoutContainer,
-  SectionContainer,
+  SectionContainer, StyledLink,
 } from '../../../shared/Layout.styles';
 import { useHistory } from 'react-router';
 import { useForm, FormProvider, Controller } from 'react-hook-form';
 import Input from '../../../shared/formElements/input';
 import { Markdown } from '../../../shared/markdown';
 import { Button } from '../../../shared/formElements/button';
-import { LoginRegisterLinkContainer, StyledLink } from './Signup.styles';
-import { TextField } from '@material-ui/core';
 import axios from 'axios';
 
 interface FormValue {
@@ -30,7 +28,7 @@ const defaultValues = {
   lastName: '',
 };
 
-export const Signup = () => {
+export const Register = () => {
   const { push } = useHistory();
 
 
@@ -48,18 +46,23 @@ export const Signup = () => {
     register,
     watch,
     control,
+    setError,
     formState: { errors },
   } = methods;
-  console.log('watch()', watch());
 
   const onSubmit = async (formData: any) => {
     try {
     console.log('formData', formData);
-    const res = axios.post('/api/auth/register', formData)
-      console.log('res', res);
+    const res = await axios.post('/api/auth/register', formData)
 
+      push('/login')
     } catch (err) {
-      console.log(err);
+      const error = err.response.data
+      if(error.email) setError("email",	{  message: error.email })
+      if(error.firstName) setError("firstName",{  message: error.firstName} )
+      if(error.lastName) setError("lastName",{  message: error.lastName} )
+      if(error.password) setError("password",{  message: error.password} )
+      if(error.username) setError("username",{  message: error.username} )
     }
   };
   return (
@@ -80,6 +83,7 @@ export const Signup = () => {
                     label="EMAIL"
                     control={control}
                     defaultValue={''}
+                    validation={errors?.email?.message || ''}
                   />
                   <Input
                     type="text"
@@ -89,6 +93,7 @@ export const Signup = () => {
                     label="USERNAME"
                      control={control}
                     defaultValue={''}
+                    validation={errors?.username?.message || ''}
                   />
                   <Input
                     type="password"
@@ -98,6 +103,7 @@ export const Signup = () => {
                     label="PASSWORD"
                      control={control}
                     defaultValue={''}
+                    validation={errors?.password?.message || ''}
                   />
                   <Input
                     type="text"
@@ -107,6 +113,7 @@ export const Signup = () => {
                     helperText="First Name"
                     control={control}
                     defaultValue={''}
+                    validation={errors?.firstName?.message || ''}
                   />
                   <Input
                     type="text"
@@ -116,6 +123,7 @@ export const Signup = () => {
                     helperText="Last Name"
                      control={control}
                     defaultValue={''}
+                    validation={errors?.lastName?.message || ''}
                   />
 
                   <Button text="Register" width="100%" type="submit" />

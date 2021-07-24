@@ -1,4 +1,4 @@
-// const black = '#FFFFFF';
+const black = '#000000';
 const white = '#ffffff';
 // const lightGrey = '#d8d8d8';
 export const grey = '#7f7f7f';
@@ -40,6 +40,7 @@ export const theme = {
     grey400: '#9CA3AF',
     green500: '#10B981',
     white: white,
+    black: black,
     text: {
       default: primary,
       white: white,

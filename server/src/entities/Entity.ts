@@ -8,10 +8,10 @@ import { classToPlain, Exclude } from 'class-transformer';
 
 export default abstract class Entity extends BaseEntity {
   @CreateDateColumn()
-  createdAt: Date;
+  createdAt!: Date;
 
   @UpdateDateColumn()
-  updatedAt: Date;
+  updatedAt!: Date;
 
   toJSON() {
     return classToPlain(this);

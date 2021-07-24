@@ -5,6 +5,7 @@ import { Header } from './shared/header';
 import { Footer } from './shared/footer';
 import axios from 'axios';
 import { TextField } from '@material-ui/core';
+import { AuthProvider } from './components/context/context';
 interface FormValue {
   email: string;
   username: string;
@@ -16,10 +17,10 @@ const App = () => {
   axios.defaults.baseURL = 'http://localhost:5000';
   return (
     <>
-      <GlobalStyle />
-      <Header />
-      <Routes />
-      <Footer />
+        <AuthProvider>
+        <GlobalStyle />
+        <Routes />
+        </AuthProvider>
       </>
   );
 };

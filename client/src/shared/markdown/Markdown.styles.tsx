@@ -57,4 +57,22 @@ export const MarkdownElement = styled(
     font-size: ${({ theme }) => theme.font.size.smallest};
     color: ${({ theme }) => theme.colors.error};
   }
+  &.avatar-text {
+    padding: 0;
+  }
+  &.avatar-text > h4 {
+    color: ${({ theme }) => theme.colors.white.default};
+  }
+  &.sidebar-nav-text {
+    padding: 0;
+  }
+  &.sidebar-nav-text > h4 {
+    color: ${({ theme }) => theme.colors.white.default};
+  }
+  &.hideMenu {
+    display: block;
+  }
+  &.showMenu {
+    display: none;
+  }
 `;
