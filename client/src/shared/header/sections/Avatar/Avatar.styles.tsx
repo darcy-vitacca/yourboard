@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 
 export const AvatarContainer = styled.div`
   background-color: ${({ theme }) => theme.colors.primary.default};

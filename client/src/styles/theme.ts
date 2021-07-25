@@ -9,7 +9,7 @@ export const background = '#0e2439';
 export const backgroundSecondary = '#151A21';
 export const backgroundThird = '#242C37';
 
-export const mainFontFamily = 'IBM Plex Sans';
+export const mainFontFamily ="'IBM Plex Sans'";
 export const fontFamily =
   '-apple-system,system-ui,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif';
 

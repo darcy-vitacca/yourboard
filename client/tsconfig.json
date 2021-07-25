@@ -23,7 +23,7 @@
     "noFallthroughCasesInSwitch": true,
     "isolatedModules": true,
     "strict": true,
-    "strictPropertyInitialization": false
+    "strictPropertyInitialization": false,
   },
   "include": [
     "src/**/*"

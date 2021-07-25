@@ -6,7 +6,7 @@ export const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: ${mainFontFamily}, ${fontFamily};
+    font-family: 'IBM Plex Sans', sans-serif;;
     background-color: ${theme.layout.background};
   }
 

@@ -12,6 +12,7 @@ import Input from '../../../shared/formElements/input';
 import { Markdown } from '../../../shared/markdown';
 import { Button } from '../../../shared/formElements/button';
 import axios from 'axios';
+import { useAuthDispatch, useAuthState } from '../../context/context';
 
 interface FormValue {
   email: string;
@@ -29,7 +30,11 @@ const defaultValues = {
 };
 
 export const Register = () => {
+  const dispatch = useAuthDispatch();
+  const {authenticated} = useAuthState()
   const { push } = useHistory();
+  // if(authenticated) push('/')
+  console.log('authenticated', authenticated);
 
 
   const methods = useForm<FormValue>({
@@ -53,7 +58,7 @@ export const Register = () => {
   const onSubmit = async (formData: any) => {
     try {
     console.log('formData', formData);
-    const res = await axios.post('/api/auth/register', formData)
+    const res = await axios.post('/auth/register', formData)
 
       push('/login')
     } catch (err) {

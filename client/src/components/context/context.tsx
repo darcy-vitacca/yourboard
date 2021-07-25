@@ -1,12 +1,14 @@
 import axios from "axios";
-import { createContext, Reducer, useContext, useEffect, useReducer } from 'react';
+import { createContext,  useContext, useEffect, useReducer } from 'react';
 import User from '../../../../server/src/entities/User';
+import Project from '../../../../server/src/entities/Project';
 
 interface State {
   authenticated: boolean;
   user: User | undefined;
   loading: boolean;
   showMenu: true;
+  project: Project | undefined;
 }
 interface Action {
   type: string;
@@ -18,6 +20,7 @@ const StateContext = createContext<State>({
   user: undefined ,
   loading: true,
   showMenu: true,
+  project: undefined,
 });
 const DispatchContext = createContext<any>(null);
 
@@ -27,6 +30,8 @@ const reducer : any= (state: State, { type, payload }: Action) => {
       return { ...state, authenticated: true, user: payload };
     case 'LOGOUT':
       return { ...state, authenticated: false, user: null };
+    case 'SET_PROJECT':
+      return { ...state, project: payload };
     case 'SHOW_MENU':
       return { ...state, showMenu: true };
     case 'HIDE_MENU':
@@ -45,6 +50,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     authenticated: false,
     loading: true,
     showMenu: true,
+    project: null,
   });
 
   //this one liner adds args to the dispatch so we don't have to keep writing type
@@ -54,7 +60,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   //We load the user then dispatch here on first load
   useEffect(() => {
-    const loadUser = (async () => {
+    (async () => {
       try {
         const res = await axios.get("/auth/me");
         dispatch("LOGIN", res.data);

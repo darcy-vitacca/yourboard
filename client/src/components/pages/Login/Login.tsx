@@ -29,7 +29,7 @@ export const Login = () => {
   const dispatch = useAuthDispatch();
   const {authenticated} = useAuthState()
   const { push } = useHistory();
-
+  if(authenticated) push('/')
 
   const methods = useForm<FormValue>({
     mode: 'onSubmit',
@@ -52,9 +52,9 @@ export const Login = () => {
   const onSubmit = async (formData: any) => {
     try {
       console.log('formData', formData);
-      const res = await axios.post('/api/auth/login', formData)
+      const res = await axios.post('/auth/login', formData)
       dispatch("LOGIN", res.data );
-      // push('/')
+      push('/')
     } catch (err) {
       const error = err.response.data
       if(error.email) setError("email",	{  message: error.email })

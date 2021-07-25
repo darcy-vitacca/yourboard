@@ -21,11 +21,11 @@ export const MarkdownElement = styled(
       : 'inherit'};
   a {
     display: inline-block;
-    padding: 0 5px;
     text-decoration: none;
     color: ${({ theme }) => theme.colors.primary.default};
     font-weight: ${({ theme }) => theme.font.weight.semiBold};
-    font-size: ${({ theme }) => theme.font.size.medium};
+    font-size: 8px;
+    word-break: break-all;
   }
   &.termsConditionsText > p > a {
     font-size: ${({ theme }) => theme.font.size.small};
@@ -61,13 +61,13 @@ export const MarkdownElement = styled(
     padding: 0;
   }
   &.avatar-text > h4 {
-    color: ${({ theme }) => theme.colors.white.default};
+    color: ${({ theme }) => theme.colors.white};
   }
   &.sidebar-nav-text {
     padding: 0;
   }
   &.sidebar-nav-text > h4 {
-    color: ${({ theme }) => theme.colors.white.default};
+    color: ${({ theme }) => theme.colors.white};
   }
   &.hideMenu {
     display: block;

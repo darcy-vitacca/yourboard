@@ -135,3 +135,9 @@ export const StyledLink = styled(Link)`
   text-decoration: none;
   color: ${({ theme }) => theme.colors.green500};
 `;
+export const LinkSectionContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+`;

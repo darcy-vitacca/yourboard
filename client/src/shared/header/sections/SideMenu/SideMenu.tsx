@@ -38,12 +38,13 @@ export const SideMenu: FC<ISideMenuProps> = ({ className }) => {
 
   const sideBarData = authenticated ? sidebarDataAuth : sidebarDataUnauth
 
-  const handleMenuRoute = (route: string) => {
+  const handleMenuRoute = async  (route: string) => {
     if (route !== '/my-inbox' && !showMenu) {
       push(route);
       dispatch('HIDE_MENU');
     } else if (route === '/logout' ){
-      dispatch('LOGOUT');
+      await dispatch('LOGOUT');
+      push('/')
     } else {
       push(route);
     }

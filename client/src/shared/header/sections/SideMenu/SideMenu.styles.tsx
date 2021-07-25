@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 import { CloseOutline } from '@styled-icons/evaicons-outline/CloseOutline';
 import { Menu } from '@styled-icons/boxicons-regular/Menu';
 
@@ -55,10 +55,11 @@ export const SideBar = styled.ul`
   justify-content: center;
   padding-top: 60px;
   background-color: ${({ theme }) => theme.colors.blue700};
-\` ;
 `;
+
 export const SideBarList = styled.ul`
-  background-color: ${({ theme }) => theme.colors.blue700};`;
+  background-color: ${({ theme }) => theme.colors.blue700};
+min-width: 90%`;
 
 export const SideBarRowContainer = styled.div``;
 
@@ -67,11 +68,19 @@ export const NavRow = styled.div`
   padding: 10px;
   justify-content: space-between;
   cursor: pointer;
-  &:hover {
+  background-color: ${({ theme }) => theme.colors.blue700};
+  * {
     background-color: ${({ theme }) => theme.colors.blue700};
+  }
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.green500};
     border-radius: 5px;
+    * {
+      background-color: ${({ theme }) => theme.colors.green500};
+    }
     .tooltip {
       display: block;
+      background-color: inherit;
     }
   }
 `;
@@ -81,6 +90,7 @@ export const NavSubRow = styled.div`
   flex-direction: column;
   width: 100%;
   cursor: pointer;
+  background-color: ${({ theme }) => theme.colors.blue700};
   &:hover {
     border-radius: 5px;
   }
@@ -95,10 +105,12 @@ export const NavSubRowLeftContainer = styled.div`
   }
 `;
 export const NavRowLeftContainer = styled.div`
+  background-color: ${({ theme }) => theme.colors.blue700};
   display: flex;
   align-items: center;
 `;
 export const NavRowRightContainer = styled.div`
+  background-color: ${({ theme }) => theme.colors.blue700};
   display: flex;
   align-items: center;
 `;
@@ -107,6 +119,7 @@ export const SideMenuIconContainer = styled.div`
   display: flex;
   padding: 10px;
   align-items: center;
+  background-color: ${({ theme }) => theme.colors.blue700};
   svg {
     fill: ${({ theme }) => theme.colors.white};
   }
@@ -115,7 +128,7 @@ export const Tooltip = styled.p`
   display: none;
   position: fixed;
   color: ${({ theme }) => theme.colors.black};
-  background-color: ${({ theme }) => theme.colors.white};
+  background-color: ${({ theme }) => theme.colors.white} !important;
   margin-left: 70px;
   z-index: ${({ theme }) => theme.zIndex.menu};
   padding: 10px 20px;
