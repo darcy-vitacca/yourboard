@@ -5,7 +5,6 @@ import Project from '../../entities/Project';
 import Link from '../../entities/Link';
 
 export const getProject = async (req: Request, res: Response) => {
-
   const name = req.params.name;
   const user: User = res.locals.user;
   try {

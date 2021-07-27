@@ -7,10 +7,12 @@ import { Markdown } from '../../../shared/markdown';
 import axios from 'axios';
 import { useAuthDispatch, useAuthState } from '../../context/context';
 import { Link } from '../../../shared/link';
+import { useHistory } from 'react-router';
 
 export const Landing = () => {
   const dispatch = useAuthDispatch();
   const {project} = useAuthState()
+  const {push} = useHistory();
   useEffect(() => {
     (async () => {
       try {
@@ -19,6 +21,7 @@ export const Landing = () => {
         dispatch('SET_PROJECT', res.data)
       } catch (err) {
         console.log(err);
+        push('/login')
       }
 
     })();

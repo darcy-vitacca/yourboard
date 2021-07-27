@@ -20,6 +20,7 @@ import { sidebarDataAuth, sidebarDataUnauth, SideMenuValues } from '../../../../
 import { Markdown } from '../../../markdown';
 import { useHistory } from "react-router-dom";
 import { useAuthDispatch, useAuthState } from '../../../../components/context/context';
+import axios from 'axios';
 
 interface ISideMenuProps {
   className: string;
@@ -39,13 +40,17 @@ export const SideMenu: FC<ISideMenuProps> = ({ className }) => {
   const sideBarData = authenticated ? sidebarDataAuth : sidebarDataUnauth
 
   const handleMenuRoute = async  (route: string) => {
-    if (route !== '/my-inbox' && !showMenu) {
-      push(route);
-      dispatch('HIDE_MENU');
-    } else if (route === '/logout' ){
+    // if (route !== '/my-inbox' && !showMenu) {
+    //   push(route);
+    //   dispatch('HIDE_MENU');
+    // } else
+      if (route === '/logout' ){
+      await axios.get("/auth/logout")
       await dispatch('LOGOUT');
-      push('/')
+      window.location.reload();
+      push('/login')
     } else {
+      dispatch('HIDE_MENU');
       push(route);
     }
   };
@@ -83,7 +88,7 @@ export const SideMenu: FC<ISideMenuProps> = ({ className }) => {
               <SideBarRowContainer key={item.title}>
                 <NavRow
                   className="sidebar-row"
-                  onClick={() => handleMenuRoute(item.link)}
+                  onClick={ () =>handleMenuRoute(item.link)}
                 >
                   <NavRowLeftContainer>
                     <SideMenuIconContainer>{item.icon}</SideMenuIconContainer>

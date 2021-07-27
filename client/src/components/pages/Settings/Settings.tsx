@@ -8,10 +8,6 @@ import {
 } from '../../../shared/Layout.styles';
 import { useHistory } from 'react-router';
 import { useForm, FormProvider, Controller } from 'react-hook-form';
-import Input from '../../../shared/formElements/input';
-import { Markdown } from '../../../shared/markdown';
-import { Button } from '../../../shared/formElements/button';
-import { TextField } from '@material-ui/core';
 import axios from 'axios';
 import { useAuthDispatch, useAuthState } from '../../context/context';
 
@@ -25,11 +21,11 @@ const defaultValues = {
   password: '',
 };
 
-export const Login = () => {
+export const Settings = () => {
   const dispatch = useAuthDispatch();
   const {authenticated} = useAuthState()
   const { push } = useHistory();
-  if(authenticated) push('/')
+  // if(authenticated) push('/')
 
   const methods = useForm<FormValue>({
     mode: 'onSubmit',
@@ -68,35 +64,7 @@ export const Login = () => {
           <FormContainer>
             <FormProvider {...methods}>
               <form onSubmit={handleSubmit(onSubmit)}>
-                <LoginRegisterSectionContainer>
-                  <Markdown children="### MyProfile" />
-                  <Markdown children="By continuing, you agree to our User Agreement and Privacy Policy" />
-                  <Input
-                    type="email"
-                    name="email"
-                    width="100%"
-                    label="EMAIL"
-                    control={control}
-                    defaultValue={''}
-                    validation={errors?.email?.message || ''}
-                  />
-                  <Input
-                    type="password"
-                    name="password"
-                    width="100%"
-                    label="PASSWORD"
-                    control={control}
-                    defaultValue={''}
-                    validation={errors?.password?.message || ''}
-                  />
-
-
-                  <Button text="MyProfile" width="100%" type="submit" />
-                  <LoginRegisterLinkContainer>
-                    <Markdown children="New to yourboard?" />
-                    <StyledLink to="/register">REGISTER</StyledLink>
-                  </LoginRegisterLinkContainer>
-                </LoginRegisterSectionContainer>
+                <h1>Settings</h1>
               </form>
             </FormProvider>
           </FormContainer>

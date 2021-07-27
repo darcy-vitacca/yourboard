@@ -25,11 +25,11 @@ const defaultValues = {
   password: '',
 };
 
-export const Login = () => {
+export const MyProfile = () => {
   const dispatch = useAuthDispatch();
   const {authenticated} = useAuthState()
   const { push } = useHistory();
-  if(authenticated) push('/')
+  // if(authenticated) push('/')
 
   const methods = useForm<FormValue>({
     mode: 'onSubmit',

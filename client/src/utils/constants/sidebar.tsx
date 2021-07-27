@@ -1,13 +1,9 @@
 import HomeIcon from '@material-ui/icons/Home';
 import MailIcon from '@material-ui/icons/Mail';
-import AssessmentIcon from '@material-ui/icons/Assessment';
-import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
+import AddCircleIcon from '@material-ui/icons/AddCircle';
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import AddIcon from '@material-ui/icons/Add';
-import ReceiptIcon from '@material-ui/icons/Receipt';
-import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
-import RecordVoiceOverIcon from '@material-ui/icons/RecordVoiceOver';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import SettingsIcon from '@material-ui/icons/Settings';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import LockOpenIcon from '@material-ui/icons/LockOpen';
@@ -39,10 +35,28 @@ interface SubMenuValue {
 
 export const sidebarDataAuth: SideMenuValues[]= [
   {
-    title: `#### Home`,
+    title: `#### urboard`,
     icon: <HomeIcon />,
     link: '/',
     tooltip: `Home`,
+  },
+  {
+    title: '#### Add Links',
+    icon: <AddIcon />,
+    link: '/add-links',
+    tooltip: 'Add Links',
+  },
+  {
+    title: '#### Add Project',
+    icon: <AddCircleIcon />,
+    link: '/add-project',
+    tooltip: 'Add Project',
+  },
+  {
+    title: '#### Settings',
+    icon: <SettingsIcon />,
+    link: '/settings',
+    tooltip: 'Settings',
   },
   {
     title: '#### My Inbox',
@@ -60,40 +74,10 @@ export const sidebarDataAuth: SideMenuValues[]= [
     ],
   },
   {
-    title: '#### My Salary Package',
-    icon: <AccountBalanceWalletIcon />,
-    link: '/my-salary-package',
-    tooltip: 'My Salary Package',
-  },
-  {
-    title: '#### Proof of Expenses (POE)',
-    icon: <ReceiptIcon />,
-    link: '/proof-of-expenses',
-    tooltip: 'Proof of Expenses (POE)',
-  },
-  {
     title: '#### My Profile',
     icon: <AccountBoxIcon />,
     link: '/my-profile',
     tooltip: 'My Profile',
-  },
-  {
-    title: '#### Reports',
-    icon: <AssessmentIcon />,
-    link: '/reports',
-    tooltip: 'Reports',
-  },
-  {
-    title: '#### My Bank Accounts',
-    icon: <AccountBalanceIcon />,
-    link: '/my-bank-accounts',
-    tooltip: 'My Bank Accounts',
-  },
-  {
-    title: '#### Add 2nd Employer',
-    icon: <AddIcon />,
-    link: '/add-employer',
-    tooltip: 'Add 2nd Employer',
   },
   {
     title: '#### Logout',

@@ -8,6 +8,7 @@ export const SideNavContainer = styled.div`
   position: fixed;
   top: 0;
   left: 0;
+  z-index: 2;
   background-color: ${({ theme }) => theme.colors.blue700};
   overflow-x: hidden;
   padding-top: 20px;
