@@ -11,7 +11,6 @@ import { useForm, FormProvider, Controller } from 'react-hook-form';
 import Input from '../../../shared/formElements/input';
 import { Markdown } from '../../../shared/markdown';
 import { Button } from '../../../shared/formElements/button';
-import { TextField } from '@material-ui/core';
 import axios from 'axios';
 import { useAuthDispatch, useAuthState } from '../../context/context';
 
@@ -69,7 +68,7 @@ export const Login = () => {
             <FormProvider {...methods}>
               <form onSubmit={handleSubmit(onSubmit)}>
                 <LoginRegisterSectionContainer>
-                  <Markdown children="### MyProfile" />
+                  <Markdown children="### Login" />
                   <Markdown children="By continuing, you agree to our User Agreement and Privacy Policy" />
                   <Input
                     type="email"
@@ -91,7 +90,7 @@ export const Login = () => {
                   />
 
 
-                  <Button text="MyProfile" width="100%" type="submit" />
+                  <Button text="Login" width="100%" type="submit" />
                   <LoginRegisterLinkContainer>
                     <Markdown children="New to yourboard?" />
                     <StyledLink to="/register">REGISTER</StyledLink>

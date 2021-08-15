@@ -27,7 +27,7 @@ export interface ITextAreaProps extends IContainerProps, IStyledTextAreaProps {
   ref: any;
   maxLength?: number;
   disabled?: boolean;
-  rowsMin?: number;
+  minRows?: number;
   error?: boolean;
 }
 
@@ -40,7 +40,7 @@ export const TextArea = forwardRef<HTMLTextAreaElement, ITextAreaProps>(
       validation,
       helperText,
       width,
-      rowsMin,
+      minRows,
       ...props
     },
     ref
@@ -50,8 +50,8 @@ export const TextArea = forwardRef<HTMLTextAreaElement, ITextAreaProps>(
     };
 
     const rowHeight = 38;
-    const overrideTextAreaInitialHeight = rowsMin
-      ? rowsMin * rowHeight
+    const overrideTextAreaInitialHeight = minRows
+      ? minRows * rowHeight
       : rowHeight;
 
     return (
@@ -62,7 +62,7 @@ export const TextArea = forwardRef<HTMLTextAreaElement, ITextAreaProps>(
           id={name}
           name={name}
           ref={ref}
-          rowsMin={rowsMin}
+          minRows={minRows}
           error={validation}
           style={{
             minHeight: `${overrideTextAreaInitialHeight}px`,
@@ -77,5 +77,5 @@ export const TextArea = forwardRef<HTMLTextAreaElement, ITextAreaProps>(
 TextArea.defaultProps = {
   variant: 'outlined',
   align: 'left',
-  rowsMin: 1,
+  minRows: 1,
 };
