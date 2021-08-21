@@ -1,13 +1,13 @@
 import axios from "axios";
-import { createContext,  useContext, useEffect, useReducer } from 'react';
-import User from '../../../../server/src/entities/User';
-import Project from '../../../../server/src/entities/Project';
+import { createContext, useContext, useEffect, useReducer } from "react";
+import User from "../../../../server/src/entities/User";
+import Project from "../../../../server/src/entities/Project";
 
 interface State {
   authenticated: boolean;
   user: User | undefined;
   loading: boolean;
-  showMenu: true;
+  showMenu: boolean;
   project: Project | undefined;
 }
 interface Action {
@@ -17,45 +17,44 @@ interface Action {
 
 const StateContext = createContext<State>({
   authenticated: false,
-  user: undefined ,
+  user: undefined,
   loading: true,
-  showMenu: true,
+  showMenu: false,
   project: undefined,
 });
 const DispatchContext = createContext<any>(null);
 
-const reducer : any= (state: State, { type, payload }: Action) => {
+const reducer: any = (state: State, { type, payload }: Action) => {
   switch (type) {
-    case 'LOGIN':
+    case "LOGIN":
       return { ...state, authenticated: true, user: payload };
-    case 'LOGOUT':
+    case "LOGOUT":
       return { ...state, authenticated: false, user: null };
-    case 'SET_PROJECT':
+    case "SET_PROJECT":
       return { ...state, project: payload };
-    case 'SHOW_MENU':
+    case "SHOW_MENU":
       return { ...state, showMenu: true };
-    case 'HIDE_MENU':
+    case "HIDE_MENU":
       return { ...state, showMenu: false };
-    case 'STOP_LOADING':
+    case "STOP_LOADING":
       return { ...state, loading: false };
     default:
       throw new Error(`Unknown action type: ${type}`);
   }
 };
 
-
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [state, defaultDispatch] = useReducer(reducer, {
     user: null,
     authenticated: false,
     loading: true,
-    showMenu: true,
+    showMenu: false,
     project: null,
   });
 
   //this one liner adds args to the dispatch so we don't have to keep writing type
   const dispatch = (type: string, payload?: any) =>
-  // @ts-ignore
+    // @ts-ignore
     defaultDispatch({ type, payload });
 
   //We load the user then dispatch here on first load

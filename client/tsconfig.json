@@ -24,6 +24,7 @@
     "isolatedModules": true,
     "strict": true,
     "strictPropertyInitialization": false,
+    "noImplicitAny": false
   },
   "include": [
     "src/**/*"
