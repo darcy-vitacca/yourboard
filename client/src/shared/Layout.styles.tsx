@@ -1,13 +1,13 @@
-import styled from 'styled-components/macro';
-import { Link } from 'react-router-dom';
-import { device } from '../styles/devices';
+import styled from "styled-components/macro";
+import { Link } from "react-router-dom";
+import { device } from "../styles/devices";
 
 export interface ISectionContainerProps {
-  align?: 'left' | 'center' | 'right';
+  align?: "left" | "center" | "right";
 }
 
 export interface IButtonContainerProps {
-  align?: 'left' | 'center' | 'right' | 'space-evenly';
+  align?: "left" | "center" | "right" | "space-evenly";
 }
 
 export const PageLayoutContainer = styled.div`
@@ -19,7 +19,7 @@ export const PageLayoutContainer = styled.div`
   margin: 0 0 100px;
 
   @media ${device.laptop} {
-    width: 1000px;
+    width: 1100px;
     margin: 0 auto 100px;
   }
 `;
@@ -44,16 +44,16 @@ export const Row = styled.div`
 export const SectionContainer = styled.div<ISectionContainerProps>`
   min-height: 440px;
   padding: 20px 20px;
-  display: ${({ align }) => (align ? 'flex' : 'inherit')};
-  flex-direction: ${({ align }) => (align ? 'column' : 'inherit')};
+  display: ${({ align }) => (align ? "flex" : "inherit")};
+  flex-direction: ${({ align }) => (align ? "column" : "inherit")};
   justify-content: ${({ align }) =>
-    align === 'left'
-      ? 'flex-start'
-      : align === 'center'
-      ? 'center'
-      : align === 'right'
-      ? 'flex-end'
-      : 'inherit'};
+    align === "left"
+      ? "flex-start"
+      : align === "center"
+      ? "center"
+      : align === "right"
+      ? "flex-end"
+      : "inherit"};
 `;
 
 export const FormContainer = styled.div`
@@ -77,15 +77,15 @@ export const ButtonGroupContainer = styled.div<IButtonContainerProps>`
   @media ${device.mobileLrg} {
     flex-direction: row;
     justify-content: ${({ align }) =>
-      align === 'left'
-        ? 'flex-start'
-        : align === 'center'
-        ? 'center'
-        : align === 'right'
-        ? 'flex-end'
-        : align === 'space-evenly'
-        ? 'space-evenly'
-        : 'inherit'};
+      align === "left"
+        ? "flex-start"
+        : align === "center"
+        ? "center"
+        : align === "right"
+        ? "flex-end"
+        : align === "space-evenly"
+        ? "space-evenly"
+        : "inherit"};
     .centerLeftBtn {
       margin-right: 20px;
     }
@@ -124,7 +124,6 @@ export const ImageSplitFormSection = styled.img`
   border-radius: 12px;
 `;
 
-
 export const LoginRegisterLinkContainer = styled.div`
   display: flex;
 `;
@@ -140,4 +139,8 @@ export const LinkSectionContainer = styled.div`
   justify-content: center;
   flex-direction: row;
   flex-wrap: wrap;
+  @media ${device.mobileLrg} {
+    justify-content: initial;
+  }
+  }
 `;

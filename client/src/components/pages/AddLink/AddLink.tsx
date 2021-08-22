@@ -29,9 +29,11 @@ import { v4 as uuid } from "uuid";
 import _ from "lodash";
 import { LinkValues } from "../../../shared/link/Link";
 import Input from "../../../shared/formElements/input";
+import axios from "axios";
 
 interface FormValue {
   linkText: string;
+  uploadLinks: any;
 }
 const defaultValues = {
   linkText: "",
@@ -40,9 +42,9 @@ const defaultValues = {
 
 export const AddLink = () => {
   const dispatch = useAuthDispatch();
-  const { authenticated } = useAuthState();
+  const { authenticated, project } = useAuthState();
   const { push } = useHistory();
-  // if(authenticated) push('/')
+  if (!authenticated) push("/");
 
   const methods = useForm<FormValue>({
     mode: "onSubmit",
@@ -66,25 +68,33 @@ export const AddLink = () => {
 
   const onSubmit = async (formData: any) => {
     try {
+      console.log("ON SUBMIT UPLOAD", watchedUploadLinks);
+      const res = await axios.post(
+        `/link/${project?.url_name}`,
+        watchedUploadLinks
+      );
+      console.log("res", res);
+      push("/");
     } catch (err) {
-      const error = err.response.data;
+      // const error = err.response.data;
     }
   };
+
   const [parsedLinkText, setParsedLinkText] = useState<any>();
+  const watchedUploadLinks = watch("uploadLinks");
+  const linksLength = project?.links.length;
 
   const handleLinkUpload = async (linkText: string) => {
     const parsedGetUrlsLinkText = Array.from(getUrls(linkText));
-    const parsedLinkObj = await parsedGetUrlsLinkText.map((link) => {
+    const parsedLinkObj = await parsedGetUrlsLinkText.map((link, index) => {
+      const hostName = new URL(link).hostname;
+      const parsedIco = `https://www.google.com/s2/favicons?domain_url=${hostName}`;
+      // `https://icons.duckduckgo.com/ip2/${hostName}.ico`;
       return {
-        clicked: "",
-        createdAt: "",
-        link_id: "",
-        position: "",
-        project_id: "",
-        subfolder_id: "",
-        updatedAt: "",
+        position: linksLength ? linksLength + index : index,
+        project_id: project?.project_id || null,
         url: link,
-        url_image: "",
+        url_image: parsedIco,
         url_name: "",
       };
     });
@@ -101,24 +111,25 @@ export const AddLink = () => {
     await remove(index);
   };
 
-  console.log("fields", fields);
-
   const appendLinks = async () => {
     if (!_.isEmpty(parsedLinkText)) {
-      console.log("parsedLinkText", parsedLinkText);
       append(parsedLinkText);
     } else {
       //TODO give an alert if no links present to be appened
     }
   };
 
+  const uploadLinks = () => {};
+  console.log("_.isEmpty(watchedUploadLinks)", _.isEmpty(watchedUploadLinks));
   return (
     <>
       <PageLayoutContainer>
         <SectionContainer>
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(onSubmit)}>
-              <Markdown children={"# Add Links 🔗"} />
+              <Markdown
+                children={`# Add Links to the ${project?.project_name} Project 🔗`}
+              />
               <TextArea
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                   handleLinkUpload(e.target.value)
@@ -128,26 +139,25 @@ export const AddLink = () => {
               />
               <AddLinkPreviewContainer>
                 {fields.map((item: any, index) => {
-                  console.log("item", item);
                   return (
                     <AddLinkSection key={item.id}>
                       <LinkEditSection>
                         <LinkInputSection>
                           <LinkInputRow>
                             <Input
-                              type="email"
-                              name="email"
+                              type="text"
+                              name={`uploadLinks[${index}].url`}
                               width="100%"
-                              label="EMAIL"
+                              label="LINK"
                               control={control}
-                              defaultValue={""}
+                              defaultValue={item.url}
                               // validation={errors?.email?.message || ''}
                             />
                             <Input
-                              type="email"
-                              name="email"
+                              type="text"
+                              name={`uploadLinks[${index}].url_name`}
                               width="100%"
-                              label="EMAIL"
+                              label="LINK NAME"
                               control={control}
                               defaultValue={""}
                               // validation={errors?.email?.message || ''}
@@ -155,21 +165,12 @@ export const AddLink = () => {
                           </LinkInputRow>
                           <LinkInputRow>
                             <Input
-                              type="email"
-                              name="email"
+                              type="text"
+                              name={`uploadLinks[${index}].url_image`}
                               width="100%"
-                              label="EMAIL"
+                              label="LINK IMAGE"
                               control={control}
-                              defaultValue={""}
-                              // validation={errors?.email?.message || ''}
-                            />
-                            <Input
-                              type="email"
-                              name="email"
-                              width="100%"
-                              label="EMAIL"
-                              control={control}
-                              defaultValue={""}
+                              defaultValue={item.url_image}
                               // validation={errors?.email?.message || ''}
                             />
                           </LinkInputRow>
@@ -179,7 +180,8 @@ export const AddLink = () => {
                           <LinkText>{item.url}</LinkText>
                         </AddLinkContainer>
                       </LinkEditSection>
-                      <Link link={item} />
+
+                      <Link link={watchedUploadLinks[index]} />
                     </AddLinkSection>
                   );
                 })}
@@ -187,9 +189,11 @@ export const AddLink = () => {
 
               <Button
                 onClick={() => appendLinks()}
+                type="button"
                 width="25%"
                 text="Create Links"
               />
+              <Button type="submit" width="25%" text="Upload Links" />
             </form>
           </FormProvider>
         </SectionContainer>
