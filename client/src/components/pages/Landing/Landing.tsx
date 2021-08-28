@@ -44,6 +44,7 @@ export const Landing = () => {
       }
     })();
   }, [currentProjectIndex, projects]);
+  //
 
   const handlePrevious = () => {
     dispatch("PREVIOUS_PROJECT");
