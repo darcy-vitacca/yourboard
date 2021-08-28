@@ -1,46 +1,84 @@
-import React, { useEffect } from 'react';
+import React, { useEffect } from "react";
 import {
   SectionContainer,
-  PageLayoutContainer, LinkSectionContainer,
-} from '../../../shared/Layout.styles';
-import { Markdown } from '../../../shared/markdown';
-import axios from 'axios';
-import { useAuthDispatch, useAuthState } from '../../context/context';
-import { Link } from '../../../shared/link';
-import { useHistory } from 'react-router';
+  PageLayoutContainer,
+  LinkSectionContainer,
+} from "../../../shared/Layout.styles";
+import { Markdown } from "../../../shared/markdown";
+import axios from "axios";
+import { useAuthDispatch, useAuthState } from "../../context/context";
+import { Link } from "../../../shared/link";
+import { useHistory } from "react-router";
+import {
+  ProjectArrowContainer,
+  SVGLeftIcon,
+  SVGRightIcon,
+} from "./Landing.styles";
 
 export const Landing = () => {
   const dispatch = useAuthDispatch();
-  const {project} = useAuthState()
-  const {push} = useHistory();
+  const { currentProject, user, projects, currentProjectIndex } =
+    useAuthState();
+  const { push } = useHistory();
   useEffect(() => {
     (async () => {
       try {
-        const res = await axios.get('/project/scotpac');
-        console.log('res', res.data);
-        dispatch('SET_PROJECT', res.data)
+        const res = await axios.get("/projects");
+        dispatch("SET_PROJECTS", res.data);
       } catch (err) {
         console.log(err);
-        push('/login')
       }
-
     })();
   }, []);
+  useEffect(() => {
+    (async () => {
+      if (projects) {
+        try {
+          const res = await axios.get(
+            `/project/${projects[currentProjectIndex].url_name}`
+          );
+          dispatch("SET_CURRENT_PROJECT", res.data);
+        } catch (err) {
+          console.log(err);
+        }
+      }
+    })();
+  }, [currentProjectIndex, projects]);
+
+  const handlePrevious = () => {
+    dispatch("PREVIOUS_PROJECT");
+  };
+  const handleForward = () => {
+    dispatch("NEXT_PROJECT");
+  };
   return (
     <>
       <PageLayoutContainer>
         <SectionContainer align="center">
-          {
-            project && <>
-            <Markdown children={`# ${project.project_name}`|| ""} align="center" />
-              <Markdown children={`### ${project.description}`|| ""} align="center" />
+          {currentProject && (
+            <>
+              <Markdown
+                children={`# ${currentProject.project_name}` || ""}
+                align="center"
+              />
+
+              <Markdown
+                children={`### ${currentProject.description}` || ""}
+                align="center"
+              />
+              <ProjectArrowContainer>
+                <SVGLeftIcon onClick={() => handlePrevious()} />
+                <SVGRightIcon onClick={() => handleForward()} />
+              </ProjectArrowContainer>
               <LinkSectionContainer>
-              {project?.links.map(link =>
-                <Link link={link} key={link.link_id}/>)
-              }
-            </LinkSectionContainer>
+                {currentProject &&
+                  currentProject.links &&
+                  currentProject.links.map((link) => (
+                    <Link link={link} key={link.link_id} />
+                  ))}
+              </LinkSectionContainer>
             </>
-          }
+          )}
         </SectionContainer>
       </PageLayoutContainer>
     </>

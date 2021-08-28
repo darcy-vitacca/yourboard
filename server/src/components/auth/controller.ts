@@ -79,6 +79,7 @@ export const login = async (req: Request, res: Response) => {
         path: '/',
       })
     );
+
     return res.json(user);
   } catch (err) {
     console.log(err);

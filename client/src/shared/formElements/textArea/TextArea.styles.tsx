@@ -1,15 +1,15 @@
-import styled from 'styled-components/macro';
-import { TextareaAutosize, TextareaAutosizeProps } from '@material-ui/core';
-import { device } from '../../../styles/devices';
-import { mainFontFamily } from '../../../styles/theme';
+import styled from "styled-components/macro";
+import { TextareaAutosize, TextareaAutosizeProps } from "@material-ui/core";
+import { device } from "../../../styles/devices";
+import { mainFontFamily } from "../../../styles/theme";
 
 export interface IContainerProps {
-  width?: 'quarter' | 'third' | 'maxWidthHalf' | 'twoThirds' | 'full';
+  width?: "quarter" | "third" | "maxWidthHalf" | "twoThirds" | "full";
 }
 
 export interface IStyledTextAreaProps extends TextareaAutosizeProps {
-  align?: 'left' | 'right';
-  border?: 'noBorder';
+  align?: "left" | "right";
+  border?: "noBorder";
   autoFocus?: boolean;
   error?: boolean;
   startsymbol?: React.ReactNode;
@@ -26,67 +26,63 @@ export const TextAreaContainer = styled.div<IContainerProps>`
     -webkit-appearance: none;
     margin: 0;
   }
-  input[type='number'] {
+  input[type="number"] {
     -moz-appearance: textfield;
   }
-  
 
   @media ${device.mobileLrg} {
     width: ${({ width }) =>
-      width === 'quarter'
-        ? '25%'
-        : width === 'third'
-        ? '33.33%'
-        : width === 'twoThirds'
-        ? '67.22%'
-        : '100%'};
-    max-width: ${({ width }) => (width === 'maxWidthHalf' ? '340px' : '100%')};
+      width === "quarter"
+        ? "25%"
+        : width === "third"
+        ? "33.33%"
+        : width === "twoThirds"
+        ? "67.22%"
+        : "100%"};
+    max-width: ${({ width }) => (width === "maxWidthHalf" ? "340px" : "100%")};
   }
 `;
 
 export const StyledTextArea = styled(TextareaAutosize)<IStyledTextAreaProps>`
   width: 100%;
+  resize: none;
   border: 1px solid
     ${({ theme, error, disabled }) =>
       error
         ? theme.colors.error
         : disabled
         ? theme.colors.grey
-        : theme.colors.grey};
+        : "transparent"} !important;
   color: ${({ theme }) => theme.colors.white} !important;
-  border-color: transparent;
- &:hover {
-   border-color: black;
- }
+
+  &:hover {
+    border-color: black;
+  }
   &:focus {
-    border-color:  ${({ theme }) => theme.colors.white}
+    border-color: ${({ theme }) => theme.colors.white};
   }
   outline: 0;
   border-radius: 5px;
   padding: 8px 10px;
-  resize: vertical;
   overflow: auto;
   min-height: 200px !important;
   max-height: 30px;
   overflow-y: auto !important;
-  background-color:  ${({ theme }) => theme.colors.blue500};
+  background-color: ${({ theme }) => theme.colors.blue500};
   font-size: ${({ theme }) => theme.font.size.small};
   font-family: ${mainFontFamily};
 
-
-
   color: ${({ theme, disabled }) =>
-    disabled ? theme.colors.grey : 'transparent'};
+    disabled ? theme.colors.grey : "transparent"};
 
   &:hover {
     border: 1px solid
-      ${({ theme, disabled }) =>
-        disabled ? 'none' : theme.colors.grey};
+      ${({ theme, error }) => (error ? theme.colors.error : theme.colors.black)} !important;
   }
 
   &:focus {
-    outline: 1px dotted #212129;
-    outline-offset: 4px;
+    border: 1px solid
+      ${({ theme, disabled }) => (disabled ? "none" : theme.colors.grey)} !important;
   }
 `;
 

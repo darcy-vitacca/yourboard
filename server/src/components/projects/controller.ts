@@ -15,10 +15,7 @@ export const getProject = async (req: Request, res: Response) => {
       // relations: ['links', 'subfolders'],
     });
     project.links = links;
-    console.log('project', project);
     //get project via name and uuid
-    console.log('user', user);
-    console.log('name', name);
 
     //get links
     return res.status(200).json(project);
@@ -42,7 +39,7 @@ export const createProject = async (req: Request, res: Response) => {
 
     const projectCheck = await Project.findOne({ url_name });
     if (projectCheck)
-      errors.project_name =
+      errors.url_name =
         'URL name already exists please choose a different one.';
     if (Object.keys(errors).length > 0) return res.status(400).json(errors);
 
@@ -58,5 +55,20 @@ export const createProject = async (req: Request, res: Response) => {
   } catch (err) {
     console.log(err);
     return res.status(500).json({ error: 'Something went wrong' });
+  }
+};
+
+export const getProjects = async (req: Request, res: Response) => {
+  const user: User = res.locals.user;
+  try {
+    const projects = await Project.find({
+      where: { user_id: user.user_id },
+      order: { createdAt: 'DESC' },
+    });
+
+    return res.status(200).json(projects);
+  } catch (err) {
+    console.log(err);
+    return res.status(404).json({ project: 'Project not found' });
   }
 };

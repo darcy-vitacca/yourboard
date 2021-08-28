@@ -1,12 +1,12 @@
-import React, { forwardRef } from 'react';
+import React, { forwardRef } from "react";
 
 import {
   TextAreaContainer,
   StyledTextArea,
   IContainerProps,
   IStyledTextAreaProps,
-} from './TextArea.styles';
-import { Markdown } from '../../markdown';
+} from "./TextArea.styles";
+import { Markdown } from "../../markdown";
 
 export interface ITextAreaProps extends IContainerProps, IStyledTextAreaProps {
   name?: string;
@@ -18,7 +18,7 @@ export interface ITextAreaProps extends IContainerProps, IStyledTextAreaProps {
   placeholder?: string;
   className?: string;
   loading?: boolean;
-  variant?: 'standard' | 'outlined' | 'filled';
+  variant?: "standard" | "outlined" | "filled";
   defaultValue?: string;
   value?: string | number | readonly string[];
   onChange?: any;
@@ -49,6 +49,7 @@ export const TextArea = forwardRef<HTMLTextAreaElement, ITextAreaProps>(
       asterisk: <span className="asterisk">*</span>,
     };
 
+    console.log("validation", validation);
     const rowHeight = 38;
     const overrideTextAreaInitialHeight = minRows
       ? minRows * rowHeight
@@ -75,7 +76,7 @@ export const TextArea = forwardRef<HTMLTextAreaElement, ITextAreaProps>(
 );
 
 TextArea.defaultProps = {
-  variant: 'outlined',
-  align: 'left',
+  variant: "outlined",
+  align: "left",
   minRows: 1,
 };

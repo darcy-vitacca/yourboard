@@ -1,11 +1,18 @@
 import React, { FC } from "react";
 import {
+  LinkBottomRow,
   LinkContainer,
   LinkImg,
-  LinkSectionLeft,
-  LinkSectionRight,
+  LinkRow,
+  LinkRowTags,
+  // LinkSectionLeft,
+  // LinkSectionRight,
+  LinkTopRow,
+  Tag,
 } from "./Link.tsx.styles";
 import { Markdown } from "../markdown";
+import moment from "moment";
+import { LoginRegisterLinkContainer, StyledLink } from "../Layout.styles";
 
 export interface LinkValues {
   clicked?: number;
@@ -39,14 +46,21 @@ export const Link: FC<Link> = ({
 }) => {
   return (
     <LinkContainer onClick={() => window.open(url, "_blank")}>
-      <LinkSectionLeft>
+      <LinkTopRow>
         <Markdown children={`#### ${url_name}`} />
-        <Markdown children={`${url}`} />
-        <Markdown children={`${updatedAt}`} />
-      </LinkSectionLeft>
-      <LinkSectionRight>
         <LinkImg src={url_image} />
-      </LinkSectionRight>
+      </LinkTopRow>
+      <LinkBottomRow>
+        <LinkRow>
+          <Markdown
+            children={`Last updated ${moment(updatedAt).fromNow()}`}
+            className="linkCardSubText"
+          />
+        </LinkRow>
+        {/*<LinkRow>*/}
+        {/*  <Markdown children={`${url}`} className="linkCardSubText" />*/}
+        {/*</LinkRow>*/}
+      </LinkBottomRow>
     </LinkContainer>
   );
 };

@@ -26,7 +26,7 @@ export default class Project extends Entity {
   project_id: string;
 
   @Index()
-  @Column({ unique: true })
+  @Column()
   project_name: string;
 
   @Column()
@@ -35,7 +35,7 @@ export default class Project extends Entity {
   @Column({ unique: true })
   url_name: string;
 
-  @Column({ unique: true })
+  @Column()
   user_id: string;
   @ManyToOne(() => User)
   @JoinColumn({ name: 'user_id', referencedColumnName: 'user_id' })

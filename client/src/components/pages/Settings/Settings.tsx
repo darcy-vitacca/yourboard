@@ -1,39 +1,40 @@
-import React from 'react';
+import React from "react";
 import {
   Form,
-  FormContainer, LoginRegisterLinkContainer,
+  FormContainer,
+  LoginRegisterLinkContainer,
   LoginRegisterSectionContainer,
   PageLayoutContainer,
-  SectionContainer, StyledLink,
-} from '../../../shared/Layout.styles';
-import { useHistory } from 'react-router';
-import { useForm, FormProvider, Controller } from 'react-hook-form';
-import axios from 'axios';
-import { useAuthDispatch, useAuthState } from '../../context/context';
+  SectionContainer,
+  StyledLink,
+} from "../../../shared/Layout.styles";
+import { useHistory } from "react-router";
+import { useForm, FormProvider, Controller } from "react-hook-form";
+import axios from "axios";
+import { useAuthDispatch, useAuthState } from "../../context/context";
 
 interface FormValue {
   email: string;
   password: string;
-
 }
 const defaultValues = {
-  email: '',
-  password: '',
+  email: "",
+  password: "",
 };
 
 export const Settings = () => {
   const dispatch = useAuthDispatch();
-  const {authenticated} = useAuthState()
+  const { authenticated } = useAuthState();
   const { push } = useHistory();
   // if(authenticated) push('/')
 
   const methods = useForm<FormValue>({
-    mode: 'onSubmit',
-    reValidateMode: 'onChange',
+    mode: "onSubmit",
+    reValidateMode: "onChange",
     defaultValues: defaultValues,
     resolver: undefined,
     context: undefined,
-    criteriaMode: 'firstError',
+    criteriaMode: "firstError",
     shouldFocusError: true,
   });
   const {
@@ -47,14 +48,14 @@ export const Settings = () => {
 
   const onSubmit = async (formData: any) => {
     try {
-      console.log('formData', formData);
-      const res = await axios.post('/auth/login', formData)
-      dispatch("LOGIN", res.data );
-      push('/')
+      console.log("formData", formData);
+      const res = await axios.post("/auth/login", formData);
+      dispatch("LOGIN", res.data);
+      push("/");
     } catch (err) {
-      const error = err.response.data
-      if(error.email) setError("email",	{  message: error.email })
-      if(error.password) setError("password",{  message: error.password} )
+      const error = err.response.data;
+      if (error.email) setError("email", { message: error.email });
+      if (error.password) setError("password", { message: error.password });
     }
   };
   return (
@@ -65,6 +66,7 @@ export const Settings = () => {
             <FormProvider {...methods}>
               <form onSubmit={handleSubmit(onSubmit)}>
                 <h1>Settings</h1>
+                <h1>Coming Soon.....</h1>
               </form>
             </FormProvider>
           </FormContainer>

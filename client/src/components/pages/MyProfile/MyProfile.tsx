@@ -1,43 +1,44 @@
-import React from 'react';
+import React from "react";
 import {
   Form,
-  FormContainer, LoginRegisterLinkContainer,
+  FormContainer,
+  LoginRegisterLinkContainer,
   LoginRegisterSectionContainer,
   PageLayoutContainer,
-  SectionContainer, StyledLink,
-} from '../../../shared/Layout.styles';
-import { useHistory } from 'react-router';
-import { useForm, FormProvider, Controller } from 'react-hook-form';
-import Input from '../../../shared/formElements/input';
-import { Markdown } from '../../../shared/markdown';
-import { Button } from '../../../shared/formElements/button';
-import { TextField } from '@material-ui/core';
-import axios from 'axios';
-import { useAuthDispatch, useAuthState } from '../../context/context';
+  SectionContainer,
+  StyledLink,
+} from "../../../shared/Layout.styles";
+import { useHistory } from "react-router";
+import { useForm, FormProvider, Controller } from "react-hook-form";
+import Input from "../../../shared/formElements/input";
+import { Markdown } from "../../../shared/markdown";
+import { Button } from "../../../shared/formElements/button";
+import { TextField } from "@material-ui/core";
+import axios from "axios";
+import { useAuthDispatch, useAuthState } from "../../context/context";
 
 interface FormValue {
   email: string;
   password: string;
-
 }
 const defaultValues = {
-  email: '',
-  password: '',
+  email: "",
+  password: "",
 };
 
 export const MyProfile = () => {
   const dispatch = useAuthDispatch();
-  const {authenticated} = useAuthState()
+  const { authenticated } = useAuthState();
   const { push } = useHistory();
   // if(authenticated) push('/')
 
   const methods = useForm<FormValue>({
-    mode: 'onSubmit',
-    reValidateMode: 'onChange',
+    mode: "onSubmit",
+    reValidateMode: "onChange",
     defaultValues: defaultValues,
     resolver: undefined,
     context: undefined,
-    criteriaMode: 'firstError',
+    criteriaMode: "firstError",
     shouldFocusError: true,
   });
   const {
@@ -51,14 +52,14 @@ export const MyProfile = () => {
 
   const onSubmit = async (formData: any) => {
     try {
-      console.log('formData', formData);
-      const res = await axios.post('/auth/login', formData)
-      dispatch("LOGIN", res.data );
-      push('/')
+      console.log("formData", formData);
+      const res = await axios.post("/auth/login", formData);
+      dispatch("LOGIN", res.data);
+      push("/");
     } catch (err) {
-      const error = err.response.data
-      if(error.email) setError("email",	{  message: error.email })
-      if(error.password) setError("password",{  message: error.password} )
+      const error = err.response.data;
+      if (error.email) setError("email", { message: error.email });
+      if (error.password) setError("password", { message: error.password });
     }
   };
   return (
@@ -68,35 +69,8 @@ export const MyProfile = () => {
           <FormContainer>
             <FormProvider {...methods}>
               <form onSubmit={handleSubmit(onSubmit)}>
-                <LoginRegisterSectionContainer>
-                  <Markdown children="### MyProfile" />
-                  <Markdown children="By continuing, you agree to our User Agreement and Privacy Policy" />
-                  <Input
-                    type="email"
-                    name="email"
-                    width="100%"
-                    label="EMAIL"
-                    control={control}
-                    defaultValue={''}
-                    validation={errors?.email?.message || ''}
-                  />
-                  <Input
-                    type="password"
-                    name="password"
-                    width="100%"
-                    label="PASSWORD"
-                    control={control}
-                    defaultValue={''}
-                    validation={errors?.password?.message || ''}
-                  />
-
-
-                  <Button text="MyProfile" width="100%" type="submit" />
-                  <LoginRegisterLinkContainer>
-                    <Markdown children="New to yourboard?" />
-                    <StyledLink to="/register">REGISTER</StyledLink>
-                  </LoginRegisterLinkContainer>
-                </LoginRegisterSectionContainer>
+                <h1>My Profile</h1>
+                <h1>Coming Soon.....</h1>
               </form>
             </FormProvider>
           </FormContainer>

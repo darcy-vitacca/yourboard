@@ -43,6 +43,7 @@ export const Row = styled.div`
 `;
 export const SectionContainer = styled.div<ISectionContainerProps>`
   min-height: 440px;
+  min-width: 300px;
   padding: 20px 20px;
   display: ${({ align }) => (align ? "flex" : "inherit")};
   flex-direction: ${({ align }) => (align ? "column" : "inherit")};

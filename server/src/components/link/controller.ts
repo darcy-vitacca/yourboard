@@ -7,10 +7,8 @@ import { getConnection } from 'typeorm';
 
 export const getLinks = async (req: Request, res: Response) => {
   try {
-    console.log('hit');
     return req;
   } catch (err) {
-    console.log('here');
     console.log(err);
   }
 };

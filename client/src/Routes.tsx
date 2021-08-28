@@ -1,9 +1,12 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { Landing, NotFound, Login, Register } from './components/pages';
-import { Header } from './shared/header';
-import { AddLink } from './components/pages/AddLink';
-import { AddProject } from './components/pages/AddProject';
+import React from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { Landing, NotFound, Login, Register } from "./components/pages";
+import { Header } from "./shared/header";
+import { AddLink } from "./components/pages/AddLink";
+import { AddProject } from "./components/pages/AddProject";
+import { Settings } from "./components/pages/Settings";
+import { MyProfile } from "./components/pages/MyProfile";
+import { Inbox } from "./components/pages/Inbox";
 
 const Routes = () => {
   return (
@@ -15,9 +18,9 @@ const Routes = () => {
         <Route exact path="/register" component={Register} />
         <Route exact path="/add-links" component={AddLink} />
         <Route exact path="/add-project" component={AddProject} />
-        <Route exact path="/register" component={Register} />
-        <Route exact path="/register" component={Register} />
-        <Route exact path="/register" component={Register} />
+        <Route exact path="/settings" component={Settings} />
+        <Route exact path="/my-profile" component={MyProfile} />
+        <Route exact path="/my-inbox" component={Inbox} />
         <Route exact path="*" component={NotFound} />
       </Switch>
     </Router>

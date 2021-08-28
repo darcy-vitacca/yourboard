@@ -1,10 +1,10 @@
-import styled from 'styled-components/macro';
-import { ReactMarkdownProps } from 'react-markdown';
-import ReactMarkdownWithHtml from 'react-markdown/with-html';
+import styled from "styled-components/macro";
+import { ReactMarkdownProps } from "react-markdown";
+import ReactMarkdownWithHtml from "react-markdown/with-html";
 
-export interface IMarkdownTypeProps extends Omit<ReactMarkdownProps, 'types'> {
-  weight?: 'light' | 'regular' | 'medium' | 'bold';
-  align?: 'left' | 'center' | 'right';
+export interface IMarkdownTypeProps extends Omit<ReactMarkdownProps, "types"> {
+  weight?: "light" | "regular" | "medium" | "bold";
+  align?: "left" | "center" | "right";
 }
 
 export const MarkdownElement = styled(
@@ -12,13 +12,13 @@ export const MarkdownElement = styled(
 )<IMarkdownTypeProps>`
   padding-bottom: 10px;
   text-align: ${({ align }) =>
-    align === 'left'
-      ? 'left'
-      : align === 'center'
-      ? 'center'
-      : align === 'right'
-      ? 'right'
-      : 'inherit'};
+    align === "left"
+      ? "left"
+      : align === "center"
+      ? "center"
+      : align === "right"
+      ? "right"
+      : "inherit"};
   a {
     display: inline-block;
     text-decoration: none;
@@ -74,5 +74,8 @@ export const MarkdownElement = styled(
   }
   &.showMenu {
     display: none;
+  }
+  &.linkCardSubText > p {
+    font-size: ${({ theme }) => theme.font.size.smallest};
   }
 `;

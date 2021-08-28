@@ -42,7 +42,7 @@ const defaultValues = {
 
 export const AddLink = () => {
   const dispatch = useAuthDispatch();
-  const { authenticated, project } = useAuthState();
+  const { authenticated, currentProject } = useAuthState();
   const { push } = useHistory();
   if (!authenticated) push("/");
 
@@ -70,7 +70,7 @@ export const AddLink = () => {
     try {
       console.log("ON SUBMIT UPLOAD", watchedUploadLinks);
       const res = await axios.post(
-        `/link/${project?.url_name}`,
+        `/link/${currentProject?.url_name}`,
         watchedUploadLinks
       );
       console.log("res", res);
@@ -82,7 +82,7 @@ export const AddLink = () => {
 
   const [parsedLinkText, setParsedLinkText] = useState<any>();
   const watchedUploadLinks = watch("uploadLinks");
-  const linksLength = project?.links.length;
+  const linksLength = currentProject?.links.length;
 
   const handleLinkUpload = async (linkText: string) => {
     const parsedGetUrlsLinkText = Array.from(getUrls(linkText));
@@ -92,7 +92,7 @@ export const AddLink = () => {
       // `https://icons.duckduckgo.com/ip2/${hostName}.ico`;
       return {
         position: linksLength ? linksLength + index : index,
-        project_id: project?.project_id || null,
+        project_id: currentProject?.project_id || null,
         url: link,
         url_image: parsedIco,
         url_name: "",
@@ -128,7 +128,7 @@ export const AddLink = () => {
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(onSubmit)}>
               <Markdown
-                children={`# Add Links to the ${project?.project_name} Project 🔗`}
+                children={`# Add Links to the ${currentProject?.project_name} Project 🔗`}
               />
               <TextArea
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>

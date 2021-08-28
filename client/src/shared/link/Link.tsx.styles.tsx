@@ -1,37 +1,48 @@
 import styled from "styled-components/macro";
-import { device } from "../../styles/devices";
 
 export const LinkContainer = styled.div`
   margin: 10px;
   width: 200px;
-  height: 170px;
-  border-radius: 2px;
+  height: 160px;
+  border-radius: 5px;
+  padding: 10px;
   display: flex;
-
-  flex-direction: row;
+  background-color: ${({ theme }) => theme.colors.blue400};
+  flex-direction: column;
   cursor: pointer;
+  justify-content: space-between;
   * {
     background-color: ${({ theme }) => theme.colors.blue400};
   }
 `;
 
-export const LinkSectionLeft = styled.div`
-  width: 80%;
+export const LinkTopRow = styled.div`
   display: flex;
-  padding: 10px;
-  border-radius: 5px 0 0 5px;
+  justify-content: space-between;
+`;
+export const LinkBottomRow = styled.div`
+  display: flex;
   flex-direction: column;
 `;
+export const LinkRow = styled.div``;
 
-export const LinkSectionRight = styled.div`
-  padding: 10px 10px 10px 5px;
-
-  border-radius: 0 5px 5px 0;
-  width: 20%;
+export const LinkRowTags = styled.div`
   display: flex;
-  align-items: flex-start;
+  flex-wrap: wrap;
+  overflow: hidden;
+  width: 100%;
+  height: 50px;
+`;
+
+export const Tag = styled.p`
+  margin: 3px 3px 5px 0;
+  font-size: ${({ theme }) => theme.font.size.smallest};
+  background-color: ${({ theme }) => theme.colors.blue500};
+  padding: 3px;
 `;
 
 export const LinkImg = styled.img`
-  width: 30px;
+  width: 25px;
+  height: 25px;
+  margin-left: 10px;
 `;
