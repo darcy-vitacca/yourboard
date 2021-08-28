@@ -18,8 +18,8 @@ export const PageLayoutContainer = styled.div`
   padding: 10px 10px 10px;
   margin: 0 0 100px;
 
-  @media ${device.laptop} {
-    width: 1100px;
+  @media ${device.laptopLrg} {
+    width: 1160px;
     margin: 0 auto 100px;
   }
 `;
@@ -139,7 +139,7 @@ export const LinkSectionContainer = styled.div`
   justify-content: center;
   flex-direction: row;
   flex-wrap: wrap;
-  @media ${device.mobileLrg} {
+  @media ${device.laptopLrg} {
     justify-content: initial;
   }
   }

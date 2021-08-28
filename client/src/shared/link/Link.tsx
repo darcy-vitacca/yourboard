@@ -40,11 +40,12 @@ export const Link: FC<Link> = ({
   return (
     <LinkContainer onClick={() => window.open(url, "_blank")}>
       <LinkSectionLeft>
-        <LinkImg src={url_image} />
-      </LinkSectionLeft>
-      <LinkSectionRight>
         <Markdown children={`#### ${url_name}`} />
         <Markdown children={`${url}`} />
+        <Markdown children={`${updatedAt}`} />
+      </LinkSectionLeft>
+      <LinkSectionRight>
+        <LinkImg src={url_image} />
       </LinkSectionRight>
     </LinkContainer>
   );
