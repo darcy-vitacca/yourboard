@@ -10,6 +10,8 @@ export interface IButtonContainerProps {
   align?: "left" | "center" | "right" | "space-evenly";
 }
 
+export interface IProjectContainerProps {}
+
 export const PageLayoutContainer = styled.div`
   width: 100%;
   min-width: 260px;
@@ -42,9 +44,9 @@ export const Row = styled.div`
   }
 `;
 export const SectionContainer = styled.div<ISectionContainerProps>`
-  min-height: 440px;
+  min-height: 520px;
   min-width: 300px;
-  padding: 20px 20px;
+  padding: 40px 20px;
   display: ${({ align }) => (align ? "flex" : "inherit")};
   flex-direction: ${({ align }) => (align ? "column" : "inherit")};
   justify-content: ${({ align }) =>
@@ -143,5 +145,29 @@ export const LinkSectionContainer = styled.div`
   @media ${device.laptopLrg} {
     justify-content: initial;
   }
+  }
+`;
+
+export const ProjectContainer = styled.div<IProjectContainerProps>`
+  width: 100%;
+  height: 100%;
+  &.project-transition-enter {
+    transform: translateX(100%);
+    transition: none;
+  }
+
+  &.project-transition-enter-active {
+    transform: translateX(0);
+    transition: transform 1000ms cubic-bezier(0, 0, 0, 1);
+  }
+
+  &.project-transition-exit {
+    transform: translateX(0);
+    transition: none;
+  }
+
+  &.project-transition-exit-active {
+    transform: translateX(-50%);
+    transition: transform 1000ms cubic-bezier(0, 0, 0, 1);
   }
 `;

@@ -43,6 +43,7 @@ const reducer: any = (state: State, { type, payload }: Action) => {
       return {
         ...state,
         projects: payload,
+        currentProject: payload[0],
       };
     case "SET_CURRENT_PROJECT":
       return {
@@ -58,6 +59,7 @@ const reducer: any = (state: State, { type, payload }: Action) => {
       return {
         ...state,
         currentProjectIndex: previousIndex,
+        currentProject: state.projects ? state.projects[previousIndex] : null,
       };
     case "NEXT_PROJECT":
       const nextIndex = state.projects
@@ -68,6 +70,7 @@ const reducer: any = (state: State, { type, payload }: Action) => {
       return {
         ...state,
         currentProjectIndex: nextIndex,
+        currentProject: state.projects ? state.projects[nextIndex] : null,
       };
     case "SHOW_MENU":
       return { ...state, showMenu: true };

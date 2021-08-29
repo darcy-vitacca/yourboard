@@ -10,11 +10,11 @@ import LockOpenIcon from "@material-ui/icons/LockOpen";
 import PersonAddIcon from "@material-ui/icons/PersonAdd";
 
 //InboxIcons
-import CreateIcon from "@material-ui/icons/Create";
-import InboxIcon from "@material-ui/icons/Inbox";
-import ArchiveIcon from "@material-ui/icons/Archive";
-import DeleteIcon from "@material-ui/icons/Delete";
-import { FC } from "react";
+// import CreateIcon from "@material-ui/icons/Create";
+// import InboxIcon from "@material-ui/icons/Inbox";
+// import ArchiveIcon from "@material-ui/icons/Archive";
+// import DeleteIcon from "@material-ui/icons/Delete";
+// import { FC } from "react";
 
 export interface SideMenuValues {
   title: string;
@@ -37,7 +37,7 @@ export const sidebarDataAuth: SideMenuValues[] = [
     title: `#### urboard`,
     icon: <HomeIcon />,
     link: "/",
-    tooltip: `Home`,
+    tooltip: `urboard`,
   },
   {
     title: "#### Add Links",

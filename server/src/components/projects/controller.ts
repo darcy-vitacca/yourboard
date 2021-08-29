@@ -64,6 +64,7 @@ export const getProjects = async (req: Request, res: Response) => {
     const projects = await Project.find({
       where: { user_id: user.user_id },
       order: { createdAt: 'DESC' },
+      relations: ['links'],
     });
 
     return res.status(200).json(projects);

@@ -3,6 +3,7 @@ import {
   SectionContainer,
   PageLayoutContainer,
   LinkSectionContainer,
+  ProjectContainer,
 } from "../../../shared/Layout.styles";
 import { Markdown } from "../../../shared/markdown";
 import axios from "axios";
@@ -14,37 +15,26 @@ import {
   SVGLeftIcon,
   SVGRightIcon,
 } from "./Landing.styles";
+import { landingConstants } from "../../../utils/constants/landing";
+import _ from "lodash";
 
 export const Landing = () => {
   const dispatch = useAuthDispatch();
   const { currentProject, user, projects, currentProjectIndex } =
     useAuthState();
+  const { defaultProject } = landingConstants;
   const { push } = useHistory();
   useEffect(() => {
     (async () => {
       try {
         const res = await axios.get("/projects");
+        console.log("res.data", res.data);
         dispatch("SET_PROJECTS", res.data);
       } catch (err) {
         console.log(err);
       }
     })();
   }, []);
-  useEffect(() => {
-    (async () => {
-      if (projects) {
-        try {
-          const res = await axios.get(
-            `/project/${projects[currentProjectIndex].url_name}`
-          );
-          dispatch("SET_CURRENT_PROJECT", res.data);
-        } catch (err) {
-          console.log(err);
-        }
-      }
-    })();
-  }, [currentProjectIndex, projects]);
-  //
 
   const handlePrevious = () => {
     dispatch("PREVIOUS_PROJECT");
@@ -55,9 +45,9 @@ export const Landing = () => {
   return (
     <>
       <PageLayoutContainer>
-        <SectionContainer align="center">
+        <SectionContainer>
           {currentProject && (
-            <>
+            <ProjectContainer key={currentProject.project_id}>
               <Markdown
                 children={`# ${currentProject.project_name}` || ""}
                 align="center"
@@ -72,13 +62,15 @@ export const Landing = () => {
                 <SVGRightIcon onClick={() => handleForward()} />
               </ProjectArrowContainer>
               <LinkSectionContainer>
-                {currentProject &&
-                  currentProject.links &&
-                  currentProject.links.map((link) => (
-                    <Link link={link} key={link.link_id} />
-                  ))}
+                {currentProject && !_.isEmpty(currentProject.links)
+                  ? currentProject.links.map((link) => (
+                      <Link link={link} key={link.link_id} />
+                    ))
+                  : defaultProject.links.map((link) => (
+                      <Link link={link} key={link.link_id} />
+                    ))}
               </LinkSectionContainer>
-            </>
+            </ProjectContainer>
           )}
         </SectionContainer>
       </PageLayoutContainer>

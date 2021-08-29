@@ -13,6 +13,7 @@ import {
 import { Markdown } from "../markdown";
 import moment from "moment";
 import { LoginRegisterLinkContainer, StyledLink } from "../Layout.styles";
+import { useHistory } from "react-router";
 
 export interface LinkValues {
   clicked?: number;
@@ -20,9 +21,9 @@ export interface LinkValues {
   link_id: string;
   position?: number;
   project_id: string;
-  subfolder_id: string;
+  subfolder_id?: string;
   updatedAt: Date;
-  url: string;
+  url: string | null;
   url_image?: string;
   url_name: string;
 }
@@ -44,8 +45,11 @@ export const Link: FC<Link> = ({
     url_name,
   },
 }) => {
+  const { push } = useHistory();
   return (
-    <LinkContainer onClick={() => window.open(url, "_blank")}>
+    <LinkContainer
+      onClick={() => (url ? window.open(url, "_blank") : push("/add-links"))}
+    >
       <LinkTopRow>
         <Markdown children={`#### ${url_name}`} />
         <LinkImg src={url_image} />
