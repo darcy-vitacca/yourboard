@@ -25,7 +25,6 @@ import {
   LinkText,
 } from "./AddLink.styles";
 import { Link } from "../../../shared/link";
-import { v4 as uuid } from "uuid";
 import _ from "lodash";
 import { LinkValues } from "../../../shared/link/Link";
 import Input from "../../../shared/formElements/input";

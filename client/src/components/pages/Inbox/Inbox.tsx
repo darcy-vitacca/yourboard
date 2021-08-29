@@ -10,7 +10,6 @@ import {
 } from "../../../shared/Layout.styles";
 import { useHistory } from "react-router";
 import { useForm, FormProvider, Controller } from "react-hook-form";
-import axios from "axios";
 import { useAuthDispatch, useAuthState } from "../../context/context";
 
 interface FormValue {
