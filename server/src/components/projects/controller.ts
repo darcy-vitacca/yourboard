@@ -58,7 +58,7 @@ export const createProject = async (req: Request, res: Response) => {
   }
 };
 
-export const getProjects = async (req: Request, res: Response) => {
+export const getProjects = async (_: Request, res: Response) => {
   const user: User = res.locals.user;
   try {
     const projects = await Project.find({

@@ -1,20 +1,22 @@
-import React from 'react';
-import Routes from './Routes';
-import { GlobalStyle } from './styles/Global.styles';
-import axios from 'axios';
-import { AuthProvider } from './components/context/context';
-
+import React from "react";
+import Routes from "./Routes";
+import { GlobalStyle } from "./styles/Global.styles";
+import axios from "axios";
+import { AuthProvider } from "./components/context/context";
+import dotenv from "dotenv";
+dotenv.config({ path: "../../.env" });
 
 const App = () => {
-  axios.defaults.baseURL = 'http://localhost:5000/api';
+  axios.defaults.baseURL =
+    process.env.REACT_APP_BASE_URL || "http://localhost:5000/api";
   axios.defaults.withCredentials = true;
   return (
     <>
-        <AuthProvider>
+      <AuthProvider>
         <GlobalStyle />
         <Routes />
-        </AuthProvider>
-      </>
+      </AuthProvider>
+    </>
   );
 };
 

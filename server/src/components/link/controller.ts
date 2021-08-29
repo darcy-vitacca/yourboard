@@ -5,17 +5,7 @@ import { isEmpty } from 'class-validator';
 import Project from '../../entities/Project';
 import { getConnection } from 'typeorm';
 
-export const getLinks = async (req: Request, res: Response) => {
-  try {
-    return req;
-  } catch (err) {
-    console.log(err);
-  }
-};
-
 export const createLink = async (req: Request, res: Response) => {
-  console.log('req.body', req.body);
-
   // const { url_name, url, url_image, position } = req.body[0];
   const name = req.params.project;
   const user: User = res.locals.user;
@@ -26,10 +16,9 @@ export const createLink = async (req: Request, res: Response) => {
     // if (Object.keys(errors).length > 0) return res.status(400).json(errors);
 
     const project = await Project.findOne({ url_name: name });
-    const updatedLinks = await req.body.map((item) => {
+    const updatedLinks = await req.body.map((item: any) => {
       return { ...item, user, project_id: project?.project_id };
     });
-    console.log('updateLinks', updatedLinks);
 
     const bulkInsert = await getConnection()
       .createQueryBuilder()
