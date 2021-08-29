@@ -11,7 +11,7 @@ export interface IButtonContainerProps {
 }
 
 export interface IProjectContainerProps {
-  showProject: true | false;
+  // showProject: true | false;
 }
 
 export const PageLayoutContainer = styled.div`
@@ -150,11 +150,7 @@ export const LinkSectionContainer = styled.div`
   }
 `;
 
-export const ProjectContainer = styled.div<IProjectContainerProps>`
-  // opacity: ${({ showProject }) => (showProject ? "1" : "0")};
-  // min-height: ${({ showProject }) => (showProject ? "inherit" : "0")};
-  // max-height: ${({ showProject }) => (showProject ? "inherit" : "0")};
-  // display: ${({ showProject }) => (showProject ? "block" : "none")};
+export const ProjectContainer = styled.div`
   // -webkit-transition: all 0.3s ease-in-out;
   // transition: all 0.3s ease-in-out;
 `;

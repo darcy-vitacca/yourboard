@@ -33,7 +33,7 @@ export const AddProject = () => {
   const dispatch = useAuthDispatch();
   const { authenticated } = useAuthState();
   const { push } = useHistory();
-  // if(authenticated) push('/')
+  if (!authenticated) push("/login");
 
   const methods = useForm<FormValue>({
     mode: "onSubmit",
@@ -56,13 +56,12 @@ export const AddProject = () => {
 
   const onSubmit = async (formData: any) => {
     try {
-      console.log("formData", formData);
-      debugger;
+      dispatch("LOADING");
       const res = await axios.post("/project", formData);
-      console.log("res", res);
+      dispatch("STOP_LOADING");
+      push("/");
     } catch (err) {
       const error = err.response.data;
-      console.log("error", error);
       if (error.url_name) setError("url_name", { message: error.url_name });
       if (error.project_name)
         setError("project_name", { message: error.project_name });
@@ -70,8 +69,6 @@ export const AddProject = () => {
         setError("description", { message: error.description });
     }
   };
-  console.log("watch()", watch());
-  console.log("errors", errors);
   return (
     <>
       <PageLayoutContainer>

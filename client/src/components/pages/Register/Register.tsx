@@ -1,18 +1,21 @@
-import React from 'react';
+import React from "react";
 import {
   Form,
-  FormContainer, LoginRegisterLinkContainer,
+  FormContainer,
+  LoginRegisterLinkContainer,
   LoginRegisterSectionContainer,
   PageLayoutContainer,
-  SectionContainer, StyledLink,
-} from '../../../shared/Layout.styles';
-import { useHistory } from 'react-router';
-import { useForm, FormProvider, Controller } from 'react-hook-form';
-import Input from '../../../shared/formElements/input';
-import { Markdown } from '../../../shared/markdown';
-import { Button } from '../../../shared/formElements/button';
-import axios from 'axios';
-import { useAuthDispatch, useAuthState } from '../../context/context';
+  SectionContainer,
+  StyledLink,
+} from "../../../shared/Layout.styles";
+import { useHistory } from "react-router";
+import { useForm, FormProvider, Controller } from "react-hook-form";
+import Input from "../../../shared/formElements/input";
+import { Markdown } from "../../../shared/markdown";
+import { Button } from "../../../shared/formElements/button";
+import axios from "axios";
+import { useAuthDispatch, useAuthState } from "../../context/context";
+import { Loader } from "../../../shared/loaders";
 
 interface FormValue {
   email: string;
@@ -22,28 +25,26 @@ interface FormValue {
   lastName: string;
 }
 const defaultValues = {
-  email: '',
-  username: '',
-  password: '',
-  firstName: '',
-  lastName: '',
+  email: "",
+  username: "",
+  password: "",
+  firstName: "",
+  lastName: "",
 };
 
 export const Register = () => {
   const dispatch = useAuthDispatch();
-  const {authenticated} = useAuthState()
+  const { authenticated, loading } = useAuthState();
   const { push } = useHistory();
-  // if(authenticated) push('/')
-  console.log('authenticated', authenticated);
-
+  if (authenticated) push("/");
 
   const methods = useForm<FormValue>({
-    mode: 'onSubmit',
-    reValidateMode: 'onChange',
+    mode: "onSubmit",
+    reValidateMode: "onChange",
     defaultValues: defaultValues,
     resolver: undefined,
     context: undefined,
-    criteriaMode: 'firstError',
+    criteriaMode: "firstError",
     shouldFocusError: true,
   });
   const {
@@ -57,23 +58,24 @@ export const Register = () => {
 
   const onSubmit = async (formData: any) => {
     try {
-    console.log('formData', formData);
-    const res = await axios.post('/auth/register', formData)
-
-      push('/login')
+      dispatch("LOADING");
+      const res = await axios.post("/auth/register", formData);
+      dispatch("STOP_LOADING");
+      push("/login");
     } catch (err) {
-      const error = err.response.data
-      if(error.email) setError("email",	{  message: error.email })
-      if(error.firstName) setError("firstName",{  message: error.firstName} )
-      if(error.lastName) setError("lastName",{  message: error.lastName} )
-      if(error.password) setError("password",{  message: error.password} )
-      if(error.username) setError("username",{  message: error.username} )
+      const error = err.response.data;
+      if (error.email) setError("email", { message: error.email });
+      if (error.firstName) setError("firstName", { message: error.firstName });
+      if (error.lastName) setError("lastName", { message: error.lastName });
+      if (error.password) setError("password", { message: error.password });
+      if (error.username) setError("username", { message: error.username });
     }
   };
   return (
     <>
       <PageLayoutContainer>
         <SectionContainer>
+          {loading && <Loader />}
           <FormContainer>
             <FormProvider {...methods}>
               <form onSubmit={handleSubmit(onSubmit)}>
@@ -87,8 +89,8 @@ export const Register = () => {
                     helperText="Email"
                     label="EMAIL"
                     control={control}
-                    defaultValue={''}
-                    validation={errors?.email?.message || ''}
+                    defaultValue={""}
+                    validation={errors?.email?.message || ""}
                   />
                   <Input
                     type="text"
@@ -96,9 +98,9 @@ export const Register = () => {
                     width="100%"
                     helperText="Username (6 characters or more without spaces)"
                     label="USERNAME"
-                     control={control}
-                    defaultValue={''}
-                    validation={errors?.username?.message || ''}
+                    control={control}
+                    defaultValue={""}
+                    validation={errors?.username?.message || ""}
                   />
                   <Input
                     type="password"
@@ -106,9 +108,9 @@ export const Register = () => {
                     width="100%"
                     helperText="Password (A combination of 8 letters and numbers, including uppercase and lower case, without spaces)"
                     label="PASSWORD"
-                     control={control}
-                    defaultValue={''}
-                    validation={errors?.password?.message || ''}
+                    control={control}
+                    defaultValue={""}
+                    validation={errors?.password?.message || ""}
                   />
                   <Input
                     type="text"
@@ -117,8 +119,8 @@ export const Register = () => {
                     label="FIRST NAME"
                     helperText="First Name"
                     control={control}
-                    defaultValue={''}
-                    validation={errors?.firstName?.message || ''}
+                    defaultValue={""}
+                    validation={errors?.firstName?.message || ""}
                   />
                   <Input
                     type="text"
@@ -126,9 +128,9 @@ export const Register = () => {
                     width="100%"
                     label="LAST NAME"
                     helperText="Last Name"
-                     control={control}
-                    defaultValue={''}
-                    validation={errors?.lastName?.message || ''}
+                    control={control}
+                    defaultValue={""}
+                    validation={errors?.lastName?.message || ""}
                   />
 
                   <Button text="Register" width="100%" type="submit" />

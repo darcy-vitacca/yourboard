@@ -25,6 +25,8 @@ const defaultValues = {
 export const Inbox = () => {
   const dispatch = useAuthDispatch();
   const { authenticated } = useAuthState();
+  const { push } = useHistory();
+  if (!authenticated) push("/login");
 
   const methods = useForm<FormValue>({
     mode: "onSubmit",

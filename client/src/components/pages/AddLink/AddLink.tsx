@@ -30,6 +30,7 @@ import _ from "lodash";
 import { LinkValues } from "../../../shared/link/Link";
 import Input from "../../../shared/formElements/input";
 import axios from "axios";
+import { Loader } from "../../../shared/loaders";
 
 interface FormValue {
   linkText: string;
@@ -42,9 +43,9 @@ const defaultValues = {
 
 export const AddLink = () => {
   const dispatch = useAuthDispatch();
-  const { authenticated, currentProject } = useAuthState();
+  const { authenticated, currentProject, loading } = useAuthState();
   const { push } = useHistory();
-  if (!authenticated) push("/");
+  if (!authenticated) push("/login");
 
   const methods = useForm<FormValue>({
     mode: "onSubmit",
@@ -68,14 +69,15 @@ export const AddLink = () => {
 
   const onSubmit = async (formData: any) => {
     try {
-      console.log("ON SUBMIT UPLOAD", watchedUploadLinks);
+      dispatch("LOADING");
       const res = await axios.post(
         `/link/${currentProject?.url_name}`,
         watchedUploadLinks
       );
-      console.log("res", res);
+      dispatch("STOP_LOADING");
       push("/");
     } catch (err) {
+      console.log(err);
       // const error = err.response.data;
     }
   };
@@ -119,12 +121,11 @@ export const AddLink = () => {
     }
   };
 
-  const uploadLinks = () => {};
-  console.log("_.isEmpty(watchedUploadLinks)", _.isEmpty(watchedUploadLinks));
   return (
     <>
       <PageLayoutContainer>
         <SectionContainer>
+          {loading && <Loader />}
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(onSubmit)}>
               <Markdown

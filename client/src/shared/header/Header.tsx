@@ -1,9 +1,13 @@
-import React from 'react';
-import classNames from 'classnames';
-import { SideMenu } from './sections';
-import { useAuthState } from '../../components/context/context';
-import { HeaderContainer, HeaderContentContainer, HeaderLeftContainer, HeaderRightContainer } from './Header.styles';
-
+import React from "react";
+import classNames from "classnames";
+import { SideMenu } from "./sections";
+import { useAuthState } from "../../components/context/context";
+import {
+  HeaderContainer,
+  HeaderContentContainer,
+  HeaderLeftContainer,
+  HeaderRightContainer,
+} from "./Header.styles";
 
 export const Header = () => {
   const { showMenu } = useAuthState();
@@ -17,12 +21,11 @@ export const Header = () => {
               className={classNames(
                 { hideMenu: showMenu },
                 { showMenu: !showMenu }
-            )}
+              )}
             />
           </HeaderLeftContainer>
-          <HeaderRightContainer>
 
-          </HeaderRightContainer>
+          <HeaderRightContainer></HeaderRightContainer>
         </HeaderContentContainer>
       </HeaderContainer>
     </>

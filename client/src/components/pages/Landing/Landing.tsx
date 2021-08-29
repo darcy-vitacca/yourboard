@@ -17,18 +17,27 @@ import {
 } from "./Landing.styles";
 import { landingConstants } from "../../../utils/constants/landing";
 import _ from "lodash";
+import { Loader } from "../../../shared/loaders";
 
 export const Landing = () => {
   const dispatch = useAuthDispatch();
-  const { currentProject, user, projects, currentProjectIndex } =
-    useAuthState();
+  const {
+    currentProject,
+    user,
+    projects,
+    currentProjectIndex,
+    loading,
+    authenticated,
+  } = useAuthState();
   const { defaultProject } = landingConstants;
   const { push } = useHistory();
+  if (!authenticated && !loading) push("/login");
+
   useEffect(() => {
     (async () => {
       try {
+        dispatch("LOADING");
         const res = await axios.get("/projects");
-        console.log("res.data", res.data);
         dispatch("SET_PROJECTS", res.data);
       } catch (err) {
         console.log(err);
@@ -42,70 +51,37 @@ export const Landing = () => {
   const handleForward = () => {
     dispatch("NEXT_PROJECT");
   };
-
   return (
     <>
       <PageLayoutContainer>
         <SectionContainer>
-          {projects &&
-            projects.map((project, idx) => {
-              console.log(currentProjectIndex === idx);
-              return (
-                <ProjectContainer
-                  key={project.project_id}
-                  showProject={currentProjectIndex === idx}
-                >
-                  <Markdown
-                    children={`# ${project.project_name}` || ""}
-                    align="center"
-                  />
+          {loading && <Loader />}
+          {currentProject && (
+            <ProjectContainer key={currentProject.project_id}>
+              <Markdown
+                children={`# ${currentProject.project_name}` || ""}
+                align="center"
+              />
 
-                  <Markdown
-                    children={`### ${project.description}` || ""}
-                    align="center"
-                  />
-                  <ProjectArrowContainer>
-                    <SVGLeftIcon onClick={() => handlePrevious()} />
-                    <SVGRightIcon onClick={() => handleForward()} />
-                  </ProjectArrowContainer>
-                  <LinkSectionContainer>
-                    {project && !_.isEmpty(project.links)
-                      ? project.links.map((link) => (
-                          <Link link={link} key={link.link_id} />
-                        ))
-                      : defaultProject.links.map((link) => (
-                          <Link link={link} key={link.link_id} />
-                        ))}
-                  </LinkSectionContainer>
-                </ProjectContainer>
-              );
-            })}
-          {/*{currentProject && (*/}
-          {/*  <ProjectContainer key={currentProject.project_id}>*/}
-          {/*    <Markdown*/}
-          {/*      children={`# ${currentProject.project_name}` || ""}*/}
-          {/*      align="center"*/}
-          {/*    />*/}
-
-          {/*    <Markdown*/}
-          {/*      children={`### ${currentProject.description}` || ""}*/}
-          {/*      align="center"*/}
-          {/*    />*/}
-          {/*    <ProjectArrowContainer>*/}
-          {/*      <SVGLeftIcon onClick={() => handlePrevious()} />*/}
-          {/*      <SVGRightIcon onClick={() => handleForward()} />*/}
-          {/*    </ProjectArrowContainer>*/}
-          {/*    <LinkSectionContainer>*/}
-          {/*      {currentProject && !_.isEmpty(currentProject.links)*/}
-          {/*        ? currentProject.links.map((link) => (*/}
-          {/*            <Link link={link} key={link.link_id} />*/}
-          {/*          ))*/}
-          {/*        : defaultProject.links.map((link) => (*/}
-          {/*            <Link link={link} key={link.link_id} />*/}
-          {/*          ))}*/}
-          {/*    </LinkSectionContainer>*/}
-          {/*  </ProjectContainer>*/}
-          {/*)}*/}
+              <Markdown
+                children={`### ${currentProject.description}` || ""}
+                align="center"
+              />
+              <ProjectArrowContainer>
+                <SVGLeftIcon onClick={() => handlePrevious()} />
+                <SVGRightIcon onClick={() => handleForward()} />
+              </ProjectArrowContainer>
+              <LinkSectionContainer>
+                {currentProject && !_.isEmpty(currentProject.links)
+                  ? currentProject.links.map((link) => (
+                      <Link link={link} key={link.link_id} />
+                    ))
+                  : defaultProject.links.map((link) => (
+                      <Link link={link} key={link.link_id} />
+                    ))}
+              </LinkSectionContainer>
+            </ProjectContainer>
+          )}
         </SectionContainer>
       </PageLayoutContainer>
     </>

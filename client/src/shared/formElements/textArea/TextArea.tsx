@@ -49,7 +49,6 @@ export const TextArea = forwardRef<HTMLTextAreaElement, ITextAreaProps>(
       asterisk: <span className="asterisk">*</span>,
     };
 
-    console.log("validation", validation);
     const rowHeight = 38;
     const overrideTextAreaInitialHeight = minRows
       ? minRows * rowHeight

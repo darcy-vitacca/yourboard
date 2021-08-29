@@ -36,6 +36,7 @@ const reducer: any = (state: State, { type, payload }: Action) => {
         authenticated: true,
         user: payload.user,
         projects: payload.projects ?? state.projects,
+        loading: false,
       };
     case "LOGOUT":
       return { ...state, authenticated: false, user: null };
@@ -44,6 +45,7 @@ const reducer: any = (state: State, { type, payload }: Action) => {
         ...state,
         projects: payload,
         currentProject: payload[0],
+        loading: false,
       };
     case "SET_CURRENT_PROJECT":
       return {
@@ -76,6 +78,8 @@ const reducer: any = (state: State, { type, payload }: Action) => {
       return { ...state, showMenu: true };
     case "HIDE_MENU":
       return { ...state, showMenu: false };
+    case "LOADING":
+      return { ...state, loading: true };
     case "STOP_LOADING":
       return { ...state, loading: false };
     default:
