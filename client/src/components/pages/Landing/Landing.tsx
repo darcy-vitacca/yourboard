@@ -42,36 +42,70 @@ export const Landing = () => {
   const handleForward = () => {
     dispatch("NEXT_PROJECT");
   };
+
   return (
     <>
       <PageLayoutContainer>
         <SectionContainer>
-          {currentProject && (
-            <ProjectContainer key={currentProject.project_id}>
-              <Markdown
-                children={`# ${currentProject.project_name}` || ""}
-                align="center"
-              />
+          {projects &&
+            projects.map((project, idx) => {
+              console.log(currentProjectIndex === idx);
+              return (
+                <ProjectContainer
+                  key={project.project_id}
+                  showProject={currentProjectIndex === idx}
+                >
+                  <Markdown
+                    children={`# ${project.project_name}` || ""}
+                    align="center"
+                  />
 
-              <Markdown
-                children={`### ${currentProject.description}` || ""}
-                align="center"
-              />
-              <ProjectArrowContainer>
-                <SVGLeftIcon onClick={() => handlePrevious()} />
-                <SVGRightIcon onClick={() => handleForward()} />
-              </ProjectArrowContainer>
-              <LinkSectionContainer>
-                {currentProject && !_.isEmpty(currentProject.links)
-                  ? currentProject.links.map((link) => (
-                      <Link link={link} key={link.link_id} />
-                    ))
-                  : defaultProject.links.map((link) => (
-                      <Link link={link} key={link.link_id} />
-                    ))}
-              </LinkSectionContainer>
-            </ProjectContainer>
-          )}
+                  <Markdown
+                    children={`### ${project.description}` || ""}
+                    align="center"
+                  />
+                  <ProjectArrowContainer>
+                    <SVGLeftIcon onClick={() => handlePrevious()} />
+                    <SVGRightIcon onClick={() => handleForward()} />
+                  </ProjectArrowContainer>
+                  <LinkSectionContainer>
+                    {project && !_.isEmpty(project.links)
+                      ? project.links.map((link) => (
+                          <Link link={link} key={link.link_id} />
+                        ))
+                      : defaultProject.links.map((link) => (
+                          <Link link={link} key={link.link_id} />
+                        ))}
+                  </LinkSectionContainer>
+                </ProjectContainer>
+              );
+            })}
+          {/*{currentProject && (*/}
+          {/*  <ProjectContainer key={currentProject.project_id}>*/}
+          {/*    <Markdown*/}
+          {/*      children={`# ${currentProject.project_name}` || ""}*/}
+          {/*      align="center"*/}
+          {/*    />*/}
+
+          {/*    <Markdown*/}
+          {/*      children={`### ${currentProject.description}` || ""}*/}
+          {/*      align="center"*/}
+          {/*    />*/}
+          {/*    <ProjectArrowContainer>*/}
+          {/*      <SVGLeftIcon onClick={() => handlePrevious()} />*/}
+          {/*      <SVGRightIcon onClick={() => handleForward()} />*/}
+          {/*    </ProjectArrowContainer>*/}
+          {/*    <LinkSectionContainer>*/}
+          {/*      {currentProject && !_.isEmpty(currentProject.links)*/}
+          {/*        ? currentProject.links.map((link) => (*/}
+          {/*            <Link link={link} key={link.link_id} />*/}
+          {/*          ))*/}
+          {/*        : defaultProject.links.map((link) => (*/}
+          {/*            <Link link={link} key={link.link_id} />*/}
+          {/*          ))}*/}
+          {/*    </LinkSectionContainer>*/}
+          {/*  </ProjectContainer>*/}
+          {/*)}*/}
         </SectionContainer>
       </PageLayoutContainer>
     </>

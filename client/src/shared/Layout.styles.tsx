@@ -10,7 +10,9 @@ export interface IButtonContainerProps {
   align?: "left" | "center" | "right" | "space-evenly";
 }
 
-export interface IProjectContainerProps {}
+export interface IProjectContainerProps {
+  showProject: true | false;
+}
 
 export const PageLayoutContainer = styled.div`
   width: 100%;
@@ -149,25 +151,10 @@ export const LinkSectionContainer = styled.div`
 `;
 
 export const ProjectContainer = styled.div<IProjectContainerProps>`
-  width: 100%;
-  height: 100%;
-  &.project-transition-enter {
-    transform: translateX(100%);
-    transition: none;
-  }
-
-  &.project-transition-enter-active {
-    transform: translateX(0);
-    transition: transform 1000ms cubic-bezier(0, 0, 0, 1);
-  }
-
-  &.project-transition-exit {
-    transform: translateX(0);
-    transition: none;
-  }
-
-  &.project-transition-exit-active {
-    transform: translateX(-50%);
-    transition: transform 1000ms cubic-bezier(0, 0, 0, 1);
-  }
+  // opacity: ${({ showProject }) => (showProject ? "1" : "0")};
+  // min-height: ${({ showProject }) => (showProject ? "inherit" : "0")};
+  // max-height: ${({ showProject }) => (showProject ? "inherit" : "0")};
+  // display: ${({ showProject }) => (showProject ? "block" : "none")};
+  // -webkit-transition: all 0.3s ease-in-out;
+  // transition: all 0.3s ease-in-out;
 `;
