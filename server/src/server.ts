@@ -1,5 +1,5 @@
 import 'reflect-metadata';
-require('dotenv').config({ path: '../.env'})
+require('dotenv').config({ path: '../.env' });
 import express, { Application, RequestHandler } from 'express';
 import { createConnection } from 'typeorm';
 import morgan from 'morgan';
@@ -37,10 +37,10 @@ require('./routes/project-routes')(app);
 require('./routes/link-routes')(app);
 
 app.listen(PORT, async () => {
-  console.log(`Server running on Port ${PORT}`);
+  console.log(`Server running on Port ${PORT} 🚀 🚀 🚀 `);
   try {
     await createConnection();
-    console.log('Databased connected');
+    console.log('Database connected 🤖');
   } catch (err) {
     console.log(err);
   }

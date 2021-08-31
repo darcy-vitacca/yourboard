@@ -1,12 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
-  Form,
-  FormContainer,
-  LoginRegisterLinkContainer,
-  LoginRegisterSectionContainer,
   PageLayoutContainer,
   SectionContainer,
-  StyledLink,
 } from "../../../shared/Layout.styles";
 import { useHistory } from "react-router";
 import { useForm, FormProvider, useFieldArray } from "react-hook-form";
@@ -26,7 +21,6 @@ import {
 } from "./AddLink.styles";
 import { Link } from "../../../shared/link";
 import _ from "lodash";
-import { LinkValues } from "../../../shared/link/Link";
 import Input from "../../../shared/formElements/input";
 import axios from "axios";
 import { Loader } from "../../../shared/loaders";
@@ -58,10 +52,8 @@ export const AddLink = () => {
   //
   const {
     handleSubmit,
-    register,
     watch,
     control,
-    setError,
     formState: { errors },
     setValue,
   } = methods;
@@ -103,7 +95,7 @@ export const AddLink = () => {
     setValue("linkText", linkText);
   };
 
-  const { fields, append, remove } = useFieldArray<any>({
+  const { fields, append } = useFieldArray<any>({
     name: "uploadLinks",
     control,
   });
