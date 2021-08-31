@@ -50,13 +50,7 @@ export const AddLink = () => {
     shouldFocusError: true,
   });
   //
-  const {
-    handleSubmit,
-    watch,
-    control,
-    formState: { errors },
-    setValue,
-  } = methods;
+  const { handleSubmit, watch, control, setValue } = methods;
 
   const onSubmit = async (formData: any) => {
     try {

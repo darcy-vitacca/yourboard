@@ -1,4 +1,3 @@
-import React from "react";
 import styled, { keyframes } from "styled-components";
 import { Loader4 } from "@styled-icons/remix-fill/Loader4";
 
