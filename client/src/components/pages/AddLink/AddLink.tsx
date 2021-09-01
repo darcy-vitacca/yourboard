@@ -63,7 +63,7 @@ export const AddLink = () => {
       push("/");
     } catch (err) {
       console.log(err);
-      // const error = err.response.data;
+      // const error = err.response.data; //
     }
   };
 
