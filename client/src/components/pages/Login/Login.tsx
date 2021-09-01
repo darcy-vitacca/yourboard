@@ -57,6 +57,7 @@ export const Login = () => {
       dispatch("LOGIN", res.data);
       push("/");
     } catch (err) {
+      dispatch("STOP_LOADING");
       const error = err.response.data;
       if (error.email) setError("email", { message: error.email });
       if (error.password) setError("password", { message: error.password });
