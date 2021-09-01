@@ -7,7 +7,7 @@ import dotenv from "dotenv";
 dotenv.config({ path: "../../.env" });
 
 const App = () => {
-  axios.defaults.baseURL = window.location.host;
+  // axios.defaults.baseURL = window.location.host;
   axios.defaults.withCredentials = true;
   return (
     <>
