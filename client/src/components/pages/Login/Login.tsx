@@ -53,7 +53,7 @@ export const Login = () => {
       const res = await axios.post("/auth/login", formData);
       dispatch("LOGIN", res.data);
       push("/");
-    } catch (err) {
+    } catch (err: any) {
       dispatch("STOP_LOADING");
       const error = err.response.data;
       if (error.email) setError("email", { message: error.email });

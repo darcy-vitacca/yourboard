@@ -29,7 +29,7 @@ export const createLink = async (req: Request, res: Response) => {
     console.log('bulkInsert', bulkInsert);
 
     return res.status(200).json(bulkInsert);
-  } catch (err) {
+  } catch (err: any) {
     console.log(err);
     return res.status(500).json({ error: 'Something went wrong' });
   }

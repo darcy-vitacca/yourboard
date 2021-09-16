@@ -32,7 +32,7 @@ export const Landing = () => {
         dispatch("LOADING");
         const res = await axios.get("/projects");
         dispatch("SET_PROJECTS", res.data);
-      } catch (err) {
+      } catch (err: any) {
         console.log(err);
       }
     })();

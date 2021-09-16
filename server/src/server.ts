@@ -41,7 +41,7 @@ app.listen(PORT, async () => {
   try {
     await createConnection();
     console.log('Database connected 🤖');
-  } catch (err) {
+  } catch (err: any) {
     console.log(err);
   }
 });

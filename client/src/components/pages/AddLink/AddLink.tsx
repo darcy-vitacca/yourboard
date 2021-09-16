@@ -62,9 +62,9 @@ export const AddLink = () => {
       console.log("res", res);
       dispatch("STOP_LOADING");
       push("/");
-    } catch (err) {
+    } catch (err: any) {
       console.log(err);
-      // const error: any = err.response.data; //
+      // const error = err.response.data; //
     }
   };
 

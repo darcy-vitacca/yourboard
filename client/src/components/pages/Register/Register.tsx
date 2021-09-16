@@ -60,9 +60,9 @@ export const Register = () => {
       console.log("res", res);
       dispatch("STOP_LOADING");
       push("/login");
-    } catch (err) {
+    } catch (err: any) {
       dispatch("STOP_LOADING");
-      const error: any = err.response.data;
+      const error = err.response.data;
       if (error.email) setError("email", { message: error.email });
       if (error.firstName) setError("firstName", { message: error.firstName });
       if (error.lastName) setError("lastName", { message: error.lastName });

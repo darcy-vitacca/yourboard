@@ -19,7 +19,7 @@ export const getProject = async (req: Request, res: Response) => {
 
     //get links
     return res.status(200).json(project);
-  } catch (err) {
+  } catch (err: any) {
     console.log(err);
     return res.status(404).json({ project: 'Project not found' });
   }
@@ -52,7 +52,7 @@ export const createProject = async (req: Request, res: Response) => {
     await project.save();
 
     return res.json(project);
-  } catch (err) {
+  } catch (err: any) {
     console.log(err);
     return res.status(500).json({ error: 'Something went wrong' });
   }
@@ -68,7 +68,7 @@ export const getProjects = async (_: Request, res: Response) => {
     });
 
     return res.status(200).json(projects);
-  } catch (err) {
+  } catch (err: any) {
     console.log(err);
     return res.status(404).json({ project: 'Project not found' });
   }

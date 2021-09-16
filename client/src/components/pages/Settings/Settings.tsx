@@ -41,8 +41,8 @@ export const Settings = () => {
       const res = await axios.post("/auth/login", formData);
       dispatch("LOGIN", res.data);
       push("/");
-    } catch (err) {
-      const error: any = err.response.data;
+    } catch (err: any) {
+      const error = err.response.data;
       if (error.email) setError("email", { message: error.email });
       if (error.password) setError("password", { message: error.password });
     }

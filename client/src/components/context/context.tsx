@@ -109,7 +109,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       try {
         const res = await axios.get("/auth/me");
         dispatch("LOGIN", res.data);
-      } catch (err) {
+      } catch (err: any) {
         console.log(err);
         //excecutes after try or catch
       } finally {

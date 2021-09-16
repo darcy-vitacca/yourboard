@@ -37,7 +37,7 @@ export const register = async (req: Request, res: Response) => {
     // await user.save();
     // return res.json(user);
     return res.json('hit');
-  } catch (err) {
+  } catch (err: any) {
     console.log(err);
     return res.status(500).json(err);
   }
@@ -73,7 +73,7 @@ export const register = async (req: Request, res: Response) => {
 //       })
 //     );
 //     return res.json(user);
-//   } catch (err) {
+//   } catch (err:any) {
 //     console.log(err);
 //     return res.json({ error: 'Something went wrong' });
 //   }
