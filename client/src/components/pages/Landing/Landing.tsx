@@ -36,7 +36,7 @@ export const Landing = () => {
         console.log(err);
       }
     })();
-  });
+  }, []);
 
   const handlePrevious = () => {
     dispatch("PREVIOUS_PROJECT");

@@ -104,19 +104,19 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     defaultDispatch({ type, payload });
 
   //We load the user then dispatch here on first load
-  // useEffect(() => {
-  //   (async () => {
-  //     try {
-  //       const res = await axios.get("/auth/me");
-  //       dispatch("LOGIN", res.data);
-  //     } catch (err: any) {
-  //       console.log(err);
-  //       //excecutes after try or catch
-  //     } finally {
-  //       dispatch("STOP_LOADING");
-  //     }
-  //   })();
-  // }, []);
+  useEffect(() => {
+    (async () => {
+      try {
+        const res = await axios.get("/auth/me");
+        dispatch("LOGIN", res.data);
+      } catch (err: any) {
+        console.log(err);
+        //excecutes after try or catch
+      } finally {
+        dispatch("STOP_LOADING");
+      }
+    })();
+  }, []);
 
   return (
     <DispatchContext.Provider value={dispatch}>
