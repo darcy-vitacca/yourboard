@@ -56,7 +56,7 @@ export const AddProject = () => {
       dispatch("STOP_LOADING");
       push("/");
     } catch (err) {
-      const error = err.response.data;
+      const error: any = err.response.data;
       if (error.url_name) setError("url_name", { message: error.url_name });
       if (error.project_name)
         setError("project_name", { message: error.project_name });

@@ -62,7 +62,7 @@ export const Register = () => {
       push("/login");
     } catch (err) {
       dispatch("STOP_LOADING");
-      const error = err.response.data;
+      const error: any = err.response.data;
       if (error.email) setError("email", { message: error.email });
       if (error.firstName) setError("firstName", { message: error.firstName });
       if (error.lastName) setError("lastName", { message: error.lastName });

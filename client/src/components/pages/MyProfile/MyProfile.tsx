@@ -43,7 +43,7 @@ export const MyProfile = () => {
       dispatch("LOGIN", res.data);
       push("/");
     } catch (err) {
-      const error = err.response.data;
+      const error: any = err.response.data;
       if (error.email) setError("email", { message: error.email });
       if (error.password) setError("password", { message: error.password });
     }
