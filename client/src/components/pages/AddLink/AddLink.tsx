@@ -9,7 +9,7 @@ import { useAuthDispatch, useAuthState } from "../../context/context";
 import { Markdown } from "../../../shared/markdown";
 import { TextArea } from "../../../shared/formElements/textArea";
 import { Button } from "../../../shared/formElements/button";
-import getUrls from "get-urls";
+import * as linkify from "linkifyjs";
 import {
   AddLinkContainer,
   AddLinkPreviewContainer,
@@ -73,19 +73,21 @@ export const AddLink = () => {
   const linksLength = currentProject?.links.length;
 
   const handleLinkUpload = async (linkText: string) => {
-    const parsedGetUrlsLinkText = Array.from(getUrls(linkText));
-    const parsedLinkObj = await parsedGetUrlsLinkText.map((link, index) => {
-      const hostName = new URL(link).hostname;
-      const parsedIco = `https://www.google.com/s2/favicons?domain_url=${hostName}`;
-      // `https://icons.duckduckgo.com/ip2/${hostName}.ico`;
-      return {
-        position: linksLength ? linksLength + index : index,
-        project_id: currentProject?.project_id || null,
-        url: link,
-        url_image: parsedIco,
-        url_name: "",
-      };
-    });
+    const parsedGetUrlsLinkText = linkify.find(linkText);
+    const parsedLinkObj = await parsedGetUrlsLinkText.map(
+      (link: any, index) => {
+        const hostName = new URL(link.href).hostname;
+        const parsedIco = `https://www.google.com/s2/favicons?domain_url=${hostName}`;
+        // `https://icons.duckduckgo.com/ip2/${hostName}.ico`;
+        return {
+          position: linksLength ? linksLength + index : index,
+          project_id: currentProject?.project_id || null,
+          url: link.href,
+          url_image: parsedIco,
+          url_name: "",
+        };
+      }
+    );
     setParsedLinkText(parsedLinkObj);
     setValue("linkText", linkText);
   };
