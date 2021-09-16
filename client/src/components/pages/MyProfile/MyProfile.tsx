@@ -1,19 +1,12 @@
 import React from "react";
 import {
-  Form,
   FormContainer,
-  LoginRegisterLinkContainer,
-  LoginRegisterSectionContainer,
   PageLayoutContainer,
   SectionContainer,
-  StyledLink,
 } from "../../../shared/Layout.styles";
 import { useHistory } from "react-router";
-import { useForm, FormProvider, Controller } from "react-hook-form";
-import Input from "../../../shared/formElements/input";
-import { Markdown } from "../../../shared/markdown";
-import { Button } from "../../../shared/formElements/button";
-import { TextField } from "@material-ui/core";
+import { useForm, FormProvider } from "react-hook-form";
+
 import axios from "axios";
 import { useAuthDispatch, useAuthState } from "../../context/context";
 
@@ -41,14 +34,7 @@ export const MyProfile = () => {
     criteriaMode: "firstError",
     shouldFocusError: true,
   });
-  const {
-    handleSubmit,
-    register,
-    watch,
-    control,
-    setError,
-    formState: { errors },
-  } = methods;
+  const { handleSubmit, setError } = methods;
 
   const onSubmit = async (formData: any) => {
     try {

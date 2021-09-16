@@ -1,6 +1,5 @@
 import React from "react";
 import {
-  Form,
   FormContainer,
   LoginRegisterLinkContainer,
   LoginRegisterSectionContainer,
@@ -9,7 +8,7 @@ import {
   StyledLink,
 } from "../../../shared/Layout.styles";
 import { useHistory } from "react-router";
-import { useForm, FormProvider, Controller } from "react-hook-form";
+import { useForm, FormProvider } from "react-hook-form";
 import Input from "../../../shared/formElements/input";
 import { Markdown } from "../../../shared/markdown";
 import { Button } from "../../../shared/formElements/button";
@@ -49,8 +48,6 @@ export const Register = () => {
   });
   const {
     handleSubmit,
-    register,
-    watch,
     control,
     setError,
     formState: { errors },
@@ -60,6 +57,7 @@ export const Register = () => {
     try {
       dispatch("LOADING");
       const res = await axios.post("/auth/register", formData);
+      console.log("res", res);
       dispatch("STOP_LOADING");
       push("/login");
     } catch (err) {

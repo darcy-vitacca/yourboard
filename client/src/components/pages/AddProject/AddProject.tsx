@@ -1,17 +1,13 @@
 import React from "react";
 import * as Yup from "yup";
 import {
-  Form,
   FormContainer,
-  LoginRegisterLinkContainer,
-  LoginRegisterSectionContainer,
   PageLayoutContainer,
   SectionContainer,
-  StyledLink,
 } from "../../../shared/Layout.styles";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useHistory } from "react-router";
-import { useForm, FormProvider, Controller } from "react-hook-form";
+import { useForm, FormProvider } from "react-hook-form";
 import axios from "axios";
 import { useAuthDispatch, useAuthState } from "../../context/context";
 import Input from "../../../shared/formElements/input";
@@ -46,8 +42,6 @@ export const AddProject = () => {
   });
   const {
     handleSubmit,
-    register,
-    watch,
     setValue,
     control,
     setError,
@@ -58,6 +52,7 @@ export const AddProject = () => {
     try {
       dispatch("LOADING");
       const res = await axios.post("/project", formData);
+      console.log("res", res);
       dispatch("STOP_LOADING");
       push("/");
     } catch (err) {

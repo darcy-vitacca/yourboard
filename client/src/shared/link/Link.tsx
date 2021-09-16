@@ -4,15 +4,15 @@ import {
   LinkContainer,
   LinkImg,
   LinkRow,
-  LinkRowTags,
+  // LinkRowTags,
   // LinkSectionLeft,
   // LinkSectionRight,
   LinkTopRow,
-  Tag,
+  // Tag,
 } from "./Link.tsx.styles";
 import { Markdown } from "../markdown";
 import moment from "moment";
-import { LoginRegisterLinkContainer, StyledLink } from "../Layout.styles";
+// import { LoginRegisterLinkContainer, StyledLink } from "../Layout.styles";
 import { useHistory } from "react-router";
 
 export interface LinkValues {
@@ -27,18 +27,18 @@ export interface LinkValues {
   url_image?: string;
   url_name: string;
 }
-interface Link {
+interface Links {
   link: LinkValues;
 }
 
-export const Link: FC<Link> = ({
+export const Link: FC<Links> = ({
   link: {
-    clicked,
-    createdAt,
-    link_id,
-    position,
-    project_id,
-    subfolder_id,
+    // clicked,
+    // createdAt,
+    // link_id,
+    // position,
+    // project_id,
+    // subfolder_id,
     updatedAt,
     url,
     url_image,

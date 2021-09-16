@@ -1,20 +1,16 @@
-import { MuiThemeProvider, TextField } from '@material-ui/core';
-import React, { forwardRef } from 'react';
-import { Controller, useForm, useFormContext } from 'react-hook-form';
+// import { MuiThemeProvider, TextField } from '@material-ui/core';
+import React, { forwardRef } from "react";
+import { Controller } from "react-hook-form";
 
-import { Markdown } from '../../markdown';
-import {
-  InputElement,
-  InputContainer,
-  InputLabel,
-} from './Input.styles';
+import { Markdown } from "../../markdown";
+import { InputElement, InputContainer, InputLabel } from "./Input.styles";
 
 export interface IInputProps {
   name: string;
   label?: string;
   type: string;
   validation?: string;
-  width?: '25%' | '50%' | '75%' | '100%';
+  width?: "25%" | "50%" | "75%" | "100%";
   maxLength?: number;
   helperText?: string;
   defaultValue: string;
@@ -32,12 +28,10 @@ const Input = forwardRef<HTMLInputElement, IInputProps>(
       helperText,
       name,
       defaultValue,
-      control
+      control,
     },
     ref
   ) => {
-    const { setValue } = useFormContext();
-
     return (
       <>
         {helperText && <InputLabel>{helperText}</InputLabel>}
@@ -45,7 +39,7 @@ const Input = forwardRef<HTMLInputElement, IInputProps>(
           <Controller
             name={name}
             control={control}
-            defaultValue={defaultValue || ''}
+            defaultValue={defaultValue || ""}
             render={({ field }) => (
               <InputElement
                 {...field}
@@ -61,9 +55,6 @@ const Input = forwardRef<HTMLInputElement, IInputProps>(
               />
             )}
           />
-
-
-
 
           {validation && (
             <Markdown children={validation} className="validationText" />

@@ -59,6 +59,7 @@ export const AddLink = () => {
         `/link/${currentProject?.url_name}`,
         watchedUploadLinks
       );
+      console.log("res", res);
       dispatch("STOP_LOADING");
       push("/");
     } catch (err) {
@@ -94,9 +95,9 @@ export const AddLink = () => {
     control,
   });
 
-  const handleDelete = async (index, remove) => {
-    await remove(index);
-  };
+  // const handleDelete = async (index, remove) => {
+  //   await remove(index);
+  // };
 
   const appendLinks = async () => {
     if (!_.isEmpty(parsedLinkText)) {

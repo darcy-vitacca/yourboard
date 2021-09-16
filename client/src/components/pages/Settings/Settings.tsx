@@ -1,15 +1,11 @@
 import React from "react";
 import {
-  Form,
   FormContainer,
-  LoginRegisterLinkContainer,
-  LoginRegisterSectionContainer,
   PageLayoutContainer,
   SectionContainer,
-  StyledLink,
 } from "../../../shared/Layout.styles";
 import { useHistory } from "react-router";
-import { useForm, FormProvider, Controller } from "react-hook-form";
+import { useForm, FormProvider } from "react-hook-form";
 import axios from "axios";
 import { useAuthDispatch, useAuthState } from "../../context/context";
 
@@ -37,14 +33,7 @@ export const Settings = () => {
     criteriaMode: "firstError",
     shouldFocusError: true,
   });
-  const {
-    handleSubmit,
-    register,
-    watch,
-    control,
-    setError,
-    formState: { errors },
-  } = methods;
+  const { handleSubmit, setError } = methods;
 
   const onSubmit = async (formData: any) => {
     try {

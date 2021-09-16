@@ -21,14 +21,7 @@ import { Loader } from "../../../shared/loaders";
 
 export const Landing = () => {
   const dispatch = useAuthDispatch();
-  const {
-    currentProject,
-    user,
-    projects,
-    currentProjectIndex,
-    loading,
-    authenticated,
-  } = useAuthState();
+  const { currentProject, loading, authenticated } = useAuthState();
   const { defaultProject } = landingConstants;
   const { push } = useHistory();
   if (!authenticated && !loading) push("/login");
@@ -43,7 +36,7 @@ export const Landing = () => {
         console.log(err);
       }
     })();
-  }, []);
+  });
 
   const handlePrevious = () => {
     dispatch("PREVIOUS_PROJECT");

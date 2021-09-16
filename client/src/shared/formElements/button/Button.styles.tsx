@@ -1,24 +1,23 @@
-import { FC } from 'react';
-import styled from 'styled-components/macro';
+import styled from "styled-components/macro";
 const height = 45;
 
 export interface IButtonPropStyles {
   disabled?: boolean;
-  width: '25%' | '50%' | '75%' | '100%';
+  width: "25%" | "50%" | "75%" | "100%";
 }
 export const ButtonContainer = styled.button<IButtonPropStyles>`
   margin: 10px 0;
   cursor: pointer;
   width: ${({ width }) =>
-    width === '25%'
-      ? '25%'
-      : width === '50%'
-      ? '50%'
-      : width === '75%'
-      ? '75%'
-      : width === '100%'
-      ? '100%'
-      : 'inherit'};
+    width === "25%"
+      ? "25%"
+      : width === "50%"
+      ? "50%"
+      : width === "75%"
+      ? "75%"
+      : width === "100%"
+      ? "100%"
+      : "inherit"};
 
   padding: 0 5px;
   //min-width: ${({ theme }) => theme.layout.buttonWidth};

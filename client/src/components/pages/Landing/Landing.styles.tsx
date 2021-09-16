@@ -1,6 +1,4 @@
 import styled from "styled-components/macro";
-import { device } from "../../../styles/devices";
-import { Menu } from "@styled-icons/boxicons-regular/Menu";
 import { ArrowLeftCircleFill } from "@styled-icons/bootstrap/ArrowLeftCircleFill";
 import { ArrowRightCircleFill } from "@styled-icons/bootstrap/ArrowRightCircleFill";
 

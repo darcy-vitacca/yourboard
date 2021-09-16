@@ -1,28 +1,22 @@
-import styled from 'styled-components/macro';
-import {
-  fontFamily,
-  mainFontFamily,
-  primary,
-  grey,
-  theme,
-} from '../../../styles/theme';
-import  TextField  from '@material-ui/core/TextField';
+import styled from "styled-components/macro";
+import { fontFamily, mainFontFamily, theme } from "../../../styles/theme";
+import TextField from "@material-ui/core/TextField";
 
 export interface IInputContainerProps {
-  width?: '25%' | '50%' | '75%' | '100%';
+  width?: "25%" | "50%" | "75%" | "100%";
 }
 export const InputContainer = styled.div<IInputContainerProps>`
   padding: 10px 0;
   width: ${({ width }) =>
-    width === '25%'
-      ? '25%'
-      : width === '50%'
-      ? '50%'
-      : width === '75%'
-      ? '75%'
-      : width === '100%'
-      ? '100%'
-      : 'inherit'};
+    width === "25%"
+      ? "25%"
+      : width === "50%"
+      ? "50%"
+      : width === "75%"
+      ? "75%"
+      : width === "100%"
+      ? "100%"
+      : "inherit"};
 `;
 
 export const InputLabel = styled.label`
@@ -89,4 +83,3 @@ export const InputElement = styled(TextField)`
     }
   }
 `;
-

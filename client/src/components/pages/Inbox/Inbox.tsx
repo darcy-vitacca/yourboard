@@ -1,16 +1,12 @@
 import React from "react";
 import {
-  Form,
   FormContainer,
-  LoginRegisterLinkContainer,
-  LoginRegisterSectionContainer,
   PageLayoutContainer,
   SectionContainer,
-  StyledLink,
 } from "../../../shared/Layout.styles";
 import { useHistory } from "react-router";
-import { useForm, FormProvider, Controller } from "react-hook-form";
-import { useAuthDispatch, useAuthState } from "../../context/context";
+import { useForm, FormProvider } from "react-hook-form";
+import { useAuthState } from "../../context/context";
 
 interface FormValue {
   email: string;
@@ -22,7 +18,6 @@ const defaultValues = {
 };
 
 export const Inbox = () => {
-  const dispatch = useAuthDispatch();
   const { authenticated } = useAuthState();
   const { push } = useHistory();
   if (!authenticated) push("/login");
@@ -36,14 +31,7 @@ export const Inbox = () => {
     criteriaMode: "firstError",
     shouldFocusError: true,
   });
-  const {
-    handleSubmit,
-    register,
-    watch,
-    control,
-    setError,
-    formState: { errors },
-  } = methods;
+  const { handleSubmit } = methods;
 
   const onSubmit = async (formData: any) => {};
   return (
