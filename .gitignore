@@ -9,3 +9,4 @@ server/dist/
 .prettierrc/
 .env
 
+build/
