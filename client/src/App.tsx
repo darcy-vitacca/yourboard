@@ -8,6 +8,7 @@ dotenv.config({ path: "../../.env" });
 
 const App = () => {
   axios.defaults.baseURL = "/api/";
+
   axios.defaults.withCredentials = true;
   return (
     <>
