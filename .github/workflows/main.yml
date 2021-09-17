@@ -1,28 +1,28 @@
-name: Pull code, rebuild files and restart pm2 processes
-
-on:
-  push:
-    branches: [main]
-
-jobs:
-  update:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Rebuild server
-        uses: garygrossgarten/github-action-ssh@release
-        with:
-          command: |
-            cd urboard.co
-            git config --global user.name darcy-vitacca
-            git pull
-            cd server
-            npm install
-            npx tsc
-            cd ../
-            cd client
-            npm install
-            npm run build
-            pm2 restart server client
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
-          privateKey: ${{ secrets.PRIVATE_KEY}}
+#name: Pull code, rebuild files and restart pm2 processes
+#
+#on:
+#  push:
+#    branches: [main]
+#
+#jobs:
+#  update:
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Rebuild server
+#        uses: garygrossgarten/github-action-ssh@release
+#        with:
+#          command: |
+#            cd urboard.co
+#            git config --global user.name darcy-vitacca
+#            git pull
+#            cd server
+#            npm install
+#            npx tsc
+#            cd ../
+#            cd client
+#            npm install
+#            npm run build
+#            pm2 restart server client
+#          host: ${{ secrets.HOST }}
+#          username: ${{ secrets.USERNAME }}
+#          privateKey: ${{ secrets.PRIVATE_KEY}}
