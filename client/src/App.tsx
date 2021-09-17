@@ -8,9 +8,10 @@ dotenv.config({ path: "../../.env" });
 
 const App = () => {
   axios.defaults.baseURL =
-    process.env.NODE_ENV === "production"
-      ? "/api"
-      : "http://localhost:5000/api";
+    // process.env.NODE_ENV === "production"
+    //   ?
+    "/api/";
+  // : "http://localhost:5000/api";
   axios.defaults.withCredentials = true;
   return (
     <>
