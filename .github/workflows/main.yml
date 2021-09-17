@@ -11,6 +11,7 @@ jobs:
     - name: Rebuild server
       uses: garygrossgarten/.github-action-ssh@release
       with:
+        token: ${{ secrets.TOKEN }}
         command: ls -a
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME}}
