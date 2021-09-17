@@ -15,6 +15,7 @@ jobs:
             cd urboard.co
             git pull
             cd server
+            npm install
             npx tsc
             cd ../
             cd client
