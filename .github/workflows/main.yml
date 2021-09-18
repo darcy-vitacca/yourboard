@@ -48,6 +48,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
+      - run: pwd
       - run: npm i
       - run: pm2 stop server client
       - run: cd urboard.co
