@@ -47,9 +47,11 @@ export const Row = styled.div`
 `;
 export const SectionContainer = styled.div<ISectionContainerProps>`
   min-height: 520px;
-  min-width: 300px;
+  min-width: 280px;
+  margin-left: 70px;
   @media ${device.mobileLrg} {
     padding: 40px 20px;
+    margin-left: 0;
   }
   display: ${({ align }) => (align ? "flex" : "inherit")};
   flex-direction: ${({ align }) => (align ? "column" : "inherit")};

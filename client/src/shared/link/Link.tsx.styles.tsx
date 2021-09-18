@@ -3,8 +3,8 @@ import { device } from "../../styles/devices";
 
 export const LinkContainer = styled.div`
   margin: 10px;
-  width: 110px;
-  height: 90px;
+  width: 120px;
+  height: 100px;
   @media ${device.mobileLrg} {
     width: 200px;
     height: 160px;
