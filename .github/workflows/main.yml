@@ -9,11 +9,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Rebuild server
-        uses: garygrossgarten/github-action-ssh@release
+        uses: actions/checkout@v2
         with:
           command: |
             cd urboard.co
-            git config --global user.name darcy-vitacca
             git pull
             cd server
             npm install
