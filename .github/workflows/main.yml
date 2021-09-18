@@ -5,68 +5,29 @@ on:
     branches: [main]
 
 jobs:
-  test:
+  update:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        # Run the steps below with the following versions of Node.js
-        node-version: [ 14.x, 16.x ]
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v2
+      - name: Rebuild server
+        uses: garygrossgarten/github-action-ssh@release
         with:
-          node-version: ${{ matrix.node-version }}
-#      - name: Stop server
-      - run: pm2 stop server client
-#      - name: get into dir
-      - run: cd urboard.co
-#      - name: pull new code
-      - run: git pull
-#      - name: go into server
-      - run: cd server
-#      - name: install dep
-      - run: npm install
-#      - name: compile typescript
-      - run: npx tsc
-#      - name: go out of dir
-      - run: cd ../
-#      - name: go into client
-      - run: cd client
-#      - name: install dep
-      - run: npm install
-#      - name: build client
-      - run: npm run build
-#      - name: start servers
-      - run: pm2 restart server client
-        uses: coverallsapp/github-action@master
-        with:
+          command: |
+            pm2 stop server client
+            cd urboard.co
+            git pull
+            cd server
+            npm install
+            npx tsc
+            cd ../
+            cd client
+            npm install
+            npm run build
+            pm2 restart server client
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          privateKey: ${{ secrets.PRIVATE_KEY}}
           github-token: ${{ secrets.PA_TOKEN }}
-
-#jobs:
-#  update:
-#    runs-on: ubuntu-latest
-#    steps:
-#      - name: Rebuild server
-#        uses: garygrossgarten/github-action-ssh@release
-#        with:
-#          command: |
-#            pm2 stop server client
-#            cd urboard.co
-#            git pull
-#            cd server
-#            npm install
-#            npx tsc
-#            cd ../
-#            cd client
-#            npm install
-#            npm run build
-#            pm2 restart server client
-#          host: ${{ secrets.HOST }}
-#          username: ${{ secrets.USERNAME }}
-#          privateKey: ${{ secrets.PRIVATE_KEY}}
-##on:
+#on:
 #  push:
 #    branches: [ main ]
 #  pull_request:
@@ -130,3 +91,46 @@ jobs:
 #      - run: npm ci
 #      - run: npm run build --if-present
 #      - run: npm test
+#name: Pull code, rebuild files and restart pm2 processes
+#
+#on:
+#  push:
+#    branches: [main]
+#
+#jobs:
+#  test:
+#    runs-on: ubuntu-latest
+#    strategy:
+#      matrix:
+#        # Run the steps below with the following versions of Node.js
+#        node-version: [ 14.x, 16.x ]
+#    steps:
+#      - name: Checkout
+#        uses: actions/checkout@v2
+#      - name: Use Node.js ${{ matrix.node-version }}
+#        uses: actions/setup-node@v2
+#        with:
+#          node-version: ${{ matrix.node-version }}
+#      - name: Install
+#        run: npm ci
+#      - name: Test
+#        run: npm run test:coverage
+#      - name: Verify
+#        run: npm run verify
+#      - name: Coveralls
+#                - run: pwd
+#                - run: npm i
+#                - run: pm2 stop server client
+#                - run: cd urboard.co
+#                - run: git pull
+#                - run: cd server
+#                - run: npm install
+#                - run: npx tsc
+#                - run: cd ../
+#                - run: cd client
+#                - run: npm install
+#                - run: npm run build
+#                - run: pm2 restart server client
+#        uses: coverallsapp/github-action@master
+#        with:
+#          github-token: ${{ secrets.PA_TOKEN }}
