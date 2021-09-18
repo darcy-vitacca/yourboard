@@ -20,7 +20,7 @@ jobs:
             git config user.email vitacca6@hotmail.com
             pm2 stop server client
             cd urboard.co
-            git pull https://{{ secrets.PA_TOKEN }}@github.com/darcy-vitacca/yourboard.git
+            git pull https://${{ secrets.PA_TOKEN }}@github.com/darcy-vitacca/yourboard.git
             cd server
             npm install
             npx tsc
