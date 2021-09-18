@@ -13,16 +13,16 @@ jobs:
         with:
           command: |
             pm2 stop server client
-            cd urboard.co
-            git pull
-            cd server
-            npm install
-            npx tsc
-            cd ../
-            cd client
-            npm install
-            npm run build
-            pm2 restart server client
+#            cd urboard.co
+#            git pull
+#            cd server
+#            npm install
+#            npx tsc
+#            cd ../
+#            cd client
+#            npm install
+#            npm run build
+#            pm2 restart server client
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           privateKey: ${{ secrets.PRIVATE_KEY}}
