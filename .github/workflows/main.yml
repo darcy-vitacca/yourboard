@@ -26,6 +26,44 @@
 #          host: ${{ secrets.HOST }}
 #          username: ${{ secrets.USERNAME }}
 #          privateKey: ${{ secrets.PRIVATE_KEY}}
+#on:
+#  push:
+#    branches: [ main ]
+#  pull_request:
+#    branches: [ main ]
+#
+#jobs:
+#  build:
+#
+#    runs-on: ubuntu-latest
+#
+#    strategy:
+#      matrix:
+#        node-version: [ 14.x]
+#
+#    steps:
+#      - uses: actions/checkout@v2
+#      - name: Use Node.js ${{ matrix.node-version }}
+#        uses: actions/setup-node@v2
+#        with:
+#          node-version: ${{ matrix.node-version }}
+#          cache: 'npm'
+#      - run: pwd
+#      - run: npm i
+#      - run: pm2 stop server client
+#      - run: cd urboard.co
+#      - run: git pull
+#      - run: cd server
+#      - run: npm install
+#      - run: npx tsc
+#      - run: cd ../
+#      - run: cd client
+#      - run: npm install
+#      - run: npm run build
+#      - run: pm2 restart server client
+
+name: Node.js CI
+
 on:
   push:
     branches: [ main ]
@@ -39,7 +77,8 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [ 14.x]
+        node-version: [12.x, 14.x, 16.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
       - uses: actions/checkout@v2
@@ -48,16 +87,6 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
-      - run: pwd
-      - run: npm i
-      - run: pm2 stop server client
-      - run: cd urboard.co
-      - run: git pull
-      - run: cd server
-      - run: npm install
-      - run: npx tsc
-      - run: cd ../
-      - run: cd client
-      - run: npm install
-      - run: npm run build
-      - run: pm2 restart server client
+      - run: npm ci
+      - run: npm run build --if-present
+      - run: npm test
