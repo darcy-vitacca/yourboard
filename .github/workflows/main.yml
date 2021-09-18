@@ -14,6 +14,8 @@ jobs:
           command: |
             git config --global user.name darcy-vitacca
             git config --global user.email vitacca6@hotmail.com
+            git config user.name darcy-vitacca
+            git config user.email vitacca6@hotmail.com
             pm2 stop server client
             cd urboard.co
             git pull
