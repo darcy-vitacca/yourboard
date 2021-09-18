@@ -19,27 +19,27 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - name: Stop server
-         run: pm2 stop server client
+        run: pm2 stop server client
       - name: get into dir
-         run: cd urboard.co
+        run: cd urboard.co
       - name: pull new code
-         run: git pull
+        run: git pull
       - name: go into server
-         run: cd server
+        run: cd server
       - name: install dep
-         run: npm install
+        run: npm install
       - name: compile typescript
-         run: npx tsc
+        run: npx tsc
       - name: go out of dir
-         run: cd ../
+        run: cd ../
       - name: go into client
-         run: cd client
+        run: cd client
       - name: install dep
-         run: npm install
+        run: npm install
       - name: build client
-         run: npm run build
+        run: npm run build
       - name: start servers
-         run: pm2 restart server client
+        run: pm2 restart server client
         uses: coverallsapp/github-action@master
         with:
           github-token: ${{ secrets.PA_TOKEN }}
