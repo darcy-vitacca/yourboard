@@ -69,7 +69,7 @@ export const Login = () => {
             <FormProvider {...methods}>
               <form onSubmit={handleSubmit(onSubmit)}>
                 <LoginRegisterSectionContainer>
-                  <Markdown children="### SHMLogin" />
+                  <Markdown children="### Login" />
                   <Markdown children="By continuing, you agree to our User Agreement and Privacy Policy" />
                   <Input
                     type="email"
