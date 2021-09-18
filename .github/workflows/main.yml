@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Rebuild server
-        uses: actions/checkout@v2
+        uses: garygrossgarten/github-action-ssh@release
         with:
           command: |
             cd urboard.co
