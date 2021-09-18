@@ -7,6 +7,7 @@ export const SVGLeftIcon = styled(ArrowLeftCircleFill)`
   // background-color: ${({ theme }) => theme.colors.green500};
   // border-radius: 50px;
   width: 45px;
+  height: 45px;
   padding: 3px;
   cursor: pointer;
   // margin-top: -2px;
@@ -17,6 +18,7 @@ export const SVGRightIcon = styled(ArrowRightCircleFill)`
   // background-color: ${({ theme }) => theme.colors.green500};
   // border-radius: 50px;
   width: 45px;
+  height: 45px;
   padding: 3px;
   cursor: pointer;
 
