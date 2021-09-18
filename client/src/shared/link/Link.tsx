@@ -51,7 +51,7 @@ export const Link: FC<Links> = ({
       onClick={() => (url ? window.open(url, "_blank") : push("/add-links"))}
     >
       <LinkTopRow>
-        <Markdown children={`#### ${url_name}`} />
+        <Markdown children={`#### ${url_name}`} className="linkCardMainText" />
         <LinkImg src={url_image} />
       </LinkTopRow>
       <LinkBottomRow>

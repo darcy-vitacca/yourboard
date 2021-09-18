@@ -1,6 +1,7 @@
 import styled from "styled-components/macro";
 import { ReactMarkdownProps } from "react-markdown";
 import ReactMarkdownWithHtml from "react-markdown/with-html";
+import { device } from "../../styles/devices";
 
 export interface IMarkdownTypeProps extends Omit<ReactMarkdownProps, "types"> {
   weight?: "light" | "regular" | "medium" | "bold";
@@ -75,7 +76,30 @@ export const MarkdownElement = styled(
   &.showMenu {
     display: none;
   }
+  &.linkCardSubText {
+    padding:0;
+    @media ${device.mobileLrg} {
+      padding-bottom: 10px;
+    }
+}
   &.linkCardSubText > p {
+    font-size: ${({ theme }) => theme.font.size.tiny};
+    @media ${device.mobileLrg} {
+      font-size: ${({ theme }) => theme.font.size.smallest};
+    }
+  }
+  &.linkCardMainText {
+    width: 80%;
+    overflow: hidden;
+    @media ${device.mobileLrg} {
+      width: 100%;
+    }
+  &.linkCardMainText > h4 {
+    width: 80%;
     font-size: ${({ theme }) => theme.font.size.smallest};
+    @media ${device.mobileLrg} {
+      width: 100%;
+      font-size: ${({ theme }) => theme.font.size.medium};
+    }
   }
 `;

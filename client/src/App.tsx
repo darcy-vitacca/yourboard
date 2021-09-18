@@ -7,7 +7,10 @@ import dotenv from "dotenv";
 dotenv.config({ path: "../../.env" });
 
 const App = () => {
-  axios.defaults.baseURL = "/api/";
+  axios.defaults.baseURL =
+    process.env.REACT_APP_ENV === "production"
+      ? "/api/"
+      : "http://localhost:5000/api";
 
   axios.defaults.withCredentials = true;
   return (

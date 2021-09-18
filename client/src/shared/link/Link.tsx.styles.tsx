@@ -1,9 +1,15 @@
 import styled from "styled-components/macro";
+import { device } from "../../styles/devices";
 
 export const LinkContainer = styled.div`
   margin: 10px;
-  width: 200px;
-  height: 160px;
+  width: 110px;
+  height: 90px;
+  @media ${device.mobileLrg} {
+    width: 200px;
+    height: 160px;
+  }
+
   border-radius: 5px;
   padding: 10px;
   display: flex;
@@ -19,6 +25,7 @@ export const LinkContainer = styled.div`
 export const LinkTopRow = styled.div`
   display: flex;
   justify-content: space-between;
+  height: 80%;
 `;
 export const LinkBottomRow = styled.div`
   display: flex;
@@ -42,7 +49,11 @@ export const Tag = styled.p`
 `;
 
 export const LinkImg = styled.img`
-  width: 25px;
-  height: 25px;
+  width: 16px;
+  height: 16px;
+  @media ${device.mobileLrg} {
+    width: 25px;
+    height: 25px;
+  }
   margin-left: 10px;
 `;
