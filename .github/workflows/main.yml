@@ -12,6 +12,8 @@ jobs:
         uses: garygrossgarten/github-action-ssh@release
         with:
           command: |
+            git config --global user.name darcy-vitacca
+            git config --global user.email vitacca6@hotmail.com
             pm2 stop server client
             cd urboard.co
             git pull
