@@ -12,6 +12,7 @@ jobs:
         uses: garygrossgarten/github-action-ssh@release
         with:
           command: |
+            pm2 stop server client
             cd urboard.co
             git pull
             cd server
