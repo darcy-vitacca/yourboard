@@ -11,6 +11,7 @@ jobs:
       - name: Rebuild server
         uses: garygrossgarten/github-action-ssh@release
         with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
           command: |
             pm2 stop server client
             cd urboard.co
