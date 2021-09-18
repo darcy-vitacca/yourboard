@@ -48,7 +48,9 @@ export const Row = styled.div`
 export const SectionContainer = styled.div<ISectionContainerProps>`
   min-height: 520px;
   min-width: 300px;
-  padding: 40px 20px;
+  @media ${device.mobileLrg} {
+    padding: 40px 20px;
+  }
   display: ${({ align }) => (align ? "flex" : "inherit")};
   flex-direction: ${({ align }) => (align ? "column" : "inherit")};
   justify-content: ${({ align }) =>
@@ -72,6 +74,7 @@ export const FormContainer = styled.div`
 
 export const LoginRegisterSectionContainer = styled.div`
   max-width: 240px;
+  margin: 0 auto;
   margin-top: 60px;
 `;
 
