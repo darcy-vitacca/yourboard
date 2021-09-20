@@ -16,6 +16,7 @@ exports.getProjects = exports.createProject = exports.getProject = void 0;
 const class_validator_1 = require("class-validator");
 const Project_1 = __importDefault(require("../../entities/Project"));
 const Link_1 = __importDefault(require("../../entities/Link"));
+const ProjectUser_1 = __importDefault(require("../../entities/ProjectUser"));
 const getProject = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const name = req.params.name;
     const user = res.locals.user;
@@ -63,6 +64,12 @@ const createProject = (req, res) => __awaiter(void 0, void 0, void 0, function* 
             user,
         });
         yield project.save();
+        const projectUsers = yield new ProjectUser_1.default({
+            full_name: `${user.firstName} ${user.lastName}`,
+            status: true,
+            project_id: project === null || project === void 0 ? void 0 : project.project_id,
+        });
+        yield projectUsers.save();
         return res.json(project);
     }
     catch (err) {
