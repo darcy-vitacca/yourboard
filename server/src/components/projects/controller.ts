@@ -3,6 +3,7 @@ import User from '../../entities/User';
 import { isEmpty } from 'class-validator';
 import Project from '../../entities/Project';
 import Link from '../../entities/Link';
+import ProjectUser from '../../entities/ProjectUser';
 
 export const getProject = async (req: Request, res: Response) => {
   const name = req.params.name;
@@ -50,6 +51,13 @@ export const createProject = async (req: Request, res: Response) => {
       user,
     });
     await project.save();
+
+    const projectUsers = await new ProjectUser({
+      full_name: `${user.firstName} ${user.lastName}`,
+      status: true,
+      project_id: project?.project_id,
+    });
+    await projectUsers.save();
 
     return res.json(project);
   } catch (err: any) {
