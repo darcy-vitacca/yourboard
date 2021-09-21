@@ -39,6 +39,7 @@ export const theme = {
     blue900: "#060b0f",
     grey400: "#9CA3AF",
     green500: "#10B981",
+    purple500: "#2D3142",
     white: white,
     black: black,
     text: {

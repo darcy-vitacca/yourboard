@@ -7,4 +7,7 @@ module.exports = (app: Application): void => {
   app.route('/api/project/:name').get(user, auth, projectController.getProject);
   app.route('/api/projects').get(user, auth, projectController.getProjects);
   app.route('/api/project').post(user, auth, projectController.createProject);
+  app
+    .route('/api/project/invite')
+    .post(user, auth, projectController.inviteUserToProject);
 };

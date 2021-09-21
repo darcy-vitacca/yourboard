@@ -21,6 +21,11 @@ import {
 import { landingConstants } from "../../../utils/constants/landing";
 import _ from "lodash";
 import { Loader } from "../../../shared/loaders";
+import { PersonSection } from "../../../shared/personSection";
+import {
+  PersonContainer,
+  PersonSectionContainer,
+} from "../../../shared/personSection/PersonSection.styles";
 
 export const Landing = () => {
   const dispatch = useAuthDispatch();
@@ -47,6 +52,9 @@ export const Landing = () => {
   const handleForward = () => {
     dispatch("NEXT_PROJECT");
   };
+
+  console.log("useAuthState();", useAuthState());
+
   return (
     <>
       <PageLayoutContainer>
@@ -66,12 +74,19 @@ export const Landing = () => {
               <ProjectArrowContainer>
                 <SVGLeftIcon onClick={() => handlePrevious()} />
                 <ProjectIconContainer>
-                  <SVGAddFriendIcon onClick={() => console.log("add friend")} />
-                  <SVGEditIcon onClick={() => console.log("add friend")} />
+                  <SVGEditIcon onClick={() => console.log("Edit")} />
+                  <SVGAddFriendIcon onClick={() => console.log("Add friend")} />
                 </ProjectIconContainer>
-
                 <SVGRightIcon onClick={() => handleForward()} />
               </ProjectArrowContainer>
+              <PersonSectionContainer>
+                <PersonContainer>
+                  {currentProject?.project_users &&
+                    currentProject?.project_users.map((user) => (
+                      <PersonSection project_user={user} />
+                    ))}
+                </PersonContainer>
+              </PersonSectionContainer>
               <LinkSectionContainer>
                 {currentProject && !_.isEmpty(currentProject.links)
                   ? currentProject.links.map((link) => (

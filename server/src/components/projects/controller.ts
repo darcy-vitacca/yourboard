@@ -4,6 +4,7 @@ import { isEmpty } from 'class-validator';
 import Project from '../../entities/Project';
 import Link from '../../entities/Link';
 import ProjectUser from '../../entities/ProjectUser';
+import nodemailer from 'nodemailer';
 
 export const getProject = async (req: Request, res: Response) => {
   const name = req.params.name;
@@ -52,11 +53,12 @@ export const createProject = async (req: Request, res: Response) => {
     });
     await project.save();
 
-    //TODO update so this adds
     const projectUsers = await new ProjectUser({
       full_name: `${user.firstName} ${user.lastName}`,
       status: true,
       project_id: project?.project_id,
+      owner: false,
+      email: user.email,
     });
     await projectUsers.save();
 
@@ -73,7 +75,7 @@ export const getProjects = async (_: Request, res: Response) => {
     const projects = await Project.find({
       where: { user_id: user.user_id },
       order: { createdAt: 'DESC' },
-      relations: ['links'],
+      relations: ['links', 'project_users'],
     });
 
     return res.status(200).json(projects);
@@ -82,3 +84,56 @@ export const getProjects = async (_: Request, res: Response) => {
     return res.status(404).json({ project: 'Project not found' });
   }
 };
+
+export const inviteUserToProject = async (req: Request, res: Response) => {
+  const user: User = res.locals.user;
+  try {
+    const { email } = req.body;
+    // TODO
+    // Validate your data
+    // Add User to project_users
+    // If success use node_mailer to email to send an invite
+    let completionMessage = {
+      message: '',
+    };
+
+    let transporter = nodemailer.createTransport({
+      host: 'smtp.gmail.com',
+      port: 465,
+      secure: true,
+      service: 'Gmail',
+      auth: {
+        user: process.env.GMAIL_EMAIL,
+        pass: process.env.GMAIL_PASS,
+      },
+    });
+
+    const emailToSend = {
+      replyTo: `urboardinfo@gmail.com`,
+      from: `urboardinfo@gmail.com`,
+      to: `urboardinfo@gmail.com`,
+      subject: `urboard invite from ${user.firstName} ${user.lastName}`,
+      html: `<h3>Join urboard today</h3>
+              <p>Hi,</p>
+              <p>${user.firstName} ${user.lastName} has invited you to urboard to collabarate please register here: 
+              <a href="https://urboard.co/register">https://urboard.co/register</a>.</p>
+              <p>thanks,</p>
+              <p>urboard team.</p>`,
+    };
+
+    transporter.sendMail(emailToSend, (err: any, info: any) => {
+      if (err) {
+        completionMessage.message = `Failure ${err}`;
+      }
+    });
+    completionMessage.message = 'Success';
+
+    return res.status(200).json(completionMessage);
+  } catch (err: any) {
+    console.log(err);
+    return res.status(404).json({ project: 'Project not found' });
+  }
+};
+
+//When they register check the table and change all data
+//Get projects should use project_users to find the project ids first
