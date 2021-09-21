@@ -12,6 +12,9 @@ import { Link } from "../../../shared/link";
 import { useHistory } from "react-router";
 import {
   ProjectArrowContainer,
+  ProjectIconContainer,
+  SVGAddFriendIcon,
+  SVGEditIcon,
   SVGLeftIcon,
   SVGRightIcon,
 } from "./Landing.styles";
@@ -62,6 +65,11 @@ export const Landing = () => {
               />
               <ProjectArrowContainer>
                 <SVGLeftIcon onClick={() => handlePrevious()} />
+                <ProjectIconContainer>
+                  <SVGAddFriendIcon onClick={() => console.log("add friend")} />
+                  <SVGEditIcon onClick={() => console.log("add friend")} />
+                </ProjectIconContainer>
+
                 <SVGRightIcon onClick={() => handleForward()} />
               </ProjectArrowContainer>
               <LinkSectionContainer>
