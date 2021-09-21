@@ -15,6 +15,7 @@ export interface IInputProps {
   helperText?: string;
   defaultValue: string;
   control?: any;
+  disabled?: boolean;
 }
 
 const Input = forwardRef<HTMLInputElement, IInputProps>(
@@ -29,6 +30,7 @@ const Input = forwardRef<HTMLInputElement, IInputProps>(
       name,
       defaultValue,
       control,
+      disabled,
     },
     ref
   ) => {
@@ -46,6 +48,7 @@ const Input = forwardRef<HTMLInputElement, IInputProps>(
                 // label={label}
                 placeholder={label}
                 type={type}
+                disabled={disabled}
                 variant="outlined"
                 inputRef={ref}
                 inputProps={{ maxLength: maxLength }}

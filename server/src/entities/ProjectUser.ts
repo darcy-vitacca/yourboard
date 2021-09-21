@@ -32,13 +32,17 @@ export default class ProjectUser extends Entity {
   @Index()
   @IsEmail(undefined, { message: 'Must be a valid email address' })
   @Length(1, 255, { message: 'Email is empty' })
-  @Column({
-    nullable: true,
-  })
+  @Column()
   email: string;
 
   @Column()
   owner: boolean;
+
+  @Index()
+  @Column({
+    nullable: true,
+  })
+  user_id: string;
 
   @Column()
   project_id: string;

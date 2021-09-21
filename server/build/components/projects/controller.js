@@ -121,12 +121,12 @@ const inviteUserToProject = (req, res) => __awaiter(void 0, void 0, void 0, func
         const emailToSend = {
             replyTo: `urboardinfo@gmail.com`,
             from: `urboardinfo@gmail.com`,
-            to: `urboardinfo@gmail.com`,
+            to: `${email}`,
             subject: `urboard invite from ${user.firstName} ${user.lastName}`,
             html: `<h3>Join urboard today</h3>
               <p>Hi,</p>
               <p>${user.firstName} ${user.lastName} has invited you to urboard to collabarate please register here: 
-              <a href="https://urboard.co/register">https://urboard.co/register</a>.</p>
+              <a href=https://urboard.co/register/?user=${email}>https://urboard.co/register</a>.</p>
               <p>thanks,</p>
               <p>urboard team.</p>`,
         };
