@@ -66,8 +66,8 @@ export const Landing = () => {
               <ProjectArrowContainer>
                 <SVGLeftIcon onClick={() => handlePrevious()} />
                 <ProjectIconContainer>
-                  <SVGAddFriendIcon onClick={() => console.log("add friend")} />
                   <SVGEditIcon onClick={() => console.log("add friend")} />
+                  <SVGAddFriendIcon onClick={() => console.log("add friend")} />
                 </ProjectIconContainer>
 
                 <SVGRightIcon onClick={() => handleForward()} />

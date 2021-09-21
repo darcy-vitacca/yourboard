@@ -29,8 +29,8 @@ export const SVGRightIcon = styled(ArrowRightCircleFill)`
 `;
 
 export const SVGAddFriendIcon = styled(PersonAdd)`
-  color: ${({ theme }) => theme.colors.white};
-  background-color: ${({ theme }) => theme.colors.green500};
+  color: ${({ theme }) => theme.colors.green500};
+  //background-color: ${({ theme }) => theme.colors.green500};
   border-radius: 5px;
   width: 45px;
   height: 45px;
@@ -59,7 +59,7 @@ export const ProjectArrowContainer = styled.div`
 `;
 
 export const ProjectIconContainer = styled.div`
-  width: 150px;
+  width: 100px;
   display: flex;
   justify-content: space-around;
   @media ${device.mobileLrg} {
