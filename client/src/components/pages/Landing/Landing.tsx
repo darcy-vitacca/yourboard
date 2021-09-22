@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   SectionContainer,
   PageLayoutContainer,
@@ -26,12 +26,14 @@ import {
   PersonContainer,
   PersonSectionContainer,
 } from "../../../shared/personSection/PersonSection.styles";
+import { Modal } from "../../../shared/modal/Modal";
 
 export const Landing = () => {
   const dispatch = useAuthDispatch();
   const { currentProject, loading, authenticated } = useAuthState();
   const { defaultProject } = landingConstants;
   const { push } = useHistory();
+  const [modal, setModal] = useState(false);
   if (!authenticated && !loading) push("/login");
 
   useEffect(() => {
@@ -53,10 +55,9 @@ export const Landing = () => {
     dispatch("NEXT_PROJECT");
   };
 
-  console.log("useAuthState();", useAuthState());
-
   return (
     <>
+      {modal && <Modal setModal={setModal} modal={modal} />}
       <PageLayoutContainer>
         <SectionContainer>
           {loading && <Loader />}
@@ -75,7 +76,7 @@ export const Landing = () => {
                 <SVGLeftIcon onClick={() => handlePrevious()} />
                 <ProjectIconContainer>
                   <SVGEditIcon onClick={() => console.log("Edit")} />
-                  <SVGAddFriendIcon onClick={() => console.log("Add friend")} />
+                  <SVGAddFriendIcon onClick={() => setModal(true)} />
                 </ProjectIconContainer>
                 <SVGRightIcon onClick={() => handleForward()} />
               </ProjectArrowContainer>

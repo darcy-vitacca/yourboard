@@ -4,6 +4,7 @@ const height = 45;
 export interface IButtonPropStyles {
   disabled?: boolean;
   width: "25%" | "50%" | "75%" | "100%";
+  bkgColor?: string;
 }
 export const ButtonContainer = styled.button<IButtonPropStyles>`
   margin: 10px 0;
@@ -25,7 +26,8 @@ export const ButtonContainer = styled.button<IButtonPropStyles>`
   font-size: ${({ theme }) => theme.font.size.medium};
   font-weight: ${({ theme }) => theme.font.weight.semiBold};
   line-height: ${({ theme }) => theme.font.lineHeight.default};
-  background-color: ${({ theme }) => theme.colors.blue500};
+  background-color: ${({ theme, bkgColor }) =>
+    bkgColor === "green" ? theme.colors.green500 : theme.colors.blue500};
   color: ${({ theme }) => theme.colors.text.white};
   border-radius: ${({ theme }) => theme.layout.borderRadius};
   border: solid ${({ theme }) => theme.colors.blue500};
