@@ -11,6 +11,7 @@ import ProjectUser from "../../../../server/src/entities/ProjectUser";
 
 export interface ProjectUserValues {
   full_name: string;
+  email: string;
   status: boolean;
   project_id: string;
 }
@@ -19,11 +20,11 @@ interface ProjectUsers {
 }
 
 export const PersonSection: FC<ProjectUsers> = ({
-  project_user: { status, full_name },
+  project_user: { status, full_name, email },
 }) => {
   return (
     <PersonContentContainer>
-      <PersonText>{full_name}</PersonText>
+      <PersonText>{status ? full_name : email}</PersonText>
       {status ? (
         <>
           <PersonContainerApprovedIcon />

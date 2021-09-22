@@ -57,8 +57,9 @@ export const createProject = async (req: Request, res: Response) => {
       full_name: `${user.firstName} ${user.lastName}`,
       status: true,
       project_id: project?.project_id,
-      owner: false,
+      owner: true,
       email: user.email,
+      user_id: user.user_id,
     });
     await projectUsers.save();
 
@@ -70,25 +71,37 @@ export const createProject = async (req: Request, res: Response) => {
 };
 
 export const getProjects = async (_: Request, res: Response) => {
-  const user: User = res.locals.user;
   try {
-    const projects = await Project.find({
+    const user: User = res.locals.user;
+    let projects;
+
+    const projectsUser = await ProjectUser.find({
+      select: ['project_id'],
       where: { user_id: user.user_id },
       order: { createdAt: 'DESC' },
-      relations: ['links', 'project_users'],
     });
+
+    if (projectsUser) {
+      projects = await Project.find({
+        where: projectsUser,
+        order: { createdAt: 'DESC' },
+        relations: ['links', 'project_users'],
+      });
+    } else {
+      return res.status(404).json({ project: 'Projects not found' });
+    }
 
     return res.status(200).json(projects);
   } catch (err: any) {
     console.log(err);
-    return res.status(404).json({ project: 'Project not found' });
+    return res.status(404).json({ project: 'Projects not found' });
   }
 };
 
 export const inviteUserToProject = async (req: Request, res: Response) => {
   const user: User = res.locals.user;
   try {
-    const { email } = req.body;
+    const { email, project_id } = req.body;
     // TODO
     // Validate your data
     // Add User to project_users
@@ -126,6 +139,15 @@ export const inviteUserToProject = async (req: Request, res: Response) => {
         completionMessage.message = `Failure ${err}`;
       }
     });
+
+    const projectUsers = await new ProjectUser({
+      status: false,
+      project_id: project_id,
+      owner: false,
+      email: email,
+    });
+    await projectUsers.save();
+
     completionMessage.message = 'Success';
 
     return res.status(200).json(completionMessage);

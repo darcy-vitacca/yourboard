@@ -16,6 +16,7 @@ import axios from "axios";
 import { useAuthDispatch, useAuthState } from "../../context/context";
 import { Loader } from "../../../shared/loaders";
 import queryString from "query-string";
+import isEmpty from "lodash/isEmpty";
 
 interface FormValue {
   email: string;
@@ -104,7 +105,7 @@ export const Register = () => {
                     control={control}
                     defaultValue={""}
                     validation={errors?.email?.message || ""}
-                    disabled={params !== null}
+                    disabled={params !== null && !isEmpty(params)}
                   />
                   <Input
                     type="text"

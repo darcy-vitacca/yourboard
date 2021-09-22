@@ -69,8 +69,9 @@ const createProject = (req, res) => __awaiter(void 0, void 0, void 0, function* 
             full_name: `${user.firstName} ${user.lastName}`,
             status: true,
             project_id: project === null || project === void 0 ? void 0 : project.project_id,
-            owner: false,
+            owner: true,
             email: user.email,
+            user_id: user.user_id,
         });
         yield projectUsers.save();
         return res.json(project);
@@ -100,7 +101,7 @@ exports.getProjects = getProjects;
 const inviteUserToProject = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const user = res.locals.user;
     try {
-        const { email } = req.body;
+        const { email, project_id } = req.body;
         // TODO
         // Validate your data
         // Add User to project_users
@@ -126,8 +127,8 @@ const inviteUserToProject = (req, res) => __awaiter(void 0, void 0, void 0, func
             html: `<h3>Join urboard today</h3>
               <p>Hi,</p>
               <p>${user.firstName} ${user.lastName} has invited you to urboard to collabarate please register here: 
-              <a href=https://urboard.co/register/?user=${email}>https://urboard.co/register</a>.</p>
-              <p>thanks,</p>
+              <a href=https://urboard.co/register?user=${email}>https://urboard.co/register</a>.</p>
+              <p>Thanks,</p>
               <p>urboard team.</p>`,
         };
         transporter.sendMail(emailToSend, (err, info) => {
@@ -135,6 +136,13 @@ const inviteUserToProject = (req, res) => __awaiter(void 0, void 0, void 0, func
                 completionMessage.message = `Failure ${err}`;
             }
         });
+        const projectUsers = yield new ProjectUser_1.default({
+            status: false,
+            project_id: project_id,
+            owner: false,
+            email: email,
+        });
+        yield projectUsers.save();
         completionMessage.message = 'Success';
         return res.status(200).json(completionMessage);
     }
