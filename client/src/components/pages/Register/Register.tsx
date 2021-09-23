@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   FormContainer,
   LoginRegisterLinkContainer,
@@ -7,7 +7,7 @@ import {
   SectionContainer,
   StyledLink,
 } from "../../../shared/Layout.styles";
-import { useHistory } from "react-router";
+import { useParams, useHistory, useLocation } from "react-router";
 import { useForm, FormProvider } from "react-hook-form";
 import Input from "../../../shared/formElements/input";
 import { Markdown } from "../../../shared/markdown";
@@ -15,6 +15,8 @@ import { Button } from "../../../shared/formElements/button";
 import axios from "axios";
 import { useAuthDispatch, useAuthState } from "../../context/context";
 import { Loader } from "../../../shared/loaders";
+import queryString from "query-string";
+import isEmpty from "lodash/isEmpty";
 
 interface FormValue {
   email: string;
@@ -31,11 +33,16 @@ const defaultValues = {
   lastName: "",
 };
 
+interface QueryStrings {
+  user: string;
+}
+
 export const Register = () => {
   const dispatch = useAuthDispatch();
   const { authenticated, loading } = useAuthState();
   const { push } = useHistory();
   if (authenticated) push("/");
+  const params: any = queryString.parse(useLocation().search);
 
   const methods = useForm<FormValue>({
     mode: "onSubmit",
@@ -51,6 +58,7 @@ export const Register = () => {
     control,
     setError,
     formState: { errors },
+    setValue,
   } = methods;
 
   const onSubmit = async (formData: any) => {
@@ -70,6 +78,13 @@ export const Register = () => {
       if (error.username) setError("username", { message: error.username });
     }
   };
+
+  useEffect(() => {
+    if (params) {
+      setValue("email", params.user);
+    }
+  }, []);
+
   return (
     <>
       <PageLayoutContainer>
@@ -90,6 +105,7 @@ export const Register = () => {
                     control={control}
                     defaultValue={""}
                     validation={errors?.email?.message || ""}
+                    disabled={params !== null && !isEmpty(params)}
                   />
                   <Input
                     type="text"

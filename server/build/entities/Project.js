@@ -17,6 +17,7 @@ const Entity_1 = __importDefault(require("./Entity"));
 const User_1 = __importDefault(require("./User"));
 const Link_1 = __importDefault(require("./Link"));
 const Subfolder_1 = __importDefault(require("./Subfolder"));
+const ProjectUser_1 = __importDefault(require("./ProjectUser"));
 let Project = class Project extends Entity_1.default {
     constructor(project) {
         super();
@@ -54,6 +55,10 @@ __decorate([
     typeorm_1.OneToMany(() => Link_1.default, (link) => link.project),
     __metadata("design:type", Array)
 ], Project.prototype, "links", void 0);
+__decorate([
+    typeorm_1.OneToMany(() => ProjectUser_1.default, (project_user) => project_user.project),
+    __metadata("design:type", Array)
+], Project.prototype, "project_users", void 0);
 __decorate([
     typeorm_1.OneToMany(() => Subfolder_1.default, (subfolder) => subfolder.project),
     __metadata("design:type", Array)

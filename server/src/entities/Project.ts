@@ -14,6 +14,7 @@ import { Exclude } from 'class-transformer';
 import User from './User';
 import Link from './Link';
 import Subfolder from './Subfolder';
+import ProjectUser from './ProjectUser';
 
 @TOEntity('projects')
 export default class Project extends Entity {
@@ -43,6 +44,9 @@ export default class Project extends Entity {
 
   @OneToMany(() => Link, (link) => link.project)
   links: Link[];
+
+  @OneToMany(() => ProjectUser, (project_user) => project_user.project)
+  project_users: ProjectUser[];
 
   @OneToMany(() => Subfolder, (subfolder) => subfolder.project)
   subfolders: Subfolder[];
