@@ -103,8 +103,6 @@ export const inviteUserToProject = async (req: Request, res: Response) => {
     const { email, project_id } = req.body;
     // TODO
     // Validate your data
-    // Add User to project_users
-    // If success use node_mailer to email to send an invite
     let completionMessage = {
       message: '',
     };
