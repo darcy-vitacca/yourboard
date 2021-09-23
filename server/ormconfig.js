@@ -7,8 +7,7 @@ module.exports = {
   username: process.env.PG_USER,
   password: process.env.PG_PASSWORD,
   database: process.env.PG_DB,
-  synchronize: true,
-
+  synchronize: process.env.NODE_ENV === 'development',
   logging: process.env.NODE_ENV === 'development',
   entities: [rootDir + '/entities/**/*{.ts,.js}'],
   migrations: [rootDir + '/migrations/**/*{.ts,.js}'],
