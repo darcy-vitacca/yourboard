@@ -1,3 +1,4 @@
+import { getConnection } from 'typeorm';
 import { Request, Response } from 'express';
 import User from '../../entities/User';
 import { validate, isEmpty } from 'class-validator';
@@ -5,6 +6,7 @@ import { validate, isEmpty } from 'class-validator';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import cookie from 'cookie';
+import ProjectUser from '../../entities/ProjectUser';
 
 const mapErrors = (errors: Object[]) => {
   //Returns
@@ -43,6 +45,20 @@ export const register = async (req: Request, res: Response) => {
       return res.status(400).json(mapErrors(errors));
     }
     await user.save();
+    console.log('user', user);
+    debugger;
+
+    await getConnection()
+      .createQueryBuilder()
+      .update(ProjectUser)
+      .set({
+        status: true,
+        user_id: user.user_id,
+        full_name: `${user.firstName} ${user.lastName}`,
+      })
+      .where('email = :email', { email: email })
+      .execute();
+
     return res.json(user);
   } catch (err: any) {
     console.log(err);

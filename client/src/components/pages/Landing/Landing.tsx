@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   SectionContainer,
   PageLayoutContainer,
@@ -12,18 +12,28 @@ import { Link } from "../../../shared/link";
 import { useHistory } from "react-router";
 import {
   ProjectArrowContainer,
+  ProjectIconContainer,
+  SVGAddFriendIcon,
+  SVGEditIcon,
   SVGLeftIcon,
   SVGRightIcon,
 } from "./Landing.styles";
 import { landingConstants } from "../../../utils/constants/landing";
 import _ from "lodash";
 import { Loader } from "../../../shared/loaders";
+import { PersonSection } from "../../../shared/personSection";
+import {
+  PersonContainer,
+  PersonSectionContainer,
+} from "../../../shared/personSection/PersonSection.styles";
+import { Modal } from "../../../shared/modal/Modal";
 
 export const Landing = () => {
   const dispatch = useAuthDispatch();
   const { currentProject, loading, authenticated } = useAuthState();
   const { defaultProject } = landingConstants;
   const { push } = useHistory();
+  const [modal, setModal] = useState(false);
   if (!authenticated && !loading) push("/login");
 
   useEffect(() => {
@@ -44,8 +54,10 @@ export const Landing = () => {
   const handleForward = () => {
     dispatch("NEXT_PROJECT");
   };
+
   return (
     <>
+      {modal && <Modal setModal={setModal} modal={modal} />}
       <PageLayoutContainer>
         <SectionContainer>
           {loading && <Loader />}
@@ -62,8 +74,20 @@ export const Landing = () => {
               />
               <ProjectArrowContainer>
                 <SVGLeftIcon onClick={() => handlePrevious()} />
+                <ProjectIconContainer>
+                  <SVGEditIcon onClick={() => console.log("Edit")} />
+                  <SVGAddFriendIcon onClick={() => setModal(true)} />
+                </ProjectIconContainer>
                 <SVGRightIcon onClick={() => handleForward()} />
               </ProjectArrowContainer>
+              <PersonSectionContainer>
+                <PersonContainer>
+                  {currentProject?.project_users &&
+                    currentProject?.project_users.map((user) => (
+                      <PersonSection project_user={user} />
+                    ))}
+                </PersonContainer>
+              </PersonSectionContainer>
               <LinkSectionContainer>
                 {currentProject && !_.isEmpty(currentProject.links)
                   ? currentProject.links.map((link) => (

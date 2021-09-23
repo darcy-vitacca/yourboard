@@ -13,11 +13,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.logout = exports.me = exports.login = exports.register = void 0;
+const typeorm_1 = require("typeorm");
 const User_1 = __importDefault(require("../../entities/User"));
 const class_validator_1 = require("class-validator");
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const cookie_1 = __importDefault(require("cookie"));
+const ProjectUser_1 = __importDefault(require("../../entities/ProjectUser"));
 const mapErrors = (errors) => {
     //Returns
     return errors.reduce((prev, err) => {
@@ -57,6 +59,15 @@ const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             return res.status(400).json(mapErrors(errors));
         }
         yield user.save();
+        console.log('user', user);
+        debugger;
+        const projectUser = yield typeorm_1.getConnection()
+            .createQueryBuilder()
+            .update(ProjectUser_1.default)
+            .set({ status: true, user_id: user.user_id })
+            .where('email = :email', { email: email })
+            .execute();
+        console.log('projectUser', projectUser);
         return res.json(user);
     }
     catch (err) {

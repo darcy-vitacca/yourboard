@@ -29,5 +29,8 @@ module.exports = (app) => {
     app.route('/api/project/:name').get(user_1.default, auth_1.default, projectController.getProject);
     app.route('/api/projects').get(user_1.default, auth_1.default, projectController.getProjects);
     app.route('/api/project').post(user_1.default, auth_1.default, projectController.createProject);
+    app
+        .route('/api/project/invite')
+        .post(user_1.default, auth_1.default, projectController.inviteUserToProject);
 };
 //# sourceMappingURL=project-routes.js.map
