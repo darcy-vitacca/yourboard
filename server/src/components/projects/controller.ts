@@ -51,6 +51,7 @@ export const createProject = async (req: Request, res: Response) => {
       url_name,
       user,
     });
+
     await project.save();
 
     const projectUsers = await new ProjectUser({
