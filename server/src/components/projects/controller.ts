@@ -52,7 +52,6 @@ export const createProject = async (req: Request, res: Response) => {
       user,
     });
     await project.save();
-
     const projectUsers = await new ProjectUser({
       full_name: `${user.firstName} ${user.lastName}`,
       status: true,
