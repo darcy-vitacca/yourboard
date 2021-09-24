@@ -131,9 +131,11 @@ export const inviteUserToProject = async (req: Request, res: Response) => {
               <p>urboard team.</p>`,
     };
 
+    // @ts-ignore
     transporter.sendMail(emailToSend, (err: any, info: any) => {
       if (err) {
         completionMessage.message = `Failure ${err}`;
+        return res.status(404).json({ project: completionMessage });
       }
     });
 

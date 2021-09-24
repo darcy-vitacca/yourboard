@@ -59,6 +59,7 @@ export const Modal = ({ setModal, modal }) => {
       };
       dispatch("LOADING");
       await axios.post("/project/invite", inviteData);
+      setModal(false);
       dispatch("STOP_LOADING");
     } catch (err: any) {
       dispatch("STOP_LOADING");
