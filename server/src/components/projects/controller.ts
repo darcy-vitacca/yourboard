@@ -4,7 +4,9 @@ import { isEmpty } from 'class-validator';
 import Project from '../../entities/Project';
 import Link from '../../entities/Link';
 import ProjectUser from '../../entities/ProjectUser';
-import nodemailer from 'nodemailer';
+import sgMail from '@sendgrid/mail';
+
+sgMail.setApiKey(process.env.SEND_GRID_API ?? '');
 
 export const getProject = async (req: Request, res: Response) => {
   const name = req.params.name;
@@ -107,17 +109,6 @@ export const inviteUserToProject = async (req: Request, res: Response) => {
       message: '',
     };
 
-    let transporter = await nodemailer.createTransport({
-      host: 'smtp.gmail.com',
-      port: 465,
-      secure: true,
-      service: 'Gmail',
-      auth: {
-        user: process.env.GMAIL_EMAIL,
-        pass: process.env.GMAIL_PASS,
-      },
-    });
-
     const emailToSend = {
       replyTo: `urboardinfo@gmail.com`,
       from: `urboardinfo@gmail.com`,
@@ -131,12 +122,12 @@ export const inviteUserToProject = async (req: Request, res: Response) => {
               <p>urboard team.</p>`,
     };
 
-    await transporter.sendMail(emailToSend, (err: any, info: any) => {
-      if (err) {
-        completionMessage.message = `Failure ${err}`;
-        console.log('Failure err ->', err);
-      }
-    });
+    const emailRes = await sgMail
+      .send(emailToSend)
+      .then((response) => console.log('response', response))
+      .catch((error) => {
+        return error;
+      });
 
     const projectUsers = await new ProjectUser({
       status: false,
@@ -144,7 +135,6 @@ export const inviteUserToProject = async (req: Request, res: Response) => {
       owner: false,
       email: email,
     });
-    console.log('here');
 
     await projectUsers.save();
 

@@ -11,13 +11,15 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
+var _a;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.inviteUserToProject = exports.getProjects = exports.createProject = exports.getProject = void 0;
 const class_validator_1 = require("class-validator");
 const Project_1 = __importDefault(require("../../entities/Project"));
 const Link_1 = __importDefault(require("../../entities/Link"));
 const ProjectUser_1 = __importDefault(require("../../entities/ProjectUser"));
-const nodemailer_1 = __importDefault(require("nodemailer"));
+const mail_1 = __importDefault(require("@sendgrid/mail"));
+mail_1.default.setApiKey((_a = process.env.SEND_GRID_API) !== null && _a !== void 0 ? _a : '');
 const getProject = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const name = req.params.name;
     const user = res.locals.user;
@@ -83,65 +85,77 @@ const createProject = (req, res) => __awaiter(void 0, void 0, void 0, function* 
 });
 exports.createProject = createProject;
 const getProjects = (_, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const user = res.locals.user;
     try {
-        const projects = yield Project_1.default.find({
+        const user = res.locals.user;
+        let projects;
+        const projectsUser = yield ProjectUser_1.default.find({
+            select: ['project_id'],
             where: { user_id: user.user_id },
             order: { createdAt: 'DESC' },
-            relations: ['links', 'project_users'],
         });
+        if (projectsUser) {
+            projects = yield Project_1.default.find({
+                where: projectsUser,
+                order: { createdAt: 'DESC' },
+                relations: ['links', 'project_users'],
+            });
+        }
+        else {
+            return res.status(404).json({ project: 'Projects not found' });
+        }
         return res.status(200).json(projects);
     }
     catch (err) {
         console.log(err);
-        return res.status(404).json({ project: 'Project not found' });
+        return res.status(404).json({ project: 'Projects not found' });
     }
 });
 exports.getProjects = getProjects;
 const inviteUserToProject = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const user = res.locals.user;
     try {
-        const { email, project_id } = req.body;
+        const { email, project_id, project_name } = req.body;
         // TODO
         // Validate your data
-        // Add User to project_users
-        // If success use node_mailer to email to send an invite
         let completionMessage = {
             message: '',
         };
-        let transporter = nodemailer_1.default.createTransport({
-            host: 'smtp.gmail.com',
-            port: 465,
-            secure: true,
-            service: 'Gmail',
-            auth: {
-                user: process.env.GMAIL_EMAIL,
-                pass: process.env.GMAIL_PASS,
-            },
-        });
+        // let transporter = await nodemailer.createTransport({
+        //   host: 'smtp.gmail.com',
+        //   port: 465,
+        //   secure: true,
+        //   service: 'Gmail',
+        //   auth: {
+        //     user: process.env.GMAIL_EMAIL,
+        //     pass: process.env.GMAIL_PASS,
+        //   },
+        // });
         const emailToSend = {
-            replyTo: `urboardinfo@gmail.com`,
-            from: `urboardinfo@gmail.com`,
+            replyTo: `urboarinfo@gmail.com`,
+            from: `urboardifo@gmail.com`,
             to: `${email}`,
             subject: `urboard invite from ${user.firstName} ${user.lastName}`,
             html: `<h3>Join urboard today</h3>
               <p>Hi,</p>
-              <p>${user.firstName} ${user.lastName} has invited you to urboard to collabarate please register here: 
+              <p>${user.firstName} ${user.lastName} has invited you to ${project_name} to collabarate please register here: 
               <a href=https://urboard.co/register?user=${email}>https://urboard.co/register</a>.</p>
               <p>Thanks,</p>
               <p>urboard team.</p>`,
         };
-        transporter.sendMail(emailToSend, (err, info) => {
-            if (err) {
-                completionMessage.message = `Failure ${err}`;
-            }
+        const emailRes = yield mail_1.default
+            .send(emailToSend)
+            .then((response) => console.log('response', response))
+            .catch((error) => {
+            return error;
         });
+        console.log('emailRes', emailRes);
         const projectUsers = yield new ProjectUser_1.default({
             status: false,
             project_id: project_id,
             owner: false,
             email: email,
         });
+        console.log('here');
         yield projectUsers.save();
         completionMessage.message = 'Success';
         return res.status(200).json(completionMessage);

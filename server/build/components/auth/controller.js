@@ -61,13 +61,16 @@ const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         yield user.save();
         console.log('user', user);
         debugger;
-        const projectUser = yield typeorm_1.getConnection()
+        yield typeorm_1.getConnection()
             .createQueryBuilder()
             .update(ProjectUser_1.default)
-            .set({ status: true, user_id: user.user_id })
+            .set({
+            status: true,
+            user_id: user.user_id,
+            full_name: `${user.firstName} ${user.lastName}`,
+        })
             .where('email = :email', { email: email })
             .execute();
-        console.log('projectUser', projectUser);
         return res.json(user);
     }
     catch (err) {
