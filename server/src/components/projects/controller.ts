@@ -107,9 +107,9 @@ export const inviteUserToProject = async (req: Request, res: Response) => {
       message: '',
     };
 
-    let transporter = nodemailer.createTransport({
+    let transporter = await nodemailer.createTransport({
       host: 'smtp.gmail.com',
-      port: 25,
+      port: 465,
       secure: true,
       service: 'Gmail',
       auth: {
@@ -131,8 +131,7 @@ export const inviteUserToProject = async (req: Request, res: Response) => {
               <p>urboard team.</p>`,
     };
 
-    // @ts-ignore
-    transporter.sendMail(emailToSend, (err: any, info: any) => {
+    await transporter.sendMail(emailToSend, (err: any, info: any) => {
       if (err) {
         completionMessage.message = `Failure ${err}`;
         console.log('Failure err ->', err);
