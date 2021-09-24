@@ -135,7 +135,7 @@ export const inviteUserToProject = async (req: Request, res: Response) => {
     transporter.sendMail(emailToSend, (err: any, info: any) => {
       if (err) {
         completionMessage.message = `Failure ${err}`;
-        return res.status(404).json({ project: completionMessage });
+        console.log('Failure err ->', err);
       }
     });
 
@@ -145,6 +145,8 @@ export const inviteUserToProject = async (req: Request, res: Response) => {
       owner: false,
       email: email,
     });
+    console.log('here')
+
     await projectUsers.save();
 
     completionMessage.message = 'Success';
