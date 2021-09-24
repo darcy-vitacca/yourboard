@@ -145,7 +145,7 @@ export const inviteUserToProject = async (req: Request, res: Response) => {
       owner: false,
       email: email,
     });
-    console.log('here')
+    console.log('here');
 
     await projectUsers.save();
 
