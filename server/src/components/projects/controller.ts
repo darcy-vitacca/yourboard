@@ -136,7 +136,6 @@ export const inviteUserToProject = async (req: Request, res: Response) => {
     });
 
     await projectUsers.save();
-
     completionMessage.message = 'Success';
 
     return res.status(200).json(completionMessage);
