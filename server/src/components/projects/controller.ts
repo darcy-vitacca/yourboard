@@ -109,7 +109,7 @@ export const inviteUserToProject = async (req: Request, res: Response) => {
 
     let transporter = nodemailer.createTransport({
       host: 'smtp.gmail.com',
-      port: 465,
+      port: 25,
       secure: true,
       service: 'Gmail',
       auth: {
