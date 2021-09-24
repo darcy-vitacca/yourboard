@@ -31,7 +31,6 @@ const getProject = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
             // relations: ['links', 'subfolders'],
         });
         project.links = links;
-        //get project via name and uuid
         //get links
         return res.status(200).json(project);
     }
@@ -120,19 +119,9 @@ const inviteUserToProject = (req, res) => __awaiter(void 0, void 0, void 0, func
         let completionMessage = {
             message: '',
         };
-        // let transporter = await nodemailer.createTransport({
-        //   host: 'smtp.gmail.com',
-        //   port: 465,
-        //   secure: true,
-        //   service: 'Gmail',
-        //   auth: {
-        //     user: process.env.GMAIL_EMAIL,
-        //     pass: process.env.GMAIL_PASS,
-        //   },
-        // });
         const emailToSend = {
-            replyTo: `urboarinfo@gmail.com`,
-            from: `urboardifo@gmail.com`,
+            replyTo: `urboardinfo@gmail.com`,
+            from: `urboardinfo@gmail.com`,
             to: `${email}`,
             subject: `urboard invite from ${user.firstName} ${user.lastName}`,
             html: `<h3>Join urboard today</h3>
@@ -148,14 +137,12 @@ const inviteUserToProject = (req, res) => __awaiter(void 0, void 0, void 0, func
             .catch((error) => {
             return error;
         });
-        console.log('emailRes', emailRes);
         const projectUsers = yield new ProjectUser_1.default({
             status: false,
             project_id: project_id,
             owner: false,
             email: email,
         });
-        console.log('here');
         yield projectUsers.save();
         completionMessage.message = 'Success';
         return res.status(200).json(completionMessage);

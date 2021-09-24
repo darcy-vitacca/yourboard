@@ -94,7 +94,7 @@ export const Landing = () => {
                       <Link link={link} key={link.link_id} />
                     ))
                   : defaultProject.links.map((link) => (
-                      <Link link={link} key={link.link_id} />
+                      <Link link={link} key={link.link_id} empty />
                     ))}
               </LinkSectionContainer>
             </ProjectContainer>

@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import * as Yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
 import {
   PageLayoutContainer,
   SectionContainer,
@@ -31,7 +33,13 @@ interface FormValue {
 }
 const defaultValues = {
   linkText: "",
-  uploadLinks: [],
+  ["uploadLinks"]: [
+    // {
+    //   url: null,
+    //   url_name: null,
+    //   url_image: null,
+    // },
+  ],
 };
 
 export const AddLink = () => {
@@ -44,13 +52,21 @@ export const AddLink = () => {
     mode: "onSubmit",
     reValidateMode: "onChange",
     defaultValues: defaultValues,
-    resolver: undefined,
+    resolver: yupResolver(validationSchema),
     context: undefined,
     criteriaMode: "firstError",
     shouldFocusError: true,
   });
   //
-  const { handleSubmit, watch, control, setValue } = methods;
+  const {
+    handleSubmit,
+    watch,
+    control,
+    setValue,
+    setError,
+    clearErrors,
+    formState: { errors },
+  } = methods;
 
   const onSubmit = async (formData: any) => {
     try {
@@ -104,11 +120,16 @@ export const AddLink = () => {
   const appendLinks = async () => {
     if (!_.isEmpty(parsedLinkText)) {
       append(parsedLinkText);
+      clearErrors("linkText");
     } else {
-      //TODO give an alert if no links present to be appened
+      setError("linkText", {
+        message: "Please add a Link to the text are for your project.",
+      });
     }
   };
 
+  console.log("watchedUploadLinks", watchedUploadLinks);
+  console.log("errors", errors);
   return (
     <>
       <PageLayoutContainer>
@@ -126,6 +147,12 @@ export const AddLink = () => {
                 onBlur={(e: React.ChangeEvent<HTMLInputElement>) => {}}
                 label="Upload links here, simply paste in whatever you want and click upload."
               />
+              {errors?.linkText?.message && (
+                <Markdown
+                  children={errors?.linkText?.message}
+                  className="validationText"
+                />
+              )}
               <AddLinkPreviewContainer>
                 {fields.map((item: any, index) => {
                   return (
@@ -140,7 +167,7 @@ export const AddLink = () => {
                               label="LINK"
                               control={control}
                               defaultValue={item.url}
-                              // validation={errors?.email?.message || ''}
+                              // validation={errors?.url?.message || ""}
                             />
                             <Input
                               type="text"
@@ -149,7 +176,7 @@ export const AddLink = () => {
                               label="LINK NAME"
                               control={control}
                               defaultValue={""}
-                              // validation={errors?.email?.message || ''}
+                              // validation={errors?.url_name?.message || ""}
                             />
                           </LinkInputRow>
                           <LinkInputRow>
@@ -160,7 +187,7 @@ export const AddLink = () => {
                               label="LINK IMAGE"
                               control={control}
                               defaultValue={item.url_image}
-                              // validation={errors?.email?.message || ''}
+                              // validation={errors?.url_image?.message || ""}
                             />
                           </LinkInputRow>
                         </LinkInputSection>
@@ -175,14 +202,16 @@ export const AddLink = () => {
                   );
                 })}
               </AddLinkPreviewContainer>
-
-              <Button
-                onClick={() => appendLinks()}
-                type="button"
-                width="25%"
-                text="Create Links"
-              />
-              <Button type="submit" width="25%" text="Upload Links" />
+              {_.isEmpty(watchedUploadLinks) ? (
+                <Button
+                  onClick={() => appendLinks()}
+                  type="button"
+                  width="25%"
+                  text="Add Links"
+                />
+              ) : (
+                <Button type="submit" width="25%" text="Submit Links" />
+              )}
             </form>
           </FormProvider>
         </SectionContainer>
@@ -190,3 +219,9 @@ export const AddLink = () => {
     </>
   );
 };
+
+export const validationSchema = Yup.object({
+  url: Yup.string().required("Required"),
+  url_name: Yup.string().required("Required"),
+  url_image: Yup.string().required("Required"),
+});

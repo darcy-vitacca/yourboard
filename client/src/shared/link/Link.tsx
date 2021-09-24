@@ -14,6 +14,10 @@ import { Markdown } from "../markdown";
 import moment from "moment";
 // import { LoginRegisterLinkContainer, StyledLink } from "../Layout.styles";
 import { useHistory } from "react-router";
+import {
+  AddCircleIcon,
+  PersonContainerApprovedIcon,
+} from "../personSection/PersonSection.styles";
 
 export interface LinkValues {
   clicked?: number;
@@ -29,9 +33,11 @@ export interface LinkValues {
 }
 interface Links {
   link: LinkValues;
+  empty?: boolean;
 }
 
 export const Link: FC<Links> = ({
+  empty,
   link: {
     // clicked,
     // createdAt,
@@ -52,7 +58,7 @@ export const Link: FC<Links> = ({
     >
       <LinkTopRow>
         <Markdown children={`#### ${url_name}`} className="linkCardMainText" />
-        <LinkImg src={url_image} />
+        {empty ? <AddCircleIcon /> : <LinkImg src={url_image} />}
       </LinkTopRow>
       <LinkBottomRow>
         <LinkRow>
