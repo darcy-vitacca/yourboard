@@ -18,7 +18,6 @@ export interface ProjectUserValues {
 interface ProjectUsers {
   project_user: ProjectUserValues;
 }
-
 export const PersonSection: FC<ProjectUsers> = ({
   project_user: { status, full_name, email },
 }) => {
