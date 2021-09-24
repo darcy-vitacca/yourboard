@@ -19,7 +19,6 @@ export const getProject = async (req: Request, res: Response) => {
       // relations: ['links', 'subfolders'],
     });
     project.links = links;
-    //get project via name and uuid
 
     //get links
     return res.status(200).json(project);
