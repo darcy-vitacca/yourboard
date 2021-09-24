@@ -55,6 +55,7 @@ export const Modal = ({ setModal, modal }) => {
     try {
       const inviteData = {
         project_id: currentProject?.project_id,
+        project_name: currentProject?.project_name,
         email: formData.email,
       };
       dispatch("LOADING");

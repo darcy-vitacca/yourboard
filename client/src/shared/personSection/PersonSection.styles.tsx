@@ -19,6 +19,7 @@ export const PersonContentContainer = styled.div`
   display: flex;
   align-items: center;
   margin-right: 20px;
+  margin-bottom: 10px;
 `;
 
 export const PersonText = styled.p`

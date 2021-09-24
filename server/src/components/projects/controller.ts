@@ -100,7 +100,7 @@ export const getProjects = async (_: Request, res: Response) => {
 export const inviteUserToProject = async (req: Request, res: Response) => {
   const user: User = res.locals.user;
   try {
-    const { email, project_id } = req.body;
+    const { email, project_id, project_name } = req.body;
     // TODO
     // Validate your data
     let completionMessage = {
@@ -125,7 +125,7 @@ export const inviteUserToProject = async (req: Request, res: Response) => {
       subject: `urboard invite from ${user.firstName} ${user.lastName}`,
       html: `<h3>Join urboard today</h3>
               <p>Hi,</p>
-              <p>${user.firstName} ${user.lastName} has invited you to urboard to collabarate please register here: 
+              <p>${user.firstName} ${user.lastName} has invited you to ${project_name} to collabarate please register here: 
               <a href=https://urboard.co/register?user=${email}>https://urboard.co/register</a>.</p>
               <p>Thanks,</p>
               <p>urboard team.</p>`,
