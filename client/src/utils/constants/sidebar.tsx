@@ -1,20 +1,18 @@
 import HomeIcon from "@material-ui/icons/Home";
-import MailIcon from "@material-ui/icons/Mail";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
-import AccountBoxIcon from "@material-ui/icons/AccountBox";
-import AddIcon from "@material-ui/icons/Add";
-import SettingsIcon from "@material-ui/icons/Settings";
-import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import LockOpenIcon from "@material-ui/icons/LockOpen";
 import PersonAddIcon from "@material-ui/icons/PersonAdd";
+import styled from "styled-components/macro";
 
-//InboxIcons
-// import CreateIcon from "@material-ui/icons/Create";
-// import InboxIcon from "@material-ui/icons/Inbox";
-// import ArchiveIcon from "@material-ui/icons/Archive";
-// import DeleteIcon from "@material-ui/icons/Delete";
-// import { FC } from "react";
+import { AddLink } from "@styled-icons/material-outlined/AddLink";
+ const SVGAddLinkIcon = styled(AddLink)`
+  color: ${({ theme }) => theme.colors.white};
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+  // margin-top: -2px;
+`;
 
 export interface SideMenuValues {
   title: string;
@@ -41,7 +39,7 @@ export const sidebarDataAuth: SideMenuValues[] = [
   },
   {
     title: "#### Add Links",
-    icon: <AddIcon />,
+    icon: <SVGAddLinkIcon/>,
     link: "/add-links",
     tooltip: "Add Links",
   },

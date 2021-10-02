@@ -48,6 +48,7 @@ const Input = forwardRef<HTMLInputElement, IInputProps>(
                 // label={label}
                 placeholder={label}
                 type={type}
+                defaultValue={defaultValue || ""}
                 disabled={disabled}
                 variant="outlined"
                 inputRef={ref}

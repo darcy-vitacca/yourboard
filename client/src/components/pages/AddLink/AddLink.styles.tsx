@@ -15,7 +15,7 @@ export const AddLinkContainer = styled.div`
 
 export const AddLinkSection = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
   border: 6px solid ${({ theme }) => theme.colors.blue500};
   padding: 10px;
   border-radius: 8px;
@@ -40,11 +40,11 @@ export const LinkText = styled.div`
 
 export const LinkInputSection = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
 `;
 
 export const LinkInputRow = styled.div`
-  width: 50%;
+  width: 100%;
 `;
 
 export const LinkEditSection = styled.div`

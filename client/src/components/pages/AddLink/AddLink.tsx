@@ -33,14 +33,19 @@ interface FormValue {
 }
 const defaultValues = {
   linkText: "",
-  ["uploadLinks"]: [
-    // {
-    //   url: null,
-    //   url_name: null,
-    //   url_image: null,
-    // },
-  ],
+  uploadLinks: [],
 };
+
+export const validationSchema = Yup.object({
+  linkText: Yup.string(),
+  uploadLinks: Yup.array().of(
+    Yup.object().shape({
+      url: Yup.string().nullable().required("Required"),
+      url_name: Yup.string().nullable().required("Required"),
+      url_image: Yup.string().nullable().required("Required"),
+    })
+  )
+});
 
 export const AddLink = () => {
   const dispatch = useAuthDispatch();
@@ -48,7 +53,7 @@ export const AddLink = () => {
   const { push } = useHistory();
   if (!authenticated) push("/login");
 
-  const methods = useForm<FormValue>({
+  const methods = useForm<any>({
     mode: "onSubmit",
     reValidateMode: "onChange",
     defaultValues: defaultValues,
@@ -71,9 +76,12 @@ export const AddLink = () => {
   const onSubmit = async (formData: any) => {
     try {
       dispatch("LOADING");
+      const completedLinks = watchedUploadLinks.map((link, index) => {
+        return {...link , position: linksLength ? linksLength + index : index}
+      })
       const res = await axios.post(
         `/link/${currentProject?.url_name}`,
-        watchedUploadLinks
+        completedLinks
       );
       console.log("res", res);
       dispatch("STOP_LOADING");
@@ -96,7 +104,6 @@ export const AddLink = () => {
         const parsedIco = `https://www.google.com/s2/favicons?domain_url=${hostName}`;
         // `https://icons.duckduckgo.com/ip2/${hostName}.ico`;
         return {
-          position: linksLength ? linksLength + index : index,
           project_id: currentProject?.project_id || null,
           url: link.href,
           url_image: parsedIco,
@@ -108,14 +115,14 @@ export const AddLink = () => {
     setValue("linkText", linkText);
   };
 
-  const { fields, append } = useFieldArray<any>({
+  const { fields, append, remove } = useFieldArray<any>({
     name: "uploadLinks",
     control,
   });
 
-  // const handleDelete = async (index, remove) => {
-  //   await remove(index);
-  // };
+  const handleDelete = async (index) => {
+    await remove(index);
+  };
 
   const appendLinks = async () => {
     if (!_.isEmpty(parsedLinkText)) {
@@ -128,8 +135,6 @@ export const AddLink = () => {
     }
   };
 
-  console.log("watchedUploadLinks", watchedUploadLinks);
-  console.log("errors", errors);
   return (
     <>
       <PageLayoutContainer>
@@ -140,13 +145,17 @@ export const AddLink = () => {
               <Markdown
                 children={`# Add Links to the ${currentProject?.project_name} Project 🔗`}
               />
-              <TextArea
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  handleLinkUpload(e.target.value)
-                }
-                onBlur={(e: React.ChangeEvent<HTMLInputElement>) => {}}
-                label="Upload links here, simply paste in whatever you want and click upload."
-              />
+              {
+                _.isEmpty(watchedUploadLinks) &&   <TextArea
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                    handleLinkUpload(e.target.value)
+                  }
+                  onBlur={(e: React.ChangeEvent<HTMLInputElement>) => {}}
+                  label="Upload links here, simply paste in whatever you want and click upload."
+                  disabled={!_.isEmpty(watchedUploadLinks)}
+                />
+              }
+
               {errors?.linkText?.message && (
                 <Markdown
                   children={errors?.linkText?.message}
@@ -162,32 +171,33 @@ export const AddLink = () => {
                           <LinkInputRow>
                             <Input
                               type="text"
-                              name={`uploadLinks[${index}].url`}
+                              name={`uploadLinks.${index}.url`}
                               width="100%"
                               label="LINK"
                               control={control}
                               defaultValue={item.url}
-                              // validation={errors?.url?.message || ""}
+                              validation={errors?.uploadLinks?.[index]?.url?.message || ""}
                             />
                             <Input
                               type="text"
-                              name={`uploadLinks[${index}].url_name`}
-                              width="100%"
-                              label="LINK NAME"
-                              control={control}
-                              defaultValue={""}
-                              // validation={errors?.url_name?.message || ""}
-                            />
-                          </LinkInputRow>
-                          <LinkInputRow>
-                            <Input
-                              type="text"
-                              name={`uploadLinks[${index}].url_image`}
+                              name={`uploadLinks.${index}.url_image`}
                               width="100%"
                               label="LINK IMAGE"
                               control={control}
                               defaultValue={item.url_image}
-                              // validation={errors?.url_image?.message || ""}
+                              validation={errors?.uploadLinks?.[index]?.url_image?.message || ""}
+                            />
+                          </LinkInputRow>
+                          <LinkInputRow>
+
+                            <Input
+                              type="text"
+                              name={`uploadLinks.${index}.url_name`}
+                              width="100%"
+                              label="LINK NAME"
+                              control={control}
+                              defaultValue={""}
+                              validation={errors?.uploadLinks?.[index]?.url_name?.message || ""}
                             />
                           </LinkInputRow>
                         </LinkInputSection>
@@ -196,8 +206,11 @@ export const AddLink = () => {
                           <LinkText>{item.url}</LinkText>
                         </AddLinkContainer>
                       </LinkEditSection>
+<div>
+  <Link link={watchedUploadLinks[index]} />
+  <Button text="Remove" width="100%" type="button"  onClick={() => handleDelete(index)}/>
+</div>
 
-                      <Link link={watchedUploadLinks[index]} />
                     </AddLinkSection>
                   );
                 })}
@@ -210,7 +223,7 @@ export const AddLink = () => {
                   text="Add Links"
                 />
               ) : (
-                <Button type="submit" width="25%" text="Submit Links" />
+                <Button type="submit" width="25%" text="Submit Links"   />
               )}
             </form>
           </FormProvider>
@@ -220,8 +233,4 @@ export const AddLink = () => {
   );
 };
 
-export const validationSchema = Yup.object({
-  url: Yup.string().required("Required"),
-  url_name: Yup.string().required("Required"),
-  url_image: Yup.string().required("Required"),
-});
+
