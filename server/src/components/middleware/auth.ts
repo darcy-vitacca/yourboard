@@ -7,7 +7,6 @@ export default async (_: Request, res: Response, next: NextFunction) => {
     const user: User | undefined = res.locals.user;
 
     if (!user) throw new Error('Unauthenticated');
-
     return next();
   } catch (err: any) {
     console.log(err);
