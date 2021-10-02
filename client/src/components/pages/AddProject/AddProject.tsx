@@ -5,7 +5,7 @@ import {
   PageLayoutContainer,
   SectionContainer,
 } from "../../../shared/Layout.styles";
-import { yupResolver } from "@hookform/resolvers/yup";
+import { yupResolver } from '@hookform/resolvers/yup';
 import { useHistory } from "react-router";
 import { useForm, FormProvider } from "react-hook-form";
 import axios from "axios";
@@ -14,7 +14,7 @@ import Input from "../../../shared/formElements/input";
 import { TextArea } from "../../../shared/formElements/textArea";
 import { Button } from "../../../shared/formElements/button";
 
-interface FormValue {
+type FormValue = {
   url_name: string;
   project_name: string;
   description: string;
@@ -24,14 +24,25 @@ const defaultValues = {
   project_name: "",
   description: "",
 };
-//
+
+const validationSchema = Yup.object().shape({
+  project_name: Yup.string().nullable().required("Required"),
+  url_name: Yup.string().nullable()
+  .required("Required")
+  .matches(/^[a-zA-Z0-9_]*$/, {
+    message: "Must contain letters and numbers only",
+    excludeEmptyString: true,
+  }),
+  description: Yup.string().nullable().required("Required"),
+});
+
 export const AddProject = () => {
   const dispatch = useAuthDispatch();
   const { authenticated } = useAuthState();
   const { push } = useHistory();
   if (!authenticated) push("/login");
 
-  const methods = useForm<FormValue>({
+  const methods = useForm<any>({
     mode: "onSubmit",
     resolver: yupResolver(validationSchema),
     reValidateMode: "onChange",
@@ -47,6 +58,7 @@ export const AddProject = () => {
     setError,
     formState: { errors },
   } = methods;
+
 
   const onSubmit = async (formData: any) => {
     try {
@@ -79,7 +91,7 @@ export const AddProject = () => {
                   helperText="Project Name"
                   label="PROJECT NAME"
                   control={control}
-                  defaultValue={""}
+                  defaultValue={defaultValues.project_name}
                   validation={errors?.project_name?.message || ""}
                 />
                 <Input
@@ -89,13 +101,14 @@ export const AddProject = () => {
                   helperText="URL Name (Alphanumeric only) *"
                   label="URL NAME"
                   control={control}
-                  defaultValue={""}
+                  defaultValue={defaultValues.url_name}
                   validation={errors?.url_name?.message || ""}
                 />
                 <TextArea
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                     setValue("description", e.target.value)
                   }
+                  name="description"
                   onBlur={(e: React.ChangeEvent<HTMLInputElement>) => {}}
                   label="A short description about the project"
                   validation={errors?.description?.message || ""}
@@ -110,13 +123,3 @@ export const AddProject = () => {
   );
 };
 
-const validationSchema = Yup.object().shape({
-  project_name: Yup.string().required("Required"),
-  url_name: Yup.string()
-    .required("Required")
-    .matches(/^[a-zA-Z0-9_]*$/, {
-      message: "Must contain letters and numbers only",
-      excludeEmptyString: true,
-    }),
-  description: Yup.string().required("Required"),
-});

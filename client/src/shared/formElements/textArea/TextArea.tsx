@@ -19,7 +19,7 @@ export interface ITextAreaProps extends IContainerProps, IStyledTextAreaProps {
   className?: string;
   loading?: boolean;
   variant?: "standard" | "outlined" | "filled";
-  defaultValue?: string;
+  defaultValue?: string ;
   value?: string | number | readonly string[];
   onChange?: any;
   onBlur?: any;
@@ -41,6 +41,7 @@ export const TextArea = forwardRef<HTMLTextAreaElement, ITextAreaProps>(
       helperText,
       width,
       minRows,
+      disabled,
       ...props
     },
     ref
@@ -60,6 +61,7 @@ export const TextArea = forwardRef<HTMLTextAreaElement, ITextAreaProps>(
         <StyledTextArea
           {...props}
           id={name}
+          disabled={disabled}
           name={name}
           ref={ref}
           minRows={minRows}

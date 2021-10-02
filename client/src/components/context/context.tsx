@@ -44,7 +44,7 @@ const reducer: any = (state: State, { type, payload }: Action) => {
       return {
         ...state,
         projects: payload,
-        currentProject: payload[0],
+        currentProject: state.currentProject ?  state.currentProject: payload[0],
         loading: false,
       };
     case "SET_CURRENT_PROJECT":

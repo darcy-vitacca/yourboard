@@ -11,6 +11,7 @@
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
+    "strict": true,
     "module": "esnext",
     "moduleResolution": "node",
     "resolveJsonModule": true,
@@ -22,7 +23,6 @@
     "incremental": true,
     "noFallthroughCasesInSwitch": true,
     "isolatedModules": true,
-    "strict": true,
     "strictPropertyInitialization": false,
     "noImplicitAny": false
   },

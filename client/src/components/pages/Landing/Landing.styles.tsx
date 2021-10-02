@@ -3,6 +3,8 @@ import { ArrowLeftCircleFill } from "@styled-icons/bootstrap/ArrowLeftCircleFill
 import { ArrowRightCircleFill } from "@styled-icons/bootstrap/ArrowRightCircleFill";
 import { PersonAdd } from "@styled-icons/ionicons-solid/PersonAdd";
 import { Edit } from "@styled-icons/feather/Edit";
+import { AddLink } from "@styled-icons/material-outlined/AddLink";
+
 import { device } from "../../../styles/devices";
 
 export const SVGLeftIcon = styled(ArrowLeftCircleFill)`
@@ -36,7 +38,6 @@ export const SVGAddFriendIcon = styled(PersonAdd)`
   height: 45px;
   padding: 3px;
   cursor: pointer;
-  // margin-top: -2px;
 `;
 
 export const SVGEditIcon = styled(Edit)`
@@ -46,7 +47,15 @@ export const SVGEditIcon = styled(Edit)`
   height: 45px;
   padding: 3px;
   cursor: pointer;
-  // margin-top: -2px;
+`;
+
+export const SVGAddLinkIcon = styled(AddLink)`
+  color: ${({ theme }) => theme.colors.white};
+  border-radius: 5px;
+  width: 45px;
+  height: 45px;
+  padding: 3px;
+  cursor: pointer;
 `;
 
 export const ProjectArrowContainer = styled.div`
@@ -66,3 +75,11 @@ export const ProjectIconContainer = styled.div`
     width: 200px;
   }
 `;
+
+export const ProjectNavContainer = styled.div`
+  width:80px;
+display:flex;
+justify-content: center;
+  align-items: center;
+flex-direction: column;`
+
