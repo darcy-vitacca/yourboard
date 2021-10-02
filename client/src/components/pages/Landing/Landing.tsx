@@ -90,7 +90,6 @@ export const Landing = () => {
                       align="center"
                     />
                     </ProjectNavContainer>
-
                 </ProjectIconContainer>
                 <SVGRightIcon onClick={() => handleForward()} />
               </ProjectArrowContainer>
