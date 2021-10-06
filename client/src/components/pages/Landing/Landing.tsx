@@ -12,12 +12,14 @@ import { Link } from "../../../shared/link";
 import { useHistory } from "react-router";
 import {
   ProjectArrowContainer,
-  ProjectIconContainer, ProjectNavContainer,
-  SVGAddFriendIcon, SVGAddLinkIcon,
+  ProjectIconContainer,
+  ProjectNavContainer,
+  SVGAddFriendIcon,
+  SVGAddLinkIcon,
   SVGEditIcon,
   SVGLeftIcon,
   SVGRightIcon,
-} from './Landing.styles';
+} from "./Landing.styles";
 import { landingConstants } from "../../../utils/constants/landing";
 import _ from "lodash";
 import { Loader } from "../../../shared/loaders";
@@ -48,7 +50,6 @@ export const Landing = () => {
     })();
   }, []);
 
-
   const handlePrevious = () => {
     dispatch("PREVIOUS_PROJECT");
   };
@@ -76,20 +77,14 @@ export const Landing = () => {
               <ProjectArrowContainer>
                 <SVGLeftIcon onClick={() => handlePrevious()} />
                 <ProjectIconContainer>
-                  <ProjectNavContainer>
-                    <SVGAddLinkIcon onClick={() => push('/add-links')} />
-                    <Markdown
-                      children="Add Link"
-                      align="center"
-                    />
+                  <ProjectNavContainer onClick={() => push("/add-links")}>
+                    <SVGAddLinkIcon />
+                    <Markdown children="Add Link" align="center" />
                   </ProjectNavContainer>
-                  <ProjectNavContainer>
-                  <SVGAddFriendIcon onClick={() => setModal(true)} />
-                    <Markdown
-                      children="Add User"
-                      align="center"
-                    />
-                    </ProjectNavContainer>
+                  <ProjectNavContainer onClick={() => setModal(true)}>
+                    <SVGAddFriendIcon />
+                    <Markdown children="Add User" align="center" />
+                  </ProjectNavContainer>
                 </ProjectIconContainer>
                 <SVGRightIcon onClick={() => handleForward()} />
               </ProjectArrowContainer>

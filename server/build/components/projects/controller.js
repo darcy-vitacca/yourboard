@@ -14,11 +14,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 var _a;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.inviteUserToProject = exports.getProjects = exports.createProject = exports.getProject = void 0;
+const User_1 = __importDefault(require("../../entities/User"));
 const class_validator_1 = require("class-validator");
 const Project_1 = __importDefault(require("../../entities/Project"));
 const Link_1 = __importDefault(require("../../entities/Link"));
 const ProjectUser_1 = __importDefault(require("../../entities/ProjectUser"));
 const mail_1 = __importDefault(require("@sendgrid/mail"));
+const Friends_1 = __importDefault(require("../../entities/Friends"));
+const typeorm_1 = require("typeorm");
 mail_1.default.setApiKey((_a = process.env.SEND_GRID_API) !== null && _a !== void 0 ? _a : '');
 const getProject = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const name = req.params.name;
@@ -114,29 +117,89 @@ const inviteUserToProject = (req, res) => __awaiter(void 0, void 0, void 0, func
     const user = res.locals.user;
     try {
         const { email, project_id, project_name } = req.body;
-        // TODO
-        // Validate your data
+        let emailToSend;
         let completionMessage = {
             message: '',
         };
-        const emailToSend = {
-            replyTo: `urboardinfo@gmail.com`,
-            from: `urboardinfo@gmail.com`,
-            to: `${email}`,
-            subject: `urboard invite from ${user.firstName} ${user.lastName}`,
-            html: `<h3>Join urboard today</h3>
+        const emailUserExists = yield User_1.default.findOne({ email });
+        if (emailUserExists) {
+            emailToSend = {
+                replyTo: `urboardinfo@gmail.com`,
+                from: `urboardinfo@gmail.com`,
+                to: `${email}`,
+                subject: `urboard invite from ${user.firstName} ${user.lastName}`,
+                html: `<h3>You've been invited to a new urboard</h3>
+              <p>Hi,</p>
+              <p>${user.firstName} ${user.lastName} has invited you to ${project_name} collabarate here: 
+              <a href='https://urboard.co'>https://urboard.co</a>.</p>
+              <p>Thanks,</p>
+              <p>urboard team.</p>`,
+            };
+            const userFriends = yield Friends_1.default.findOne({
+                where: { user_1_id: user.user_id, user_2_email: email },
+            });
+            const invitedUserDetails = yield User_1.default.findOne({
+                select: ['user_id', 'firstName', 'lastName', 'user_id'],
+                where: { email: email },
+            });
+            if (!invitedUserDetails) {
+                return res.status(404).json({ user: 'User not found' });
+            }
+            //If they aren't friends create and entry
+            if (!userFriends) {
+                const friendsData = [
+                    {
+                        user_1_name: `${user.firstName} ${user.lastName}`,
+                        user_1_id: user.user_id,
+                        user_1_email: user.email,
+                        user_2_name: `${invitedUserDetails === null || invitedUserDetails === void 0 ? void 0 : invitedUserDetails.firstName} ${invitedUserDetails === null || invitedUserDetails === void 0 ? void 0 : invitedUserDetails.lastName}`,
+                        user_2_id: invitedUserDetails.user_id,
+                        user_2_email: email,
+                        project_id: project_id,
+                        accepted: true,
+                    },
+                    {
+                        user_1_name: `${invitedUserDetails === null || invitedUserDetails === void 0 ? void 0 : invitedUserDetails.firstName} ${invitedUserDetails === null || invitedUserDetails === void 0 ? void 0 : invitedUserDetails.lastName}`,
+                        user_1_id: invitedUserDetails.user_id,
+                        user_1_email: email,
+                        user_2_name: `${user.firstName} ${user.lastName}`,
+                        user_2_id: user.user_id,
+                        user_2_email: user.email,
+                        project_id: project_id,
+                        accepted: true,
+                    },
+                ];
+                const bulkInsert = yield typeorm_1.getConnection()
+                    .createQueryBuilder()
+                    .insert()
+                    .into(Friends_1.default)
+                    .values(friendsData)
+                    .execute();
+                console.log('bulkInsert', bulkInsert);
+                debugger;
+            }
+        }
+        else {
+            emailToSend = {
+                replyTo: `urboardinfo@gmail.com`,
+                from: `urboardinfo@gmail.com`,
+                to: `${email}`,
+                subject: `urboard invite from ${user.firstName} ${user.lastName}`,
+                html: `<h3>Join urboard today</h3>
               <p>Hi,</p>
               <p>${user.firstName} ${user.lastName} has invited you to ${project_name} to collabarate please register here: 
               <a href=https://urboard.co/register?user=${email}>https://urboard.co/register</a>.</p>
               <p>Thanks,</p>
               <p>urboard team.</p>`,
-        };
-        const emailRes = yield mail_1.default
-            .send(emailToSend)
-            .then((response) => console.log('response', response))
-            .catch((error) => {
-            return error;
-        });
+            };
+        }
+        //send email
+        // const emailRes = await sgMail
+        //   .send(emailToSend)
+        //   .then((response) => console.log('response', response))
+        //   .catch((error) => {
+        //     return error;
+        //   });
         const projectUsers = yield new ProjectUser_1.default({
             status: false,
             project_id: project_id,
@@ -153,6 +216,4 @@ const inviteUserToProject = (req, res) => __awaiter(void 0, void 0, void 0, func
     }
 });
 exports.inviteUserToProject = inviteUserToProject;
-//When they register check the table and change all data
-//Get projects should use project_users to find the project ids first
 //# sourceMappingURL=controller.js.map

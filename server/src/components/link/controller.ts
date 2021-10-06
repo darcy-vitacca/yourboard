@@ -26,7 +26,6 @@ export const createLink = async (req: Request, res: Response) => {
       .into(Link)
       .values(updatedLinks)
       .execute();
-    console.log('bulkInsert', bulkInsert);
 
     return res.status(200).json(bulkInsert);
   } catch (err: any) {

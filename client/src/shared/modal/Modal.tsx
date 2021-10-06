@@ -32,7 +32,7 @@ interface ModalValues {
 
 export const Modal = ({ setModal, modal }) => {
   const dispatch = useAuthDispatch();
-  const { loading, currentProject } = useAuthState();
+  const { loading, currentProject, user } = useAuthState();
   const { push } = useHistory();
 
   const methods = useForm<FormValue>({
@@ -50,6 +50,18 @@ export const Modal = ({ setModal, modal }) => {
     setError,
     formState: { errors },
   } = methods;
+
+  useEffect(() => {
+    (async () => {
+      try {
+        dispatch("LOADING");
+        const res = await axios.get("/user/friends");
+        dispatch("SET_FRIENDS", res.data);
+      } catch (err: any) {
+        console.log(err);
+      }
+    })();
+  }, []);
 
   const onSubmit = async (formData: any) => {
     try {
