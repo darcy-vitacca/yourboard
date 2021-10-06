@@ -98,7 +98,6 @@ const reducer: any = (state: State, { type, payload }: Action) => {
   }
 };
 
-
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [state, defaultDispatch] = useReducer(reducer, {
     user: null,
