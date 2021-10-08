@@ -73,7 +73,6 @@ export const Modal = ({ setModal, modal }) => {
         project_name: currentProject?.project_name,
         email: friendsValue? friendsValue : emailValue,
       };
-      debugger;
       dispatch("LOADING");
       await axios.post("/project/invite", inviteData);
       setModal(false);
