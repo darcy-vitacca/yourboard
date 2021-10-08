@@ -1,35 +1,26 @@
 import styled from "styled-components/macro";
 import { fontFamily, mainFontFamily, theme } from "../../../styles/theme";
-import TextField from "@material-ui/core/TextField";
+import Select from "@material-ui/core/Select";
+import MenuItem from "@material-ui/core/MenuItem";
+import { makeStyles } from "@material-ui/core/styles";
 
 export interface IInputContainerProps {
   width?: "25%" | "50%" | "75%" | "100%";
 }
-export const InputContainer = styled.div<IInputContainerProps>`
-  padding: 10px 0;
-  width: ${({ width }) =>
-    width === "25%"
-      ? "25%"
-      : width === "50%"
-      ? "50%"
-      : width === "75%"
-      ? "75%"
-      : width === "100%"
-      ? "100%"
-      : "inherit"};
-`;
-
-export const InputLabel = styled.label`
-  color: ${theme.colors.white};
-  font-size: 14px;
-`;
-
-export const InputElement = styled(TextField)`
+export const StyledSelectList = styled(Select)`
   width: 100%;
+ width: 100%;
   color: ${theme.colors.white}
   background-color: ${theme.colors.blue400}
   padding: 10px;
   border-radius: 12px;
+  * {
+    color: white;
+  }
+  & .MuiSelect-iconOutlined {
+    z-index: 1;
+    background: transparent;
+  }
 .MuiInputBase-root {
   color: ${theme.colors.white}
 },
@@ -42,6 +33,8 @@ export const InputElement = styled(TextField)`
   & fieldset {
     border-radius: 3px;
   }
+}
+  &.MuiFormLabel-root {
 }
   .MuiInputBase-input {
     font-size: 14px;
@@ -64,20 +57,46 @@ export const InputElement = styled(TextField)`
     background: transparent;
   }
   .MuiOutlinedInput-notchedOutline {
-    border-radius: 0;
+    border-radius: 5px;
     background-color: ${theme.colors.blue500};
+    & :hover {
+      color:black;
+      border-color: green;
+    }
+    &:focus {
+      border-color: green;
+    }
   }
   .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
-    border-color: ${theme.colors.grey400};
-  }
-  .MuiFormLabel-root.Mui-error {
-  }
-  .MuiFormLabel-root.Mui-disabled {
+    border-color: green;
+  }    
 
-  }
+
   //placeholder
     input {
     ::placeholder {
     }
   }
 `;
+
+export const StyledMenuItem = styled(MenuItem)`
+  &.MuiMenuItem-root {
+    &:hover,
+    &:focus {
+      background-color: ${theme.colors.white} !important;
+    }
+  }
+`;
+
+export const useStylesSelectList = makeStyles({
+  select: {
+    "& ul": {
+      backgroundColor: "#ffffff ",
+    },
+    "& li": {
+      backgroundColor: "#ffffff",
+      fontSize: 14,
+      color: theme.colors.black,
+    },
+  },
+});

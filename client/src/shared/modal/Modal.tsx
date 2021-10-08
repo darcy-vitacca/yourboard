@@ -17,6 +17,7 @@ import {
 import { Markdown } from "../markdown";
 import Input from "../formElements/input";
 import { Button } from "../formElements/button";
+import { SelectList } from "../formElements/selectList";
 
 interface FormValue {
   email: string;
@@ -32,7 +33,7 @@ interface ModalValues {
 
 export const Modal = ({ setModal, modal }) => {
   const dispatch = useAuthDispatch();
-  const { loading, currentProject, user } = useAuthState();
+  const { loading, currentProject, user, friends } = useAuthState();
   const { push } = useHistory();
 
   const methods = useForm<FormValue>({
@@ -49,6 +50,7 @@ export const Modal = ({ setModal, modal }) => {
     control,
     setError,
     formState: { errors },
+    setValue,
   } = methods;
 
   useEffect(() => {
@@ -80,7 +82,6 @@ export const Modal = ({ setModal, modal }) => {
       if (error.email) setError("email", { message: error.email });
     }
   };
-
   return (
     <ModalContainer>
       <FormProvider {...methods}>
@@ -98,6 +99,19 @@ export const Modal = ({ setModal, modal }) => {
               children={`#### Invite a friend to this project`}
               align="center"
             />
+            {friends && (
+              <SelectList
+                name="friends"
+                width="100%"
+                helperText="Email"
+                label="Select existing friend"
+                control={control}
+                defaultValue={""}
+                options={friends}
+                setValue={setValue}
+              />
+            )}
+
             <Input
               type="email"
               name="email"
