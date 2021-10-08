@@ -9,7 +9,6 @@ export interface IInputContainerProps {
 }
 export const StyledSelectList = styled(Select)`
   width: 100%;
- width: 100%;
   color: ${theme.colors.white}
   background-color: ${theme.colors.blue400}
   padding: 10px;

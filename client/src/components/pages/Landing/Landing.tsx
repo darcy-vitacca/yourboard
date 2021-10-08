@@ -16,12 +16,11 @@ import {
   ProjectNavContainer,
   SVGAddFriendIcon,
   SVGAddLinkIcon,
-  SVGEditIcon,
   SVGLeftIcon,
   SVGRightIcon,
 } from "./Landing.styles";
 import { landingConstants } from "../../../utils/constants/landing";
-import _ from "lodash";
+import isEmpty from "lodash/isEmpty";
 import { Loader } from "../../../shared/loaders";
 import { PersonSection } from "../../../shared/personSection";
 import {
@@ -97,7 +96,7 @@ export const Landing = () => {
                 </PersonContainer>
               </PersonSectionContainer>
               <LinkSectionContainer>
-                {currentProject && !_.isEmpty(currentProject.links)
+                {currentProject && !isEmpty(currentProject.links)
                   ? currentProject.links.map((link) => (
                       <Link link={link} key={link.link_id} />
                     ))

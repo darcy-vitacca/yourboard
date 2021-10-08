@@ -46,7 +46,6 @@ export const SelectList = ({
           defaultValue={defaultValue || ""}
           render={({ field }) => (
             <StyledSelectList
-              placeholder={helperText}
               {...field}
               MenuProps={{ classes: { paper: classes.select } }}
               variant="outlined"

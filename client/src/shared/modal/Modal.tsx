@@ -1,13 +1,12 @@
 import React, { useEffect } from "react";
-import { useParams, useHistory, useLocation } from "react-router";
+import {  useHistory} from "react-router";
 import { useForm, FormProvider } from "react-hook-form";
 import axios from "axios";
-import queryString from "query-string";
 import {
   useAuthDispatch,
   useAuthState,
 } from "../../components/context/context";
-import { Loader } from "../loaders";
+// import { Loader } from "../loaders";
 import {
   ModalContainer,
   ModalContentContainer,
@@ -18,23 +17,21 @@ import { Markdown } from "../markdown";
 import Input from "../formElements/input";
 import { Button } from "../formElements/button";
 import { SelectList } from "../formElements/selectList";
+import isEmpty from "lodash/isEmpty"
+
 
 interface FormValue {
   email: string;
+  friends: string;
 }
 const defaultValues = {
   email: "",
+  friends: "",
 };
-
-interface ModalValues {
-  setModal: any;
-  modal: boolean;
-}
 
 export const Modal = ({ setModal, modal }) => {
   const dispatch = useAuthDispatch();
-  const { loading, currentProject, user, friends } = useAuthState();
-  const { push } = useHistory();
+  const {  currentProject,  friends } = useAuthState();
 
   const methods = useForm<FormValue>({
     mode: "onSubmit",
@@ -49,10 +46,12 @@ export const Modal = ({ setModal, modal }) => {
     handleSubmit,
     control,
     setError,
-    formState: { errors },
     setValue,
     watch
   } = methods;
+
+  const emailValue = watch('email')
+  const friendsValue = watch('friends')
 
   useEffect(() => {
     (async () => {
@@ -68,11 +67,13 @@ export const Modal = ({ setModal, modal }) => {
 
   const onSubmit = async (formData: any) => {
     try {
+
       const inviteData = {
         project_id: currentProject?.project_id,
         project_name: currentProject?.project_name,
-        email: formData.email,
+        email: friendsValue? friendsValue : emailValue,
       };
+      debugger;
       dispatch("LOADING");
       await axios.post("/project/invite", inviteData);
       setModal(false);
@@ -83,14 +84,9 @@ export const Modal = ({ setModal, modal }) => {
       if (error.email) setError("email", { message: error.email });
     }
   };
-  const email = watch('email')
-  const existingFriends = watch('friends')
 
-  useEffect(() => {
-    return () => {
-      effect;
-    };
-  }, [input]);
+
+
 
   return (
     <ModalContainer>
@@ -109,7 +105,7 @@ export const Modal = ({ setModal, modal }) => {
               children={`#### Invite a friend to this project`}
               align="center"
             />
-            {friends && (
+            {friends && isEmpty(emailValue) && (
               <SelectList
                 name="friends"
                 width="100%"
@@ -121,17 +117,20 @@ export const Modal = ({ setModal, modal }) => {
                 setValue={setValue}
               />
             )}
+            {
+               isEmpty(friendsValue) &&  ( <Input
+                 type="email"
+                 name="email"
+                 width="100%"
+                 helperText="Email"
+                 label="EMAIL"
+                 control={control}
+                 defaultValue={""}
+                 // validation={errors?.email?.message || ""}
+               />
+              )
+            }
 
-            <Input
-              type="email"
-              name="email"
-              width="100%"
-              helperText="Email"
-              label="EMAIL"
-              control={control}
-              defaultValue={""}
-              // validation={errors?.email?.message || ""}
-            />
             <Button
               text="Invite Friend"
               width="100%"

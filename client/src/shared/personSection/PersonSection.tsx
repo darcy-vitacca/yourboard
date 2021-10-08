@@ -1,13 +1,12 @@
 import { FC } from "react";
+
 import {
-  PersonContainer,
   PersonContainerApprovedIcon,
   PersonContainerPendingIcon,
   PersonText,
   PersonContentContainer,
-  PersonSectionContainer,
 } from "./PersonSection.styles";
-import ProjectUser from "../../../../server/src/entities/ProjectUser";
+
 export interface ProjectUserValues {
   full_name: string;
   email: string;
