@@ -51,6 +51,7 @@ export const Modal = ({ setModal, modal }) => {
     setError,
     formState: { errors },
     setValue,
+    watch
   } = methods;
 
   useEffect(() => {
@@ -82,6 +83,15 @@ export const Modal = ({ setModal, modal }) => {
       if (error.email) setError("email", { message: error.email });
     }
   };
+  const email = watch('email')
+  const existingFriends = watch('friends')
+
+  useEffect(() => {
+    return () => {
+      effect;
+    };
+  }, [input]);
+
   return (
     <ModalContainer>
       <FormProvider {...methods}>
