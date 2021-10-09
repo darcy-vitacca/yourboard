@@ -70,6 +70,7 @@ export const ProjectArrowContainer = styled.div`
 export const ProjectIconContainer = styled.div`
   width: 100px;
   display: flex;
+  cursor: pointer;
   justify-content: space-around;
   @media ${device.mobileLrg} {
     width: 200px;

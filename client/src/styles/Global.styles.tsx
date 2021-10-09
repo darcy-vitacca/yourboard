@@ -8,11 +8,12 @@ export const GlobalStyle = createGlobalStyle`
     margin: 0;
     padding: 0;
     font-family: 'IBM Plex Sans', sans-serif;;
-    background-color: ${theme.layout.background};
+    
   }
 
   html, body, #root {
     height: 100%;
+    background-color: ${theme.layout.background};
   } 
 
   h1 {
@@ -58,5 +59,8 @@ export const GlobalStyle = createGlobalStyle`
     font-size: ${theme.font.size.small};
     font-weight: ${theme.font.weight.regular};
     color: ${theme.colors.text.subText};
+  }
+  & .MuiPopover-root {
+    background-color: transparent ;
   }
 `;

@@ -103,7 +103,7 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production',
             sameSite: 'strict',
-            maxAge: 3600,
+            maxAge: 60 * 60 * 24 * 7,
             path: '/',
         }));
         return res.json(user);

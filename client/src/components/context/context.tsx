@@ -2,11 +2,13 @@ import axios from "axios";
 import { createContext, useContext, useEffect, useReducer } from "react";
 import User from "../../../../server/src/entities/User";
 import Project from "../../../../server/src/entities/Project";
+import Friend from "../../../../server/src/entities/Friends";
 
 interface State {
   authenticated: boolean;
   user: User | null;
   loading: boolean;
+  friends: Friend[] | null;
   showMenu: boolean;
   currentProject: Project | null;
   projects: Project[] | null;
@@ -21,6 +23,7 @@ const StateContext = createContext<State>({
   authenticated: false,
   user: null,
   loading: true,
+  friends: null,
   showMenu: false,
   currentProject: null,
   projects: null,
@@ -44,7 +47,9 @@ const reducer: any = (state: State, { type, payload }: Action) => {
       return {
         ...state,
         projects: payload,
-        currentProject: state.currentProject ?  state.currentProject: payload[0],
+        currentProject: state.currentProject
+          ? state.currentProject
+          : payload[0],
         loading: false,
       };
     case "SET_CURRENT_PROJECT":
@@ -74,6 +79,12 @@ const reducer: any = (state: State, { type, payload }: Action) => {
         currentProjectIndex: nextIndex,
         currentProject: state.projects ? state.projects[nextIndex] : null,
       };
+    case "SET_FRIENDS":
+      return {
+        ...state,
+        friends: payload,
+        loading: false,
+      };
     case "SHOW_MENU":
       return { ...state, showMenu: true };
     case "HIDE_MENU":
@@ -92,6 +103,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     user: null,
     authenticated: false,
     loading: true,
+    friends: null,
     showMenu: false,
     currentProject: null,
     projects: null,

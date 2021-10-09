@@ -35,7 +35,6 @@ const createLink = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
             .into(Link_1.default)
             .values(updatedLinks)
             .execute();
-        console.log('bulkInsert', bulkInsert);
         return res.status(200).json(bulkInsert);
     }
     catch (err) {

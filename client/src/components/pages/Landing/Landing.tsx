@@ -12,14 +12,15 @@ import { Link } from "../../../shared/link";
 import { useHistory } from "react-router";
 import {
   ProjectArrowContainer,
-  ProjectIconContainer, ProjectNavContainer,
-  SVGAddFriendIcon, SVGAddLinkIcon,
-  SVGEditIcon,
+  ProjectIconContainer,
+  ProjectNavContainer,
+  SVGAddFriendIcon,
+  SVGAddLinkIcon,
   SVGLeftIcon,
   SVGRightIcon,
-} from './Landing.styles';
+} from "./Landing.styles";
 import { landingConstants } from "../../../utils/constants/landing";
-import _ from "lodash";
+import isEmpty from "lodash/isEmpty";
 import { Loader } from "../../../shared/loaders";
 import { PersonSection } from "../../../shared/personSection";
 import {
@@ -48,7 +49,6 @@ export const Landing = () => {
     })();
   }, []);
 
-
   const handlePrevious = () => {
     dispatch("PREVIOUS_PROJECT");
   };
@@ -76,20 +76,14 @@ export const Landing = () => {
               <ProjectArrowContainer>
                 <SVGLeftIcon onClick={() => handlePrevious()} />
                 <ProjectIconContainer>
-                  <ProjectNavContainer>
-                    <SVGAddLinkIcon onClick={() => push('/add-links')} />
-                    <Markdown
-                      children="Add Link"
-                      align="center"
-                    />
+                  <ProjectNavContainer onClick={() => push("/add-links")}>
+                    <SVGAddLinkIcon />
+                    <Markdown children="Add Link" align="center" />
                   </ProjectNavContainer>
-                  <ProjectNavContainer>
-                  <SVGAddFriendIcon onClick={() => setModal(true)} />
-                    <Markdown
-                      children="Add User"
-                      align="center"
-                    />
-                    </ProjectNavContainer>
+                  <ProjectNavContainer onClick={() => setModal(true)}>
+                    <SVGAddFriendIcon />
+                    <Markdown children="Add User" align="center" />
+                  </ProjectNavContainer>
                 </ProjectIconContainer>
                 <SVGRightIcon onClick={() => handleForward()} />
               </ProjectArrowContainer>
@@ -102,7 +96,7 @@ export const Landing = () => {
                 </PersonContainer>
               </PersonSectionContainer>
               <LinkSectionContainer>
-                {currentProject && !_.isEmpty(currentProject.links)
+                {currentProject && !isEmpty(currentProject.links)
                   ? currentProject.links.map((link) => (
                       <Link link={link} key={link.link_id} />
                     ))
