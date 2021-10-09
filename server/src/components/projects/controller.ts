@@ -135,6 +135,7 @@ export const inviteUserToProject = async (req: Request, res: Response) => {
         where: { email: email },
       });
 
+
       if (!invitedUserDetails) {
         return res.status(404).json({ user: 'User not found' });
       }
