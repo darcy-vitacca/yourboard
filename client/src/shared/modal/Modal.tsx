@@ -60,7 +60,7 @@ export const Modal = ({ setModal, modal }) => {
         const res = await axios.get("/user/friends");
         dispatch("SET_FRIENDS", res.data);
       } catch (err: any) {
-        console.log(err);
+        dispatch("STOP_LOADING");
       }
     })();
   }, []);

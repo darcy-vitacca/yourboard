@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import User from '../../entities/User';
 import Friends from '../../entities/Friends';
+import isEmpty from 'lodash/isEmpty'
 
 export const getFriends = async (req: Request, res: Response) => {
   const user: User = res.locals.user;
@@ -10,7 +11,7 @@ export const getFriends = async (req: Request, res: Response) => {
       where: { user_1_id: user.user_id },
     });
     console.log('userFriends', usersFriends);
-    if (!usersFriends) {
+    if (isEmpty(usersFriends)) {
       return res.status(404).json({ user: 'Friends not found' });
     }
 

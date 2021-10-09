@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import User from '../../entities/User';
-import { isEmpty } from 'class-validator';
+import isEmpty from 'lodash/isEmpty'
 import Project from '../../entities/Project';
 import Link from '../../entities/Link';
 import ProjectUser from '../../entities/ProjectUser';
@@ -104,8 +104,9 @@ export const inviteUserToProject = async (req: Request, res: Response) => {
   const user: User = res.locals.user;
   try {
     const { email, project_id, project_name } = req.body;
-    let emailToSend;
 
+    let emailToSend;
+    let invitedUserDetails;
     let completionMessage = {
       message: '',
     };
@@ -129,7 +130,7 @@ export const inviteUserToProject = async (req: Request, res: Response) => {
         where: { user_1_id: user.user_id, user_2_email: email },
       });
 
-      const invitedUserDetails = await User.findOne({
+      invitedUserDetails = await User.findOne({
         select: ['user_id', 'firstName', 'lastName', 'user_id'],
         where: { email: email },
       });
@@ -193,11 +194,14 @@ export const inviteUserToProject = async (req: Request, res: Response) => {
         return error;
       });
 
+
     const projectUsers = await new ProjectUser({
-      status: false,
+      status: !isEmpty(invitedUserDetails),
       project_id: project_id,
       owner: false,
       email: email,
+      ...(!isEmpty(invitedUserDetails) && { user_id:   invitedUserDetails?.user_id,
+        full_name: `${invitedUserDetails?.firstName} ${invitedUserDetails?.lastName}` })
     });
 
     await projectUsers.save();

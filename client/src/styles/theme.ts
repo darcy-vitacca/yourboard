@@ -53,6 +53,7 @@ export const theme = {
     family: mainFontFamily,
     size: {
       tiny: "6px",
+      tinier: "8px",
       smallest: "12px",
       smaller: "13px",
       small: "14px",
