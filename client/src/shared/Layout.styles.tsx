@@ -50,7 +50,7 @@ export const SectionContainer = styled.div<ISectionContainerProps>`
   min-width: 280px;
   margin-left: 70px;
   @media ${device.mobileLrg} {
-    padding: 0 20px;
+    padding: 15px 20px;
     margin-left: 0;
   }
   display: ${({ align }) => (align ? "flex" : "inherit")};
