@@ -3,10 +3,13 @@ import { Markdown } from '../../../shared/markdown';
 import { LinkProjectSectionContainer, ProjectContainer } from '../../../shared/Layout.styles';
 import {  ProjectComponent } from '../../../shared/project/ProjectComponent';
 import {landingConstants} from '../../../utils/constants/landing'
+import { useAuthState } from '../../context/context';
 
 export const ProjectSection = ({projects}) => {
 const {defaultProject} = landingConstants
+  const {  loading } = useAuthState();
 
+  console.log('useAuthState()', useAuthState());
   return (
     <>
     <ProjectContainer >
@@ -18,11 +21,20 @@ const {defaultProject} = landingConstants
         children={`### Select a project` || ""}
         align="center"
       />
-    <LinkProjectSectionContainer>
-      {projects ? projects.map((project => <ProjectComponent  project={project} key={project?.project_id}/>))
-        : <ProjectComponent  project={defaultProject} key={defaultProject?.project_id} empty/>
+      {
+
+        <LinkProjectSectionContainer>
+          {projects &&
+          projects.map(project =>
+            <ProjectComponent
+              project={project}
+              key={project?.project_id}
+              empty={project?.project_id === "default_project"}/>)
+
+          }
+        </LinkProjectSectionContainer>
       }
-    </LinkProjectSectionContainer>
+
     </ProjectContainer>
     </>
   );

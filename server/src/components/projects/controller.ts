@@ -7,6 +7,7 @@ import ProjectUser from '../../entities/ProjectUser';
 import sgMail from '@sendgrid/mail';
 import Friends from '../../entities/Friends';
 import { getConnection } from 'typeorm';
+import { defaultProject } from '../../utils/constants/project-constants';
 
 sgMail.setApiKey(process.env.SEND_GRID_API ?? '');
 
@@ -90,8 +91,9 @@ export const getProjects = async (_: Request, res: Response) => {
         order: { createdAt: 'DESC' },
         relations: ['links', 'project_users'],
       });
+      console.log('projects', projects);
     } else {
-      return res.status(404).json({ project: 'Projects not found' });
+      projects = [defaultProject]
     }
 
     return res.status(200).json(projects);

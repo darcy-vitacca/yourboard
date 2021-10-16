@@ -15,7 +15,7 @@ export const landingConstants = {
     ],
   },
   defaultProject: {
-    project_id: "123432143asdsadas214eqfdsasdafdsa",
+    project_id: "default_project",
     project_name: "Click here to create your first project!",
     updatedAt:  null,
     createdAt:  null,
