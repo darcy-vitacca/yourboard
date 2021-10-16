@@ -134,7 +134,7 @@ export const ImageSplitFormSection = styled.img`
   border-radius: 12px;
 `;
 
-export const LoginRegisterLinkContainer = styled.div`
+export const LoginRegisterLinkProjectContainer = styled.div`
   display: flex;
 `;
 
@@ -144,7 +144,7 @@ export const StyledLink = styled(Link)`
   text-decoration: none;
   color: ${({ theme }) => theme.colors.green500};
 `;
-export const LinkSectionContainer = styled.div`
+export const LinkProjectSectionContainer = styled.div`
   display: flex;
   justify-content: center;
   flex-direction: row;

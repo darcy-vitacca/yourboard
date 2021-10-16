@@ -1,7 +1,7 @@
 import styled from "styled-components/macro";
 import { device } from "../../styles/devices";
 
-export const LinkContainer = styled.div`
+export const LinkProjectContainer = styled.div`
   margin: 10px;
   width: 120px;
   height: 100px;
@@ -22,18 +22,18 @@ export const LinkContainer = styled.div`
   }
 `;
 
-export const LinkTopRow = styled.div`
+export const LinkProjectTopRow = styled.div`
   display: flex;
   justify-content: space-between;
   height: 80%;
 `;
-export const LinkBottomRow = styled.div`
+export const LinkProjectBottomRow = styled.div`
   display: flex;
   flex-direction: column;
 `;
-export const LinkRow = styled.div``;
+export const LinkProjectRow = styled.div``;
 
-export const LinkRowTags = styled.div`
+export const LinkProjectRowTags = styled.div`
   display: flex;
   flex-wrap: wrap;
   overflow: hidden;

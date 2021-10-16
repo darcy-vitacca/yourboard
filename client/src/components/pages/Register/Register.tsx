@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import {
   FormContainer,
-  LoginRegisterLinkContainer,
+  LoginRegisterLinkProjectContainer,
   LoginRegisterSectionContainer,
   PageLayoutContainer,
   SectionContainer,
@@ -149,10 +149,10 @@ export const Register = () => {
                   />
 
                   <Button text="Register" width="100%" type="submit" />
-                  <LoginRegisterLinkContainer>
+                  <LoginRegisterLinkProjectContainer>
                     <Markdown children="Already a yourboard member?" />
                     <StyledLink to="/login">LOGIN </StyledLink>
-                  </LoginRegisterLinkContainer>
+                  </LoginRegisterLinkProjectContainer>
                 </LoginRegisterSectionContainer>
               </form>
             </FormProvider>

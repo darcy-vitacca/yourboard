@@ -47,15 +47,19 @@ const reducer: any = (state: State, { type, payload }: Action) => {
       return {
         ...state,
         projects: payload,
-        currentProject: state.currentProject
-          ? state.currentProject
-          : payload[0],
         loading: false,
       };
     case "SET_CURRENT_PROJECT":
       return {
         ...state,
         currentProject: payload,
+        currentProjectIndex: state?.projects?.findIndex((project) => project.project_id === payload.project_id) ?? 0,
+      };
+    case "RETURN_INITIAL_STATE_CURRENT_PROJECT":
+      return {
+        ...state,
+        currentProject: null,
+        currentProjectIndex: 0,
       };
     case "PREVIOUS_PROJECT":
       const previousIndex = state.projects

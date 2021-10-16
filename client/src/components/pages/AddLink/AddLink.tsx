@@ -13,7 +13,7 @@ import { TextArea } from "../../../shared/formElements/textArea";
 import { Button } from "../../../shared/formElements/button";
 import * as linkify from "linkifyjs";
 import {
-  AddLinkContainer,
+  AddLinkProjectContainer,
   AddLinkPreviewContainer,
   AddLinkSection,
   LinkEditSection,
@@ -21,11 +21,11 @@ import {
   LinkInputSection,
   LinkText,
 } from "./AddLink.styles";
-import { Link } from "../../../shared/link";
 import _ from "lodash";
 import Input from "../../../shared/formElements/input";
 import axios from "axios";
 import { Loader } from "../../../shared/loaders";
+import { LinkComponent } from '../../../shared/link';
 
 interface FormValue {
   linkText: string;
@@ -49,9 +49,11 @@ export const validationSchema = Yup.object({
 
 export const AddLink = () => {
   const dispatch = useAuthDispatch();
-  const { authenticated, currentProject, loading } = useAuthState();
+  const { authenticated, currentProject, loading, projects } = useAuthState();
   const { push } = useHistory();
   if (!authenticated) push("/login");
+  if (!currentProject && projects) push("/");
+  if (!currentProject && !projects) push("/add-project");
 
   const methods = useForm<any>({
     mode: "onSubmit",
@@ -130,7 +132,7 @@ export const AddLink = () => {
       clearErrors("linkText");
     } else {
       setError("linkText", {
-        message: "Please add a Link to the text are for your project.",
+        message: "Please add a ProjectSection to the text are for your project.",
       });
     }
   };
@@ -202,12 +204,12 @@ export const AddLink = () => {
                           </LinkInputRow>
                         </LinkInputSection>
 
-                        <AddLinkContainer>
+                        <AddLinkProjectContainer>
                           <LinkText>{item.url}</LinkText>
-                        </AddLinkContainer>
+                        </AddLinkProjectContainer>
                       </LinkEditSection>
 <div>
-  <Link link={watchedUploadLinks[index]} />
+  <LinkComponent link={watchedUploadLinks[index]} />
   <Button text="Remove" width="100%" type="button"  onClick={() => handleDelete(index)}/>
 </div>
 

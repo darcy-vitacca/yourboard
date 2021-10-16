@@ -1,7 +1,7 @@
 import React from "react";
 import {
   FormContainer,
-  LoginRegisterLinkContainer,
+  LoginRegisterLinkProjectContainer,
   LoginRegisterSectionContainer,
   PageLayoutContainer,
   SectionContainer,
@@ -91,10 +91,10 @@ export const Login = () => {
                   />
 
                   <Button text="Login" width="100%" type="submit" />
-                  <LoginRegisterLinkContainer>
+                  <LoginRegisterLinkProjectContainer>
                     <Markdown children="New to yourboard?" />
                     <StyledLink to="/register">REGISTER</StyledLink>
-                  </LoginRegisterLinkContainer>
+                  </LoginRegisterLinkProjectContainer>
                 </LoginRegisterSectionContainer>
               </form>
             </FormProvider>

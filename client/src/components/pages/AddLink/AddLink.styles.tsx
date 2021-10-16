@@ -6,7 +6,7 @@ export const AddLinkPreviewContainer = styled.div`
   flex-direction: column;
 `;
 
-export const AddLinkContainer = styled.div`
+export const AddLinkProjectContainer = styled.div`
   display: flex;
   flex-direction: row;
 

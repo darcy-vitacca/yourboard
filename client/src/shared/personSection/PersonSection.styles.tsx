@@ -1,6 +1,7 @@
 import styled from "styled-components/macro";
 import { CheckCircle } from "@styled-icons/boxicons-solid/CheckCircle";
 import { PendingActions } from "@styled-icons/material/PendingActions";
+import { Folder} from "@styled-icons/bootstrap/Folder";
 import AddIcon from "@material-ui/icons/Add";
 import { device } from '../../styles/devices';
 
@@ -51,9 +52,12 @@ export const PersonContainerApprovedIcon = styled(CheckCircle)`
 `;
 
 export const AddCircleIcon = styled(AddIcon)`
-  color: ${({ theme }) => theme.colors.white};
+   color: ${({ theme }) => theme.colors.white};
   width: 25px;
 `;
+
+
+
 
 export const PersonContainerPendingIcon = styled(PendingActions)`
   color: ${({ theme }) => theme.colors.purple500};

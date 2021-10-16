@@ -1,41 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import {
   SectionContainer,
   PageLayoutContainer,
-  LinkSectionContainer,
-  ProjectContainer,
 } from "../../../shared/Layout.styles";
-import { Markdown } from "../../../shared/markdown";
 import axios from "axios";
 import { useAuthDispatch, useAuthState } from "../../context/context";
-import { Link } from "../../../shared/link";
 import { useHistory } from "react-router";
-import {
-  ProjectArrowContainer,
-  ProjectIconContainer,
-  ProjectNavContainer,
-  SVGAddFriendIcon,
-  SVGAddLinkIcon,
-  SVGLeftIcon,
-  SVGRightIcon,
-} from "./Landing.styles";
-import { landingConstants } from "../../../utils/constants/landing";
-import isEmpty from "lodash/isEmpty";
 import { Loader } from "../../../shared/loaders";
-import { PersonSection } from "../../../shared/personSection";
-import {
-  PersonContainer,
-  PersonSectionContainer,
-} from "../../../shared/personSection/PersonSection.styles";
-import { Modal } from "../../../shared/modal/Modal";
+import { LinkSection } from '../LinkSection/LinkSection';
+import { ProjectSection } from '../ProjectSection/ProjectSection';
 
 export const Landing = () => {
   const dispatch = useAuthDispatch();
-  const { currentProject, loading, authenticated } = useAuthState();
-  const { defaultProject } = landingConstants;
+  const { currentProject, loading, authenticated ,projects} = useAuthState();
   const { push } = useHistory();
-  const [modal, setModal] = useState(false);
   if (!authenticated && !loading) push("/login");
+
 
   useEffect(() => {
     (async () => {
@@ -44,70 +24,24 @@ export const Landing = () => {
         const res = await axios.get("/projects");
         dispatch("SET_PROJECTS", res.data);
       } catch (err: any) {
-        console.log(err);
+        dispatch("STOP_LOADING");
+        if(err?.response?.data?.project === "Projects ot Found"){
+          push("/add-project")
+        }
+        console.log(err.response);
       }
     })();
   }, []);
 
-  const handlePrevious = () => {
-    dispatch("PREVIOUS_PROJECT");
-  };
-  const handleForward = () => {
-    dispatch("NEXT_PROJECT");
-  };
-
   return (
-    <>
-      {modal && <Modal setModal={setModal} modal={modal} />}
       <PageLayoutContainer>
         <SectionContainer>
           {loading && <Loader />}
-          {currentProject && (
-            <ProjectContainer key={currentProject.project_id}>
-              <Markdown
-                children={`# ${currentProject.project_name}` || ""}
-                align="center"
-              />
-
-              <Markdown
-                children={`### ${currentProject.description}` || ""}
-                align="center"
-              />
-              <ProjectArrowContainer>
-                <SVGLeftIcon onClick={() => handlePrevious()} />
-                <ProjectIconContainer>
-                  <ProjectNavContainer onClick={() => push("/add-links")}>
-                    <SVGAddLinkIcon />
-                    <Markdown children="Add Link" align="center" className="arrowContainerIconText" />
-                  </ProjectNavContainer>
-                  <ProjectNavContainer onClick={() => setModal(true)}>
-                    <SVGAddFriendIcon />
-                    <Markdown children="Add User" align="center"  className="arrowContainerIconText" />
-                  </ProjectNavContainer>
-                </ProjectIconContainer>
-                <SVGRightIcon onClick={() => handleForward()} />
-              </ProjectArrowContainer>
-              <PersonSectionContainer>
-                <PersonContainer>
-                  {currentProject?.project_users &&
-                    currentProject?.project_users.map((user) => (
-                      <PersonSection project_user={user} />
-                    ))}
-                </PersonContainer>
-              </PersonSectionContainer>
-              <LinkSectionContainer>
-                {currentProject && !isEmpty(currentProject.links)
-                  ? currentProject.links.map((link) => (
-                      <Link link={link} key={link.link_id} />
-                    ))
-                  : defaultProject.links.map((link) => (
-                      <Link link={link} key={link.link_id} empty />
-                    ))}
-              </LinkSectionContainer>
-            </ProjectContainer>
-          )}
+          {!currentProject ? <ProjectSection projects={projects} /> :
+         <LinkSection currentProject={currentProject}/>
+          }
         </SectionContainer>
       </PageLayoutContainer>
-    </>
   );
 };
+

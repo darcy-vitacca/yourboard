@@ -74,6 +74,7 @@ export const createProject = async (req: Request, res: Response) => {
 
 export const getProjects = async (_: Request, res: Response) => {
   try {
+
     const user: User = res.locals.user;
     let projects;
 
@@ -83,7 +84,7 @@ export const getProjects = async (_: Request, res: Response) => {
       order: { createdAt: 'DESC' },
     });
 
-    if (projectsUser) {
+    if (!isEmpty(projectsUser)) {
       projects = await Project.find({
         where: projectsUser,
         order: { createdAt: 'DESC' },

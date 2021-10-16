@@ -31,9 +31,11 @@ export const SideMenu: FC<ISideMenuProps> = ({ className }) => {
     inbox: false,
     bankAccount: false,
   };
-  const { showMenu,authenticated} = useAuthState();
+  const { showMenu,authenticated ,projects, currentProject} = useAuthState();
   const dispatch = useAuthDispatch();
   const [showSubMenu, setShowSubMenu] = useState(initialSubMenuState);
+
+
 
   const { push } = useHistory();
 
@@ -49,7 +51,11 @@ export const SideMenu: FC<ISideMenuProps> = ({ className }) => {
       await dispatch('LOGOUT');
       window.location.reload();
       push('/login')
-    } else {
+    } else if(route === '/') {
+       dispatch("RETURN_INITIAL_STATE_CURRENT_PROJECT")
+        push(route)
+      }
+      else {
       dispatch('HIDE_MENU');
       push(route);
     }
@@ -84,6 +90,7 @@ export const SideMenu: FC<ISideMenuProps> = ({ className }) => {
       <SideBar>
         <SideBarList>
           {sideBarData.map((item: SideMenuValues) => {
+            if(item?.link === "/add-links" && !currentProject) return
             return (
               <SideBarRowContainer key={item.title}>
                 <NavRow

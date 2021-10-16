@@ -1,32 +1,30 @@
 import React, { FC } from "react";
 import {
-  LinkBottomRow,
-  LinkContainer,
+  LinkProjectBottomRow,
+  LinkProjectContainer,
   LinkImg,
-  LinkRow,
-  // LinkRowTags,
+  LinkProjectRow,
+  // LinkProjectRowTags,
   // LinkSectionLeft,
   // LinkSectionRight,
-  LinkTopRow,
+  LinkProjectTopRow,
   // Tag,
 } from "./Link.tsx.styles";
 import { Markdown } from "../markdown";
 import moment from "moment";
-// import { LoginRegisterLinkContainer, StyledLink } from "../Layout.styles";
 import { useHistory } from "react-router";
 import {
   AddCircleIcon,
-  PersonContainerApprovedIcon,
 } from "../personSection/PersonSection.styles";
 
 export interface LinkValues {
   clicked?: number;
-  createdAt: Date;
+  createdAt: Date | null;
   link_id: string;
   position?: number;
   project_id: string;
   subfolder_id?: string;
-  updatedAt: Date;
+  updatedAt: Date | null;
   url: string | null;
   url_image?: string;
   url_name: string;
@@ -36,15 +34,9 @@ interface Links {
   empty?: boolean;
 }
 
-export const Link: FC<Links> = ({
+export const LinkComponent: FC<Links> = ({
   empty,
   link: {
-    // clicked,
-    // createdAt,
-    // link_id,
-    // position,
-    // project_id,
-    // subfolder_id,
     updatedAt,
     url,
     url_image,
@@ -53,24 +45,27 @@ export const Link: FC<Links> = ({
 }) => {
   const { push } = useHistory();
   return (
-    <LinkContainer
+    <LinkProjectContainer
       onClick={() => (url ? window.open(url, "_blank") : push("/add-links"))}
     >
-      <LinkTopRow>
+      <LinkProjectTopRow>
         <Markdown children={`#### ${url_name}`} className="linkCardMainText" />
         {empty ? <AddCircleIcon /> : <LinkImg src={url_image} />}
-      </LinkTopRow>
-      <LinkBottomRow>
-        <LinkRow>
+      </LinkProjectTopRow>
+      <LinkProjectBottomRow>
+        <LinkProjectRow>
+          {
+            updatedAt &&
           <Markdown
             children={`Last updated ${moment(updatedAt).fromNow()}`}
             className="linkCardSubText"
           />
-        </LinkRow>
-        {/*<LinkRow>*/}
+          }
+        </LinkProjectRow>
+        {/*<LinkProjectRow>*/}
         {/*  <Markdown children={`${url}`} className="linkCardSubText" />*/}
-        {/*</LinkRow>*/}
-      </LinkBottomRow>
-    </LinkContainer>
+        {/*</LinkProjectRow>*/}
+      </LinkProjectBottomRow>
+    </LinkProjectContainer>
   );
 };
