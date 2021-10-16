@@ -78,11 +78,11 @@ export const Landing = () => {
                 <ProjectIconContainer>
                   <ProjectNavContainer onClick={() => push("/add-links")}>
                     <SVGAddLinkIcon />
-                    <Markdown children="Add Link" align="center" />
+                    <Markdown children="Add Link" align="center" className="arrowContainerIconText" />
                   </ProjectNavContainer>
                   <ProjectNavContainer onClick={() => setModal(true)}>
                     <SVGAddFriendIcon />
-                    <Markdown children="Add User" align="center" />
+                    <Markdown children="Add User" align="center"  className="arrowContainerIconText" />
                   </ProjectNavContainer>
                 </ProjectIconContainer>
                 <SVGRightIcon onClick={() => handleForward()} />

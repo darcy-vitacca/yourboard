@@ -54,6 +54,7 @@ export const theme = {
     size: {
       tiny: "6px",
       tinier: "8px",
+      tinySmall: "10px",
       smallest: "12px",
       smaller: "13px",
       small: "14px",

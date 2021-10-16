@@ -28,6 +28,7 @@ export const MarkdownElement = styled(
     font-size: 8px;
     word-break: break-all;
   }
+
   &.termsConditionsText > p > a {
     font-size: ${({ theme }) => theme.font.size.small};
     padding: 0;
@@ -76,6 +77,12 @@ export const MarkdownElement = styled(
   &.showMenu {
     display: none;
   }
+  &.arrowContainerIconText > p {
+    font-size: ${({ theme }) => theme.font.size.tinySmall};
+    @media ${device.mobileLrg} {
+      font-size: ${({ theme }) => theme.font.size.small};
+    }
+  }
   &.linkCardSubText {
     padding:0;
     @media ${device.mobileLrg} {
@@ -94,6 +101,7 @@ export const MarkdownElement = styled(
     @media ${device.mobileLrg} {
       width: 100%;
     }
+    
   &.linkCardMainText > h4 {
     width: 80%;
     font-size: ${({ theme }) => theme.font.size.smallest};
@@ -102,4 +110,5 @@ export const MarkdownElement = styled(
       font-size: ${({ theme }) => theme.font.size.medium};
     }
   }
+   
 `;
