@@ -25,7 +25,7 @@ export const Landing = () => {
         dispatch("SET_PROJECTS", res.data);
       } catch (err: any) {
         dispatch("STOP_LOADING");
-        if(err?.response?.data?.project === "Projects ot Found"){
+        if(err?.response?.data?.project === "Projects not Found"){
           push("/add-project")
         }
         console.log(err.response);

@@ -58,6 +58,7 @@ export const ProjectComponent: FC<Projects> = ({
       <LinkProjectTopRow>
         <Markdown children={`#### ${project_name}`} className="linkCardMainText" />
         { empty && <AddCircleIcon />    }
+        <Markdown children={`📁`}  />
       </LinkProjectTopRow>
       <LinkProjectBottomRow>
         <LinkProjectRow>
