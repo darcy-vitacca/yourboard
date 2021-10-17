@@ -19,7 +19,10 @@ export const ModalContentContainer = styled.div`
   position: fixed;
   width: 220px;
   height: auto;
-  left: 35%;
+  left: 30%;
+  @media ${device.mobileSml} {
+    left: 35%;
+  }
   top: 15%;
   background-color: ${({ theme }) => theme.layout.background};
   padding: 10px;
