@@ -3,6 +3,7 @@ import { ArrowLeftCircleFill } from "@styled-icons/bootstrap/ArrowLeftCircleFill
 import { ArrowRightCircleFill } from "@styled-icons/bootstrap/ArrowRightCircleFill";
 import { Folder} from "@styled-icons/bootstrap/Folder";
 import { PersonAdd } from "@styled-icons/ionicons-solid/PersonAdd";
+import {NotepadEdit } from "@styled-icons/fluentui-system-filled/NotepadEdit"
 import { Edit } from "@styled-icons/feather/Edit";
 import { AddLink } from "@styled-icons/material-outlined/AddLink";
 
@@ -72,7 +73,16 @@ export const SVGAddLinkIcon = styled(AddLink)`
 export const SVGFolderIcon = styled(Folder)`
   color: ${({ theme }) => theme.colors.white};
   border-radius: 5px;
-  width: 45px;
+  width: 40px;
+  height: 45px;
+  padding: 3px;
+  cursor: pointer;
+`;
+
+export const SVGNotepadIcon = styled(NotepadEdit)`
+  color: ${({ theme }) => theme.colors.white};
+  border-radius: 5px;
+  width: 40px;
   height: 45px;
   padding: 3px;
   cursor: pointer;
@@ -94,7 +104,7 @@ export const ProjectIconContainer = styled.div`
   cursor: pointer;
   justify-content: space-around;
   @media ${device.mobileLrg} {
-    width: 200px;
+    width: 280px;
   }
 `;
 

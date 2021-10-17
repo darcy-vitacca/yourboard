@@ -7,6 +7,7 @@ import { AddProject } from "./components/pages/AddProject";
 import { Settings } from "./components/pages/Settings";
 import { MyProfile } from "./components/pages/MyProfile";
 import { Inbox } from "./components/pages/Inbox";
+import { Notes } from './components/pages/Notes';
 
 const Routes = () => {
   return (
@@ -17,6 +18,7 @@ const Routes = () => {
         <Route exact path="/login" component={Login} />
         <Route exact path="/register" component={Register} />
         <Route exact path="/add-links" component={AddLink} />
+        <Route exact path="/notes" component={Notes} />
         <Route exact path="/add-project" component={AddProject} />
         <Route exact path="/settings" component={Settings} />
         <Route exact path="/my-profile" component={MyProfile} />

@@ -1,0 +1,10 @@
+.wrapper-class {
+    min-height: 500px;
+
+}
+.editor-class {
+    min-height: 500px;
+    cursor: text;
+    color: white !important;
+}
+

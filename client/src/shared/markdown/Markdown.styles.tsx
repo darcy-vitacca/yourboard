@@ -78,9 +78,9 @@ export const MarkdownElement = styled(
     display: none;
   }
   &.arrowContainerIconText > p {
-    font-size: ${({ theme }) => theme.font.size.tinySmall};
+    font-size: ${({ theme }) => theme.font.size.tinier};
     @media ${device.mobileLrg} {
-      font-size: ${({ theme }) => theme.font.size.small};
+      font-size: ${({ theme }) => theme.font.size.smallest};
     }
   }
   &.linkCardSubText {

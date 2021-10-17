@@ -90,7 +90,7 @@ export const SideMenu: FC<ISideMenuProps> = ({ className }) => {
       <SideBar>
         <SideBarList>
           {sideBarData.map((item: SideMenuValues) => {
-            if(item?.link === "/add-links" && !currentProject) return
+            if((item?.link === "/add-links" ||  item?.link === "/notes") && !currentProject) return
             return (
               <SideBarRowContainer key={item.title}>
                 <NavRow

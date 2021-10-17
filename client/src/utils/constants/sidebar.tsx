@@ -4,14 +4,21 @@ import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import LockOpenIcon from "@material-ui/icons/LockOpen";
 import PersonAddIcon from "@material-ui/icons/PersonAdd";
 import styled from "styled-components/macro";
-
+import {NotepadEdit } from "@styled-icons/fluentui-system-filled/NotepadEdit"
 import { AddLink } from "@styled-icons/material-outlined/AddLink";
+
  const SVGAddLinkIcon = styled(AddLink)`
   color: ${({ theme }) => theme.colors.white};
   width: 25px;
   height: 25px;
   cursor: pointer;
-  // margin-top: -2px;
+`;
+
+const SVGNotepadEditIcon = styled(NotepadEdit)`
+  color: ${({ theme }) => theme.colors.white};
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
 `;
 
 export interface SideMenuValues {
@@ -49,6 +56,12 @@ export const sidebarDataAuth: SideMenuValues[] = [
     link: "/add-project",
     tooltip: "Add Project",
   },
+  // {
+  //   title: "#### Project Notes",
+  //   icon: <SVGNotepadEditIcon />,
+  //   link: "/notes",
+  //   tooltip: "Project Notes",
+  // },
   // {
   //   title: "#### Settings",
   //   icon: <SettingsIcon />,

@@ -14,7 +14,7 @@ import {
   ProjectArrowContainer,
   ProjectIconContainer,
   ProjectNavContainer, SVGAddFriendIcon, SVGAddLinkIcon, SVGFolderIcon,
-  SVGLeftIcon, SVGRightIcon,
+  SVGLeftIcon, SVGNotepadIcon, SVGRightIcon,
 } from '../Landing/Landing.styles';
 import { LinkProjectSectionContainer, ProjectContainer } from '../../../shared/Layout.styles';
 import { LinkComponent } from '../../../shared/link';
@@ -66,6 +66,10 @@ export const LinkSection= ({currentProject}) => {
             <SVGFolderIcon />
             <Markdown children="Projects" align="center" className="arrowContainerIconText" />
           </ProjectNavContainer>
+          {/*<ProjectNavContainer onClick={() => push("/notes")}>*/}
+          {/*  <SVGNotepadIcon />*/}
+          {/*  <Markdown children="Notes" align="center"  className="arrowContainerIconText" />*/}
+          {/*</ProjectNavContainer>*/}
         </ProjectIconContainer>
         <SVGRightIcon onClick={() => handleForward()} />
       </ProjectArrowContainer>

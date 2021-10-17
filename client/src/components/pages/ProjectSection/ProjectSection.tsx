@@ -2,14 +2,12 @@ import React from "react";
 import { Markdown } from '../../../shared/markdown';
 import { LinkProjectSectionContainer, ProjectContainer } from '../../../shared/Layout.styles';
 import {  ProjectComponent } from '../../../shared/project/ProjectComponent';
-import {landingConstants} from '../../../utils/constants/landing'
-import { useAuthState } from '../../context/context';
+import { DraftEditor } from '../Notes/Editor';
+import styled from 'styled-components/macro'
+
+
 
 export const ProjectSection = ({projects}) => {
-const {defaultProject} = landingConstants
-  const {  loading } = useAuthState();
-
-  console.log('useAuthState()', useAuthState());
   return (
     <>
     <ProjectContainer >
@@ -33,6 +31,7 @@ const {defaultProject} = landingConstants
 
           }
         </LinkProjectSectionContainer>
+
       }
 
     </ProjectContainer>

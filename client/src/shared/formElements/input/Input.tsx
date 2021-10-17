@@ -1,7 +1,5 @@
-// import { MuiThemeProvider, TextField } from '@material-ui/core';
 import React, { forwardRef } from "react";
 import { Controller } from "react-hook-form";
-
 import { Markdown } from "../../markdown";
 import { InputElement, InputContainer, InputLabel } from "./Input.styles";
 

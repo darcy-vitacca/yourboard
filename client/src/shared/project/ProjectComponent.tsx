@@ -77,6 +77,7 @@ export const ProjectComponent: FC<Projects> = ({
             />
           }
 
+
         </LinkProjectRow>
         {/*<LinkProjectRow>*/}
         {/*  <Markdown children={`${url}`} className="linkCardSubText" />*/}
