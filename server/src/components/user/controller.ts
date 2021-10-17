@@ -10,7 +10,7 @@ export const getFriends = async (req: Request, res: Response) => {
       select: ['user_2_name', 'user_2_email'],
       where: { user_1_id: user.user_id },
     });
-    console.log('userFriends', usersFriends);
+
     if (isEmpty(usersFriends)) {
       return res.status(404).json({ user: 'Friends not found' });
     }
