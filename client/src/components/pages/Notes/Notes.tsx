@@ -97,8 +97,8 @@ export const Notes = () => {
     }
 
   }
-  console.log(' draftToHtml(JSON.parse(notes?.note)', notes?.note && draftToHtml(JSON.parse(notes?.note).blocks));
-  console.log(' draftToHtml(JSON.parse(notes?.note)', notes?.note && JSON.parse(notes?.note));
+  // console.log(' draftToHtml(JSON.parse(notes?.note)', notes?.note && draftToHtml(JSON.parse(notes?.note).blocks));
+  // console.log(' draftToHtml(JSON.parse(notes?.note)', notes?.note && JSON.parse(notes?.note));
   return (
     <>
       <PageLayoutContainer>
