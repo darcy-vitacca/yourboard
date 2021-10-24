@@ -8,6 +8,7 @@ import { Settings } from "./components/pages/Settings";
 import { MyProfile } from "./components/pages/MyProfile";
 import { Inbox } from "./components/pages/Inbox";
 import { Notes } from './components/pages/Notes';
+import { Reset } from './components/pages/Reset';
 
 const Routes = () => {
   return (
@@ -17,6 +18,7 @@ const Routes = () => {
         <Route exact path="/" component={Landing} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/register" component={Register} />
+        <Route exact path="/reset/:id?" component={Reset} />
         <Route exact path="/add-links" component={AddLink} />
         <Route exact path="/notes" component={Notes} />
         <Route exact path="/add-project" component={AddProject} />

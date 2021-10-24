@@ -65,7 +65,6 @@ export const Register = () => {
     try {
       dispatch("LOADING");
       const res = await axios.post("/auth/register", formData);
-      console.log("res", res);
       dispatch("STOP_LOADING");
       push("/login");
     } catch (err: any) {

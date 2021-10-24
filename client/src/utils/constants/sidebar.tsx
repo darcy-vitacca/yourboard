@@ -99,7 +99,7 @@ export const sidebarDataAuth: SideMenuValues[] = [
 
 export const sidebarDataUnauth = [
   {
-    title: "#### Login",
+    title: "#### Reset",
     icon: <LockOpenIcon />,
     link: "/login",
     tooltip: "Login",

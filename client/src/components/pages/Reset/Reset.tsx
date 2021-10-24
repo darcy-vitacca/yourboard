@@ -1,13 +1,14 @@
-import React, {useState} from "react";
+import React from "react";
 import {
   FormContainer,
-  LoginRegisterLinkProjectContainer,
   LoginRegisterSectionContainer,
   PageLayoutContainer,
   SectionContainer,
-  StyledLink,
 } from "../../../shared/Layout.styles";
-import { useHistory } from "react-router";
+
+import * as Yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useParams, useHistory} from "react-router";
 import { useForm, FormProvider } from "react-hook-form";
 import Input from "../../../shared/formElements/input";
 import { Markdown } from "../../../shared/markdown";
@@ -15,30 +16,31 @@ import { Button } from "../../../shared/formElements/button";
 import axios from "axios";
 import { useAuthDispatch, useAuthState } from "../../context/context";
 import { Loader } from "../../../shared/loaders";
+import isEmpty from "lodash/isEmpty";
 
 interface FormValue {
-  email: string;
   password: string;
+  confirmPassword: string;
 }
 const defaultValues = {
-  email: "",
   password: "",
+  confirmPassword: "",
 };
 
-export const Login = () => {
+export const Reset = () => {
   const dispatch = useAuthDispatch();
   const { authenticated, loading } = useAuthState();
   const { push } = useHistory();
-  const [reset, setReset] = useState(false);
-  const [success, setSuccess] = useState("");
+  const { id }: any = useParams();
 
+  if(isEmpty(id)) push('/login')
   if (authenticated) push("/");
 
-  const methods = useForm<FormValue>({
-    mode: "onSubmit",
+  const methods = useForm<any>({
+    mode: "onChange",
     reValidateMode: "onChange",
     defaultValues: defaultValues,
-    resolver: undefined,
+    resolver: yupResolver(validationSchema),
     context: undefined,
     criteriaMode: "firstError",
     shouldFocusError: true,
@@ -53,22 +55,17 @@ export const Login = () => {
   const onSubmit = async (formData: any) => {
     try {
       dispatch("LOADING");
-      if(reset){
-        const res = await axios.post("/auth/forgot", formData);
-        setSuccess(res?.data?.email)
-      }else {
-        const res = await axios.post("/auth/login", formData);
-        dispatch("LOGIN", res.data);
-        push("/");
-      }
+        const res = await axios.patch("/auth/reset", { password: formData.password , id: id });
       dispatch("STOP_LOADING");
+      push('/login')
     } catch (err: any) {
       dispatch("STOP_LOADING");
       const error = err.response.data;
-      if (error?.email) setError("email", { message: error.email });
       if (error?.password) setError("password", { message: error.password });
     }
   };
+
+  console.log('errors', errors);
   return (
     <>
       <PageLayoutContainer>
@@ -80,40 +77,29 @@ export const Login = () => {
                 <LoginRegisterSectionContainer>
                   <Markdown children="### Reset" />
                   <Markdown children="By continuing, you agree to our User Agreement and Privacy Policy" />
+
                   <Input
-                    type="email"
-                    name="email"
+                    type="password"
+                    name="password"
                     width="100%"
-                    label="EMAIL"
+                    helperText="Password (A combination of 8 letters and numbers, including uppercase and lower case, without spaces)"
+                    label="PASSWORD"
                     control={control}
                     defaultValue={""}
-                    validation={errors?.email?.message || ""}
+                    validation={errors?.password?.message || ""}
                   />
-                  {
-                    !reset &&
-                    <Input
-                      type="password"
-                      name="password"
-                      width="100%"
-                      label="PASSWORD"
-                      control={control}
-                      defaultValue={""}
-                      validation={errors?.password?.message || ""}
-                    />
-                  }
+                  <Input
+                    type="password"
+                    name="confirmPassword"
+                    width="100%"
+                    label="CONFIRM PASSWORD"
+                    control={control}
+                    defaultValue={""}
+                    validation={errors?.confirmPassword?.message || ""}
+                  />
 
-                  <LoginRegisterLinkProjectContainer>
-                    <Markdown children={!reset ? "Forgot Password?" : "Go back to"} />
-                    <StyledLink to="#" onClick={() => setReset(!reset)}>{!reset ?  "RESET": "LOGIN"}</StyledLink>
-                  </LoginRegisterLinkProjectContainer>
-                  {
-                    success && reset  &&<Markdown children={success} className="successText" />
-                  }
-                  <Button text={!reset ? "LOGIN" : "RESET"} width="100%" type="submit" />
-                  <LoginRegisterLinkProjectContainer>
-                    <Markdown children="New to yourboard?" />
-                    <StyledLink to="/register">REGISTER</StyledLink>
-                  </LoginRegisterLinkProjectContainer>
+                  <Button text= "UPDATE PASSWORD" width="100%" type="submit" />
+
 
                 </LoginRegisterSectionContainer>
               </form>
@@ -124,3 +110,15 @@ export const Login = () => {
     </>
   );
 };
+
+export const validationSchema = Yup.object({
+  password: Yup.string()
+    .required('Please Enter your password')
+    .matches(
+      /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$/,
+      "Must Contain 8 Characters, One Uppercase, One Lowercase and One Number"
+    ),
+  confirmPassword:Yup.string()
+    .oneOf([Yup.ref('password'), null], 'Passwords must match')
+
+});

@@ -2,11 +2,16 @@ import { getConnection } from 'typeorm';
 import { Request, Response } from 'express';
 import User from '../../entities/User';
 import { validate, isEmpty } from 'class-validator';
+import { v4 as uuidv4 } from 'uuid';
 
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import cookie from 'cookie';
 import ProjectUser from '../../entities/ProjectUser';
+import sgMail from '@sendgrid/mail';
+import PasswordRequest from '../../entities/PasswordRequest';
+
+sgMail.setApiKey(process.env.SEND_GRID_API ?? '');
 
 const mapErrors = (errors: Object[]) => {
   //Returns
@@ -45,8 +50,6 @@ export const register = async (req: Request, res: Response) => {
       return res.status(400).json(mapErrors(errors));
     }
     await user.save();
-    console.log('user', user);
-    debugger;
 
     await getConnection()
       .createQueryBuilder()
@@ -91,7 +94,7 @@ export const login = async (req: Request, res: Response) => {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',
         sameSite: 'strict',
-        maxAge: 60 * 60 * 24 * 7 ,
+        maxAge: 60 * 60 * 24 * 7,
         path: '/',
       })
     );
@@ -118,4 +121,71 @@ export const logout = (_: Request, res: Response) => {
     })
   );
   return res.status(200).json({ success: true });
+};
+
+export const forgot = async (req: Request, res: Response) => {
+  const { email } = req.body;
+  try {
+    const user = await User.findOne({ email });
+    if (!user) return res.status(404).json({ email: 'Email not found' });
+
+    const id = uuidv4();
+    const request = {
+      id,
+      email,
+    };
+
+    const addPasswordRequest = await new PasswordRequest(request);
+    if (addPasswordRequest) {
+     await  addPasswordRequest.save()
+      const emailToSend = {
+        replyTo: `urboardinfo@gmail.com`,
+        from: `urboardinfo@gmail.com`,
+        to: `${email}`,
+        subject: `urboard reset password`,
+        html: `
+              <p>Hi,</p>
+              <p>To reset your password please click on this link : 
+              <a href=https://urboard.co/reset/${id}>https://urboard.co/reset<a></p>
+              <p>Thanks,</p>
+              <p>urboard team.</p>`,
+      };
+      // send email
+      const emailRes = await sgMail
+        .send(emailToSend)
+        .then((response) => console.log('response', response))
+        .catch((error) => {
+          return error;
+        });
+    }
+
+    return res.json({ email: 'Email successfully sent please reset password from link' });
+  } catch (err: any) {
+    console.log(err);
+    return res.json({ error: 'Something went wrong' });
+  }
+};
+
+export const reset = async (req: Request, res: Response) => {
+  const { id, password } = req.body;
+  let errors :any = {}
+  try {
+    if (isEmpty(password)) errors.password = 'Password must not be empty';
+    if (isEmpty(id)) errors.id = 'Please try to reset your password again';
+    if (Object.keys(errors).length > 0) return res.status(400).json(errors);
+
+    const resetRequest = await PasswordRequest.findOneOrFail(id)
+    if (!resetRequest) {
+      return res.status(404).json({ resetRequest: 'Please try to reset your password again' });
+    } else {
+      const user = await User.findOne({ email :resetRequest?.email });
+      if (!user) return res.status(404).json({ email: 'User not found' });
+      user.password = await bcrypt.hash(password, 6);
+      await user.save()
+      await resetRequest.remove()
+    }
+    return res.json({ email: 'Success' });
+  } catch (err: any) {
+    return res.json({ error: 'Something went wrong' });
+  }
 };

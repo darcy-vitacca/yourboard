@@ -77,6 +77,11 @@ export const MarkdownElement = styled(
   &.showMenu {
     display: none;
   }
+  &.successText > p {
+    color: ${({ theme }) => theme.colors.green500};
+    font-weight: bold;
+  }
+
   &.arrowContainerIconText > p {
     font-size: ${({ theme }) => theme.font.size.tinier};
     @media ${device.mobileLrg} {
@@ -110,5 +115,5 @@ export const MarkdownElement = styled(
       font-size: ${({ theme }) => theme.font.size.medium};
     }
   }
-   
+
 `;

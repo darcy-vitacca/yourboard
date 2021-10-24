@@ -10,4 +10,7 @@ server/dist/
 .env
 
 build/
+
+
 #.github
+/server/build/
