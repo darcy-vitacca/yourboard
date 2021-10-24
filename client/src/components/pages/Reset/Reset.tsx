@@ -65,7 +65,6 @@ export const Reset = () => {
     }
   };
 
-  console.log('errors', errors);
   return (
     <>
       <PageLayoutContainer>

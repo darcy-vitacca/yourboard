@@ -34,6 +34,8 @@ export const LinkSection= ({currentProject}) => {
     dispatch("NEXT_PROJECT");
   };
 
+
+
   return (
     <>
     {modal && <Modal setModal={setModal} modal={modal} />}
@@ -66,10 +68,10 @@ export const LinkSection= ({currentProject}) => {
             <SVGFolderIcon />
             <Markdown children="Projects" align="center" className="arrowContainerIconText" />
           </ProjectNavContainer>
-          {/*<ProjectNavContainer onClick={() => push("/notes")}>*/}
-          {/*  <SVGNotepadIcon />*/}
-          {/*  <Markdown children="Notes" align="center"  className="arrowContainerIconText" />*/}
-          {/*</ProjectNavContainer>*/}
+          <ProjectNavContainer onClick={() => push("/notes")}>
+            <SVGNotepadIcon />
+            <Markdown children="Notes" align="center"  className="arrowContainerIconText" />
+          </ProjectNavContainer>
         </ProjectIconContainer>
         <SVGRightIcon onClick={() => handleForward()} />
       </ProjectArrowContainer>

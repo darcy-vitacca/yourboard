@@ -1,6 +1,6 @@
-import React, { useEffect, useState, FC } from "react";
+import React, {  FC } from "react";
 import { Editor } from "react-draft-wysiwyg";
-import { EditorState,convertToRaw, ContentState} from "draft-js";
+import { convertToRaw} from "draft-js";
 import { Controller } from "react-hook-form";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import draftToHtml from 'draftjs-to-html';
@@ -12,26 +12,17 @@ import { Markdown } from '../../../shared/markdown';
 const EditorContainer = styled.div`
 `
 
-interface DraftEditorValues{
+interface DraftEditorValues {
   name: string;
   defaultValue: string;
-  control : any
+  control: any
+  notes?: any;
+  editorState: any;
+  setEditorState: any;
 }
 
 
-export const DraftEditor: FC<DraftEditorValues> = ({name, defaultValue, control}) => {
-//TODO: ADD EDIT MODE //PASS VALUE //SHOW ONE OR THE OTHER
-  const [editorState, setEditorState] = useState(() =>
-    EditorState.createEmpty()
-  );
-  useEffect(() => {
-    console.log(editorState);
-  }, [editorState]);
-
-  // const saveBlogPostToStore = (blogPost) =>{
-  //   const JSBlogPost = { ...blogPost, content: JSON.stringify(convertToRaw(blogPost.content.getCurrentContent()))};
-  //   this.props.dispatch(blogActions.saveBlogPostToStore(JSBlogPost));
-  // }
+export const DraftEditor: FC<DraftEditorValues> = ({name, defaultValue, control, notes, editorState, setEditorState}) => {
   return (
     <EditorContainer>
       <div style={{
@@ -56,7 +47,7 @@ export const DraftEditor: FC<DraftEditorValues> = ({name, defaultValue, control}
         />
       </div>
       {!isEmpty(editorState) &&
-      <Markdown children={  draftToHtml(convertToRaw(editorState.getCurrentContent()))} />
+      <Markdown children={draftToHtml(convertToRaw(editorState?.getCurrentContent()))} />
     }
     </EditorContainer>
   );

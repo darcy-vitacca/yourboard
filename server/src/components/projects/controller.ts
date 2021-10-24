@@ -8,6 +8,7 @@ import sgMail from '@sendgrid/mail';
 import Friends from '../../entities/Friends';
 import { getConnection } from 'typeorm';
 import { defaultProject } from '../../utils/constants/project-constants';
+import Note from '../../entities/Notes';
 
 sgMail.setApiKey(process.env.SEND_GRID_API ?? '');
 
@@ -91,7 +92,6 @@ export const getProjects = async (_: Request, res: Response) => {
         order: { createdAt: 'DESC' },
         relations: ['links', 'project_users'],
       });
-      console.log('projects', projects);
     } else {
       projects = [defaultProject]
     }
@@ -217,3 +217,39 @@ export const inviteUserToProject = async (req: Request, res: Response) => {
     return res.status(404).json({ project: 'Project not found' });
   }
 };
+
+export const getNotes = async (req: Request, res: Response) => {
+  try {
+    const project_id = req.params.projectId;
+    let notes = await Note.findOne({ project_id});
+
+    if (!notes) return res.status(404).json({ notes: 'Notes not found' });
+
+    return res.status(200).json(notes);
+  } catch (err: any) {
+    return res.status(404).json({ project: 'Notes not found' });
+  }
+};
+
+export const updateNotes = async (req: Request, res: Response) => {
+  try {
+    const project_id = req.params.projectId;
+    const user: User = res.locals.user;
+    const note = req.body.note
+
+
+    let notes = await Note.findOne({ project_id: project_id});
+    if(!notes){
+      notes = new Note({ project_id: project_id, note: note, user_id: user.user_id })
+    }else {
+     notes.note = note
+    }
+    await notes.save()
+    return res.status(200).json(notes);
+  } catch (err: any) {
+    console.log(err);
+    return res.status(404).json({ project: 'Projects not found' });
+  }
+};
+
+

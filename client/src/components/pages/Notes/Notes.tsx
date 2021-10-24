@@ -1,15 +1,20 @@
-import React, { useState } from "react";
-import axios from "axios"
+import React, { useState, useEffect  } from "react";
+import draftToHtml from 'draftjs-to-html';
+import { convertToRaw, EditorState, convertFromRaw, ContentState} from "draft-js";
 import {
   PageLayoutContainer,
   SectionContainer,
 } from "../../../shared/Layout.styles";
 import { useHistory } from "react-router";
-import { useForm, FormProvider , Controller} from "react-hook-form";
+import { useForm, FormProvider } from "react-hook-form";
+import axios from 'axios'
 import { useAuthDispatch, useAuthState } from "../../context/context";
 import { Markdown } from "../../../shared/markdown";
 import { Loader } from "../../../shared/loaders";
 import { DraftEditor } from './Editor';
+import { Button } from '../../../shared/formElements/button';
+
+
 
 
 
@@ -19,12 +24,18 @@ const defaultValues = {
 
 export const Notes = () => {
   const dispatch = useAuthDispatch();
-  const { authenticated, currentProject, loading, projects } = useAuthState();
+  const { authenticated, currentProject, loading, projects, notes } = useAuthState();
+
+  const [editorState, setEditorState] = useState(() =>
+    EditorState.createEmpty()
+  );
+  const [editMode, setEditMode] = useState(false);
 
   const { push } = useHistory();
   if (!authenticated) push("/login");
   if (!currentProject && projects) push("/");
   if (!currentProject && !projects) push("/add-project");
+
 
   const methods = useForm<any>({
     mode: "onSubmit",
@@ -37,49 +48,83 @@ export const Notes = () => {
   });
   //
   const {
-    handleSubmit,
-    watch,
     control,
-    setValue,
-    setError,
-    clearErrors,
     formState: { errors },
   } = methods;
 
-  const onSubmit = async (formData: any) => {
-    try {
-      dispatch("LOADING");
+  useEffect(() => {
+    (async () => {
+        try {
+          dispatch("LOADING");
+          const res = await axios.get(
+            `/notes/${currentProject?.project_id}`);
+          dispatch("SET_NOTES", res.data)
 
-      const res = await axios.post(
-        `/link/${currentProject?.url_name}`,
-        // completedLinks
-      );
-      console.log("res", res);
-      dispatch("STOP_LOADING");
-      push("/");
-    } catch (err: any) {
-      console.log(err);
-      // const error = err.response.data; //
+          await setEditorState(EditorState.createWithContent(
+            convertFromRaw(JSON.parse(res?.data?.note)),
+          ));
+
+        } catch (err: any) {
+          dispatch("STOP_LOADING");
+          console.log('err', err);
+        }}
+    )();
+    return() =>{
+      dispatch("CLEAR_NOTES");
     }
-  };
+  }, []);
 
 
 
+
+
+  const handleEditMode = async ( ) =>{
+    try {
+      if(!editMode) {
+        setEditMode(true)
+      }else {
+        dispatch("LOADING");
+        const res = await axios.post(
+          `/notes/${currentProject?.project_id}`,{
+            note: JSON.stringify(
+              convertToRaw(editorState?.getCurrentContent()))
+        });
+        dispatch("SET_NOTES", res.data)
+        setEditMode(false)
+      }
+    } catch (err) {
+      console.log(err);
+    }
+
+  }
+  console.log(' draftToHtml(JSON.parse(notes?.note)', notes?.note && draftToHtml(JSON.parse(notes?.note).blocks));
+  console.log(' draftToHtml(JSON.parse(notes?.note)', notes?.note && JSON.parse(notes?.note));
   return (
     <>
       <PageLayoutContainer>
         <SectionContainer>
           {loading && <Loader />}
           <FormProvider {...methods}>
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form>
               <Markdown
                 children={`# Notes for ${currentProject?.project_name} Project`}
               />
-
-                <DraftEditor
+              <Button text={editMode ? "Update Notes" :"Edit Notes"}
+                      width="25%"
+                      onClick={() => handleEditMode()}
+                      type="button"/>
+              {
+                editMode ?
+                  <DraftEditor
                   name="description"
                   defaultValue={""}
-                  control={control} />
+                  control={control}
+                  editorState={editorState}
+                  setEditorState={setEditorState}
+                  />
+                  :
+                  notes?.note && <Markdown children={ draftToHtml(JSON.parse(notes?.note))} className="notesText" />
+              }
             </form>
           </FormProvider>
         </SectionContainer>

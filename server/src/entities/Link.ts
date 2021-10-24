@@ -1,4 +1,4 @@
-import { Length } from 'class-validator';
+
 import {
   Entity as TOEntity,
   Column,
@@ -6,7 +6,6 @@ import {
   ManyToOne,
   JoinColumn,
   PrimaryGeneratedColumn,
-  Generated,
 } from 'typeorm';
 import Entity from './Entity';
 import User from './User';

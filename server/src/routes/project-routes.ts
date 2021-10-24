@@ -10,4 +10,6 @@ module.exports = (app: Application): void => {
   app
     .route('/api/project/invite')
     .post(user, auth, projectController.inviteUserToProject);
+  app.route('/api/notes/:projectId').get(user, auth, projectController.getNotes);
+  app.route('/api/notes/:projectId').post(user, auth, projectController.updateNotes);
 };

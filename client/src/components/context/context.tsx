@@ -3,6 +3,7 @@ import { createContext, useContext, useEffect, useReducer } from "react";
 import User from "../../../../server/src/entities/User";
 import Project from "../../../../server/src/entities/Project";
 import Friend from "../../../../server/src/entities/Friends";
+import Note from '../../../../server/src/entities/Notes';
 
 interface State {
   authenticated: boolean;
@@ -13,6 +14,7 @@ interface State {
   currentProject: Project | null;
   projects: Project[] | null;
   currentProjectIndex: number;
+  notes: Note | null;
 }
 interface Action {
   type: string;
@@ -28,6 +30,7 @@ const StateContext = createContext<State>({
   currentProject: null,
   projects: null,
   currentProjectIndex: 0,
+  notes: null
 });
 const DispatchContext = createContext<any>(null);
 
@@ -89,6 +92,18 @@ const reducer: any = (state: State, { type, payload }: Action) => {
         friends: payload,
         loading: false,
       };
+    case "SET_NOTES":
+      return {
+        ...state,
+        notes: payload,
+        loading: false,
+      };
+    case "CLEAR_NOTES":
+      return {
+        ...state,
+        notes: null,
+        loading: false,
+      };
     case "SHOW_MENU":
       return { ...state, showMenu: true };
     case "HIDE_MENU":
@@ -112,6 +127,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     currentProject: null,
     projects: null,
     currentProjectIndex: 0,
+    notes: null
   });
 
   //this one liner adds args to the dispatch so we don't have to keep writing type

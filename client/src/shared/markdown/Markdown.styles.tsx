@@ -82,6 +82,9 @@ export const MarkdownElement = styled(
     font-weight: bold;
   }
 
+  &.notesText {
+   //cursor: pointer;
+  }
   &.arrowContainerIconText > p {
     font-size: ${({ theme }) => theme.font.size.tinier};
     @media ${device.mobileLrg} {
@@ -106,6 +109,7 @@ export const MarkdownElement = styled(
     @media ${device.mobileLrg} {
       width: 100%;
     }
+    
     
   &.linkCardMainText > h4 {
     width: 80%;
