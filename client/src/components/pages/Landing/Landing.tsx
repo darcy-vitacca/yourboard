@@ -16,9 +16,6 @@ export const Landing = () => {
   const { push } = useHistory();
   if (!authenticated && !loading) push("/login");
 
-  console.log('projects', projects);
-
-
   useEffect(() => {
     (async () => {
       try {
