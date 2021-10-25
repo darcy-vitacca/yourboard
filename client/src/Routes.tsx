@@ -19,12 +19,14 @@ declare global {
  const usePageViews = () => {
      let location = useLocation();
      useEffect(() => {
+       if(process.env.REACT_APP_ENV !== "development") {
          if (!window.GA_INITIALIZED) {
            ReactGA.initialize(`${process.env.REACT_APP_GOOGLE_ANALYTICS}`);
            window.GA_INITIALIZED = true;
          }
          ReactGA.set({ page: location.pathname });
          ReactGA.pageview(location.pathname);
+       }
      }, [location]);
 }
 
