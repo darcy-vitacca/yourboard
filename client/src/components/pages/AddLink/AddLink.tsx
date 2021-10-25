@@ -82,7 +82,7 @@ export const AddLink = () => {
         return {...link , position: linksLength ? linksLength + index : index}
       })
       const res = await axios.post(
-        `/link/${currentProject?.url_name}`,
+        `/link/${currentProject?.project_id}`,
         completedLinks
       );
       console.log("res", res);
@@ -132,7 +132,7 @@ export const AddLink = () => {
       clearErrors("linkText");
     } else {
       setError("linkText", {
-        message: "Please add a ProjectSection to the text are for your project.",
+        message: "Please add links to the text area for your project.",
       });
     }
   };

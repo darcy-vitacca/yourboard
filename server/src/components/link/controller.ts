@@ -7,7 +7,7 @@ import { getConnection } from 'typeorm';
 
 export const createLink = async (req: Request, res: Response) => {
   // const { url_name, url, url_image, position } = req.body[0];
-  const name = req.params.project;
+  const project_id = req.params.project_id;
   const user: User = res.locals.user;
   try {
     const links = req.body;
@@ -15,9 +15,8 @@ export const createLink = async (req: Request, res: Response) => {
     // if (isEmpty(url)) errors.description = 'URL must not be empty';
     // if (Object.keys(errors).length > 0) return res.status(400).json(errors);
 
-    const project = await Project.findOne({ url_name: name });
     const updatedLinks = await req.body.map((item: any) => {
-      return { ...item, user, project_id: project?.project_id };
+      return { ...item, user, project_id: project_id };
     });
 
     const bulkInsert = await getConnection()
@@ -27,7 +26,9 @@ export const createLink = async (req: Request, res: Response) => {
       .values(updatedLinks)
       .execute();
 
-    return res.status(200).json(bulkInsert);
+    const project = await Project.findOne({ project_id});
+
+    return res.status(200).json(project);
   } catch (err: any) {
     console.log(err);
     return res.status(500).json({ error: 'Something went wrong' });
