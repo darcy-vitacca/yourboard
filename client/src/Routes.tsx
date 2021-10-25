@@ -15,7 +15,6 @@ import { Reset } from './components/pages/Reset';
 declare global {
   interface Window { GA_INITIALIZED: any; }
 }
-
  const usePageViews = () => {
      let location = useLocation();
      useEffect(() => {
