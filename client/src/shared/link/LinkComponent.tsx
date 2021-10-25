@@ -28,24 +28,29 @@ export interface LinkValues {
   url: string | null;
   url_image?: string;
   url_name: string;
+
 }
 interface Links {
   link: LinkValues;
   empty?: boolean;
+  key?: string;
 }
 
 export const LinkComponent: FC<Links> = ({
   empty,
+  key,
   link: {
     updatedAt,
     url,
     url_image,
     url_name,
+    link_id
   },
 }) => {
   const { push } = useHistory();
   return (
     <LinkProjectContainer
+      key={key}
       onClick={() => (url ? window.open(url, "_blank") : push("/add-links"))}
     >
       <LinkProjectTopRow>

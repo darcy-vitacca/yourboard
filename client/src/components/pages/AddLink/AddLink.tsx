@@ -75,6 +75,7 @@ export const AddLink = () => {
     formState: { errors },
   } = methods;
 
+
   const onSubmit = async (formData: any) => {
     try {
       dispatch("LOADING");
@@ -85,8 +86,7 @@ export const AddLink = () => {
         `/link/${currentProject?.project_id}`,
         completedLinks
       );
-      console.log("res", res);
-      dispatch("STOP_LOADING");
+      // dispatch("UPDATE_CURRENT_PROJECT", res.data);
       push("/");
     } catch (err: any) {
       console.log(err);

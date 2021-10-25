@@ -18,12 +18,12 @@ const App = () => {
   axios.defaults.withCredentials = true;
   return (
     <>
-      <AuthProvider>
         <GlobalStyle />
-        <Router>
-        <Routes />
+          <AuthProvider>
+           <Router>
+            <Routes />
           </Router>
-      </AuthProvider>
+         </AuthProvider>
     </>
   );
 };

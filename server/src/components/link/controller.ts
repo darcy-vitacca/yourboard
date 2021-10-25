@@ -10,7 +10,6 @@ export const createLink = async (req: Request, res: Response) => {
   const project_id = req.params.project_id;
   const user: User = res.locals.user;
   try {
-    const links = req.body;
     let errors: any = {};
     // if (isEmpty(url)) errors.description = 'URL must not be empty';
     // if (Object.keys(errors).length > 0) return res.status(400).json(errors);
@@ -27,6 +26,14 @@ export const createLink = async (req: Request, res: Response) => {
       .execute();
 
     const project = await Project.findOne({ project_id});
+    if (project){
+      const projectLinks = await Link.find({
+        where: { project_id: project_id },
+        order: { position: 'ASC' },
+      });
+      project.links = projectLinks ? projectLinks: [];
+    }
+
 
     return res.status(200).json(project);
   } catch (err: any) {

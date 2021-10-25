@@ -104,6 +104,21 @@ const reducer: any = (state: State, { type, payload }: Action) => {
         notes: null,
         loading: false,
       };
+    case "UPDATE_CURRENT_PROJECT":
+      if(state.projects){
+        const projectCopy = [...state.projects]
+        projectCopy[state.currentProjectIndex] = payload
+        return {
+          ...state,
+          loading: false,
+          projects: projectCopy
+        }
+      } else {
+        return {
+          ...state,
+          loading: false
+        }
+      }
     case "SHOW_MENU":
       return { ...state, showMenu: true };
     case "HIDE_MENU":
