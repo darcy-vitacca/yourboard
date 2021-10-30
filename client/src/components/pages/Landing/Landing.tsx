@@ -9,6 +9,7 @@ import { useHistory } from "react-router";
 import { Loader } from "../../../shared/loaders";
 import { LinkSection } from "../LinkSection/LinkSection";
 import { ProjectSection } from "../ProjectSection/ProjectSection";
+import { DragDrop } from "../../../shared/dragDrop";
 
 export const Landing = () => {
   const dispatch = useAuthDispatch();
@@ -33,18 +34,22 @@ export const Landing = () => {
   }, []);
 
   return (
-    <PageLayoutContainer>
-      <SectionContainer>
-        {loading && <Loader />}
-        {!currentProject ? (
-          <ProjectSection projects={projects} />
-        ) : (
-          <LinkSection
-            currentProject={currentProject}
-            key={currentProject?.project_id}
-          />
-        )}
-      </SectionContainer>
-    </PageLayoutContainer>
+    <>
+      <DragDrop>
+        <PageLayoutContainer>
+          <SectionContainer>
+            {loading && <Loader />}
+            {!currentProject ? (
+              <ProjectSection projects={projects} />
+            ) : (
+              <LinkSection
+                currentProject={currentProject}
+                key={currentProject?.project_id}
+              />
+            )}
+          </SectionContainer>
+        </PageLayoutContainer>
+      </DragDrop>
+    </>
   );
 };

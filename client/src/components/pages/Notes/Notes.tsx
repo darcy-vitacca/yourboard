@@ -1,22 +1,24 @@
-import React, { useState, useEffect  } from "react";
-import draftToHtml from 'draftjs-to-html';
-import { convertToRaw, EditorState, convertFromRaw, ContentState} from "draft-js";
+import React, { useState, useEffect } from "react";
+import draftToHtml from "draftjs-to-html";
+import {
+  convertToRaw,
+  EditorState,
+  convertFromRaw,
+  ContentState,
+} from "draft-js";
 import {
   PageLayoutContainer,
   SectionContainer,
 } from "../../../shared/Layout.styles";
 import { useHistory } from "react-router";
 import { useForm, FormProvider } from "react-hook-form";
-import axios from 'axios'
+import axios from "axios";
 import { useAuthDispatch, useAuthState } from "../../context/context";
 import { Markdown } from "../../../shared/markdown";
 import { Loader } from "../../../shared/loaders";
-import { DraftEditor } from './Editor';
-import { Button } from '../../../shared/formElements/button';
-
-
-
-
+import { DraftEditor } from "./Editor";
+import { Button } from "../../../shared/formElements/button";
+import { DragDrop } from "../../../shared/dragDrop";
 
 const defaultValues = {
   description: "",
@@ -24,7 +26,8 @@ const defaultValues = {
 
 export const Notes = () => {
   const dispatch = useAuthDispatch();
-  const { authenticated, currentProject, loading, projects, notes } = useAuthState();
+  const { authenticated, currentProject, loading, projects, notes } =
+    useAuthState();
 
   const [editorState, setEditorState] = useState(() =>
     EditorState.createEmpty()
@@ -35,7 +38,6 @@ export const Notes = () => {
   if (!authenticated) push("/login");
   if (!currentProject && projects) push("/");
   if (!currentProject && !projects) push("/add-project");
-
 
   const methods = useForm<any>({
     mode: "onSubmit",
@@ -54,83 +56,80 @@ export const Notes = () => {
 
   useEffect(() => {
     (async () => {
-        try {
-          dispatch("LOADING");
-          const res = await axios.get(
-            `/notes/${currentProject?.project_id}`);
-          dispatch("SET_NOTES", res.data)
+      try {
+        dispatch("LOADING");
+        const res = await axios.get(`/notes/${currentProject?.project_id}`);
+        dispatch("SET_NOTES", res.data);
 
-          await setEditorState(EditorState.createWithContent(
-            convertFromRaw(JSON.parse(res?.data?.note)),
-          ));
-
-        } catch (err: any) {
-          dispatch("STOP_LOADING");
-          console.log('err', err);
-        }}
-    )();
-    return() =>{
+        await setEditorState(
+          EditorState.createWithContent(
+            convertFromRaw(JSON.parse(res?.data?.note))
+          )
+        );
+      } catch (err: any) {
+        dispatch("STOP_LOADING");
+        console.log("err", err);
+      }
+    })();
+    return () => {
       dispatch("CLEAR_NOTES");
-    }
+    };
   }, []);
 
-
-
-
-
-  const handleEditMode = async ( ) =>{
+  const handleEditMode = async () => {
     try {
-      if(!editMode) {
-        setEditMode(true)
-      }else {
+      if (!editMode) {
+        setEditMode(true);
+      } else {
         dispatch("LOADING");
-        const res = await axios.post(
-          `/notes/${currentProject?.project_id}`,{
-            note: JSON.stringify(
-              convertToRaw(editorState?.getCurrentContent()))
+        const res = await axios.post(`/notes/${currentProject?.project_id}`, {
+          note: JSON.stringify(convertToRaw(editorState?.getCurrentContent())),
         });
-        dispatch("SET_NOTES", res.data)
-        setEditMode(false)
+        dispatch("SET_NOTES", res.data);
+        setEditMode(false);
       }
     } catch (err) {
       console.log(err);
     }
-
-  }
-  // console.log(' draftToHtml(JSON.parse(notes?.note)', notes?.note && draftToHtml(JSON.parse(notes?.note).blocks));
-  // console.log(' draftToHtml(JSON.parse(notes?.note)', notes?.note && JSON.parse(notes?.note));
+  };
   return (
     <>
-      <PageLayoutContainer>
-        <SectionContainer>
-          {loading && <Loader />}
-          <FormProvider {...methods}>
-            <form>
-              <Markdown
-                children={`# Notes for ${currentProject?.project_name} Project`}
-              />
-              <Button text={editMode ? "Update Notes" :"Edit Notes"}
-                      width="25%"
-                      onClick={() => handleEditMode()}
-                      type="button"/>
-              {
-                editMode ?
+      <DragDrop>
+        <PageLayoutContainer>
+          <SectionContainer>
+            {loading && <Loader />}
+            <FormProvider {...methods}>
+              <form>
+                <Markdown
+                  children={`# Notes for ${currentProject?.project_name} Project`}
+                />
+                <Button
+                  text={editMode ? "Update Notes" : "Edit Notes"}
+                  width="25%"
+                  onClick={() => handleEditMode()}
+                  type="button"
+                />
+                {editMode ? (
                   <DraftEditor
-                  name="description"
-                  defaultValue={""}
-                  control={control}
-                  editorState={editorState}
-                  setEditorState={setEditorState}
+                    name="description"
+                    defaultValue={""}
+                    control={control}
+                    editorState={editorState}
+                    setEditorState={setEditorState}
                   />
-                  :
-                  notes?.note && <Markdown children={ draftToHtml(JSON.parse(notes?.note))} className="notesText" />
-              }
-            </form>
-          </FormProvider>
-        </SectionContainer>
-      </PageLayoutContainer>
+                ) : (
+                  notes?.note && (
+                    <Markdown
+                      children={draftToHtml(JSON.parse(notes?.note))}
+                      className="notesText"
+                    />
+                  )
+                )}
+              </form>
+            </FormProvider>
+          </SectionContainer>
+        </PageLayoutContainer>
+      </DragDrop>
     </>
   );
 };
-
-

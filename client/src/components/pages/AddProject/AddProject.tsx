@@ -13,6 +13,7 @@ import { useAuthDispatch, useAuthState } from "../../context/context";
 import Input from "../../../shared/formElements/input";
 import { TextArea } from "../../../shared/formElements/textArea";
 import { Button } from "../../../shared/formElements/button";
+import { DragDrop } from "../../../shared/dragDrop";
 
 type FormValue = {
   url_name: string;
@@ -78,45 +79,47 @@ export const AddProject = () => {
   };
   return (
     <>
-      <PageLayoutContainer>
-        <SectionContainer align="center">
-          <FormContainer>
-            <FormProvider {...methods}>
-              <form onSubmit={handleSubmit(onSubmit)}>
-                <h1>Add Project 📁 </h1>
-                <Input
-                  type="text"
-                  name="project_name"
-                  width="100%"
-                  helperText="Project Name"
-                  label="PROJECT NAME"
-                  control={control}
-                  defaultValue={defaultValues.project_name}
-                  validation={errors?.project_name?.message || ""}
-                />
-                <Input
-                  type="text"
-                  name="url_name"
-                  width="100%"
-                  helperText="URL Name (Alphanumeric only) *"
-                  label="URL NAME"
-                  control={control}
-                  defaultValue={defaultValues.url_name}
-                  validation={errors?.url_name?.message || ""}
-                />
-                <TextArea
-                  setValue={setValue}
-                  name="description"
-                  onBlur={(e: React.ChangeEvent<HTMLInputElement>) => {}}
-                  label="A short description about the project"
-                  validation={errors?.description?.message || ""}
-                />
-                <Button text="Add Project" width="100%" type="submit" />
-              </form>
-            </FormProvider>
-          </FormContainer>
-        </SectionContainer>
-      </PageLayoutContainer>
+      <DragDrop>
+        <PageLayoutContainer>
+          <SectionContainer align="center">
+            <FormContainer>
+              <FormProvider {...methods}>
+                <form onSubmit={handleSubmit(onSubmit)}>
+                  <h1>Add Project 📁 </h1>
+                  <Input
+                    type="text"
+                    name="project_name"
+                    width="100%"
+                    helperText="Project Name"
+                    label="PROJECT NAME"
+                    control={control}
+                    defaultValue={defaultValues.project_name}
+                    validation={errors?.project_name?.message || ""}
+                  />
+                  <Input
+                    type="text"
+                    name="url_name"
+                    width="100%"
+                    helperText="URL Name (Alphanumeric only) *"
+                    label="URL NAME"
+                    control={control}
+                    defaultValue={defaultValues.url_name}
+                    validation={errors?.url_name?.message || ""}
+                  />
+                  <TextArea
+                    setValue={setValue}
+                    name="description"
+                    onBlur={(e: React.ChangeEvent<HTMLInputElement>) => {}}
+                    label="A short description about the project"
+                    validation={errors?.description?.message || ""}
+                  />
+                  <Button text="Add Project" width="100%" type="submit" />
+                </form>
+              </FormProvider>
+            </FormContainer>
+          </SectionContainer>
+        </PageLayoutContainer>
+      </DragDrop>
     </>
   );
 };

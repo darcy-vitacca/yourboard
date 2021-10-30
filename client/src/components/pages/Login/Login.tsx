@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import {
   FormContainer,
   LoginRegisterLinkProjectContainer,
@@ -53,10 +53,10 @@ export const Login = () => {
   const onSubmit = async (formData: any) => {
     try {
       dispatch("LOADING");
-      if(reset){
+      if (reset) {
         const res = await axios.post("/auth/forgot", formData);
-        setSuccess(res?.data?.email)
-      }else {
+        setSuccess(res?.data?.email);
+      } else {
         const res = await axios.post("/auth/login", formData);
         dispatch("LOGIN", res.data);
         push("/");
@@ -78,7 +78,7 @@ export const Login = () => {
             <FormProvider {...methods}>
               <form onSubmit={handleSubmit(onSubmit)}>
                 <LoginRegisterSectionContainer>
-                  <Markdown children="### Reset" />
+                  <Markdown children={!reset ? "### Login" : "### Reset"} />
                   <Markdown children="By continuing, you agree to our User Agreement and Privacy Policy" />
                   <Input
                     type="email"
@@ -89,8 +89,7 @@ export const Login = () => {
                     defaultValue={""}
                     validation={errors?.email?.message || ""}
                   />
-                  {
-                    !reset &&
+                  {!reset && (
                     <Input
                       type="password"
                       name="password"
@@ -100,21 +99,28 @@ export const Login = () => {
                       defaultValue={""}
                       validation={errors?.password?.message || ""}
                     />
-                  }
+                  )}
 
                   <LoginRegisterLinkProjectContainer>
-                    <Markdown children={!reset ? "Forgot Password?" : "Go back to"} />
-                    <StyledLink to="#" onClick={() => setReset(!reset)}>{!reset ?  "RESET": "LOGIN"}</StyledLink>
+                    <Markdown
+                      children={!reset ? "Forgot Password?" : "Go back to"}
+                    />
+                    <StyledLink to="#" onClick={() => setReset(!reset)}>
+                      {!reset ? "RESET" : "LOGIN"}
+                    </StyledLink>
                   </LoginRegisterLinkProjectContainer>
-                  {
-                    success && reset  &&<Markdown children={success} className="successText" />
-                  }
-                  <Button text={!reset ? "LOGIN" : "RESET"} width="100%" type="submit" />
+                  {success && reset && (
+                    <Markdown children={success} className="successText" />
+                  )}
+                  <Button
+                    text={!reset ? "LOGIN" : "RESET"}
+                    width="100%"
+                    type="submit"
+                  />
                   <LoginRegisterLinkProjectContainer>
                     <Markdown children="New to yourboard?" />
                     <StyledLink to="/register">REGISTER</StyledLink>
                   </LoginRegisterLinkProjectContainer>
-
                 </LoginRegisterSectionContainer>
               </form>
             </FormProvider>

@@ -38,12 +38,10 @@ export const Routes = () => {
     <>
       <Header />
       <Switch>
-        <DragDrop>
-          <Route exact path="/" component={Landing} />
-          <Route exact path="/add-links" component={AddLink} />
-          <Route exact path="/add-project" component={AddProject} />
-          <Route exact path="/notes" component={Notes} />
-        </DragDrop>
+        <Route exact path="/" component={Landing} />
+        <Route exact path="/add-links" component={AddLink} />
+        <Route exact path="/add-project" component={AddProject} />
+        <Route exact path="/notes" component={Notes} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/register" component={Register} />
         <Route exact path="/reset/:id?" component={Reset} />

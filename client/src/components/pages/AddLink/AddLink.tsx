@@ -26,6 +26,7 @@ import Input from "../../../shared/formElements/input";
 import axios from "axios";
 import { Loader } from "../../../shared/loaders";
 import { LinkComponent } from "../../../shared/link";
+import { DragDrop } from "../../../shared/dragDrop";
 
 interface FormValue {
   linkText: string;
@@ -161,110 +162,113 @@ export const AddLink = () => {
 
   return (
     <>
-      <PageLayoutContainer>
-        <SectionContainer>
-          {loading && <Loader />}
-          <FormProvider {...methods}>
-            <form onSubmit={handleSubmit(onSubmit)}>
-              <Markdown
-                children={`# Add Links to the ${currentProject?.project_name} Project 🔗`}
-              />
-              {_.isEmpty(watchedUploadLinks) && (
-                <TextArea
-                  change={handleLinkUpload}
-                  control={control}
-                  name="linkText"
-                  defaultValue={""}
-                  onBlur={(e: React.ChangeEvent<HTMLInputElement>) => {}}
-                  label="Upload links here, simply paste in whatever you want and click upload."
-                  disabled={!_.isEmpty(watchedUploadLinks)}
-                />
-              )}
-
-              {errors?.linkText?.message && (
+      <DragDrop>
+        <PageLayoutContainer>
+          <SectionContainer>
+            {loading && <Loader />}
+            <FormProvider {...methods}>
+              <form onSubmit={handleSubmit(onSubmit)}>
                 <Markdown
-                  children={errors?.linkText?.message}
-                  className="validationText"
+                  children={`# Add Links to the ${currentProject?.project_name} Project 🔗`}
                 />
-              )}
-              <AddLinkPreviewContainer>
-                {fields.map((item: any, index) => {
-                  return (
-                    <AddLinkSection key={item.id}>
-                      <LinkEditSection>
-                        <LinkInputSection>
-                          <LinkInputRow>
-                            <Input
-                              type="text"
-                              name={`uploadLinks.${index}.url`}
-                              width="100%"
-                              label="LINK"
-                              control={control}
-                              defaultValue={item.url}
-                              validation={
-                                errors?.uploadLinks?.[index]?.url?.message || ""
-                              }
-                            />
-                            <Input
-                              type="text"
-                              name={`uploadLinks.${index}.url_image`}
-                              width="100%"
-                              label="LINK IMAGE"
-                              control={control}
-                              defaultValue={item.url_image}
-                              validation={
-                                errors?.uploadLinks?.[index]?.url_image
-                                  ?.message || ""
-                              }
-                            />
-                          </LinkInputRow>
-                          <LinkInputRow>
-                            <Input
-                              type="text"
-                              name={`uploadLinks.${index}.url_name`}
-                              width="100%"
-                              label="LINK NAME"
-                              control={control}
-                              defaultValue={""}
-                              validation={
-                                errors?.uploadLinks?.[index]?.url_name
-                                  ?.message || ""
-                              }
-                            />
-                          </LinkInputRow>
-                        </LinkInputSection>
+                {_.isEmpty(watchedUploadLinks) && (
+                  <TextArea
+                    change={handleLinkUpload}
+                    control={control}
+                    name="linkText"
+                    defaultValue={""}
+                    onBlur={(e: React.ChangeEvent<HTMLInputElement>) => {}}
+                    label="Upload links here, simply paste in whatever you want and click upload."
+                    disabled={!_.isEmpty(watchedUploadLinks)}
+                  />
+                )}
 
-                        <AddLinkProjectContainer>
-                          <LinkText>{item.url}</LinkText>
-                        </AddLinkProjectContainer>
-                      </LinkEditSection>
-                      <div>
-                        <LinkComponent link={watchedUploadLinks[index]} />
-                        <Button
-                          text="Remove"
-                          width="100%"
-                          type="button"
-                          onClick={() => handleDelete(index)}
-                        />
-                      </div>
-                    </AddLinkSection>
-                  );
-                })}
-              </AddLinkPreviewContainer>
-              {_.isEmpty(watchedUploadLinks) ? (
-                <Button
-                  onClick={() => appendLinks()}
-                  type="button"
-                  width="25%"
-                  text="Add Links"
-                />
-              ) : (
-                <Button type="submit" width="25%" text="Submit Links" />
-              )}
-            </form>
-          </FormProvider>
-        </SectionContainer>
-      </PageLayoutContainer>
+                {errors?.linkText?.message && (
+                  <Markdown
+                    children={errors?.linkText?.message}
+                    className="validationText"
+                  />
+                )}
+                <AddLinkPreviewContainer>
+                  {fields.map((item: any, index) => {
+                    return (
+                      <AddLinkSection key={item.id}>
+                        <LinkEditSection>
+                          <LinkInputSection>
+                            <LinkInputRow>
+                              <Input
+                                type="text"
+                                name={`uploadLinks.${index}.url`}
+                                width="100%"
+                                label="LINK"
+                                control={control}
+                                defaultValue={item.url}
+                                validation={
+                                  errors?.uploadLinks?.[index]?.url?.message ||
+                                  ""
+                                }
+                              />
+                              <Input
+                                type="text"
+                                name={`uploadLinks.${index}.url_image`}
+                                width="100%"
+                                label="LINK IMAGE"
+                                control={control}
+                                defaultValue={item.url_image}
+                                validation={
+                                  errors?.uploadLinks?.[index]?.url_image
+                                    ?.message || ""
+                                }
+                              />
+                            </LinkInputRow>
+                            <LinkInputRow>
+                              <Input
+                                type="text"
+                                name={`uploadLinks.${index}.url_name`}
+                                width="100%"
+                                label="LINK NAME"
+                                control={control}
+                                defaultValue={""}
+                                validation={
+                                  errors?.uploadLinks?.[index]?.url_name
+                                    ?.message || ""
+                                }
+                              />
+                            </LinkInputRow>
+                          </LinkInputSection>
+
+                          <AddLinkProjectContainer>
+                            <LinkText>{item.url}</LinkText>
+                          </AddLinkProjectContainer>
+                        </LinkEditSection>
+                        <div>
+                          <LinkComponent link={watchedUploadLinks[index]} />
+                          <Button
+                            text="Remove"
+                            width="100%"
+                            type="button"
+                            onClick={() => handleDelete(index)}
+                          />
+                        </div>
+                      </AddLinkSection>
+                    );
+                  })}
+                </AddLinkPreviewContainer>
+                {_.isEmpty(watchedUploadLinks) ? (
+                  <Button
+                    onClick={() => appendLinks()}
+                    type="button"
+                    width="25%"
+                    text="Add Links"
+                  />
+                ) : (
+                  <Button type="submit" width="25%" text="Submit Links" />
+                )}
+              </form>
+            </FormProvider>
+          </SectionContainer>
+        </PageLayoutContainer>
+      </DragDrop>
     </>
   );
 };

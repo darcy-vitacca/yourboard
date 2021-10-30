@@ -4,10 +4,10 @@ import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import LockOpenIcon from "@material-ui/icons/LockOpen";
 import PersonAddIcon from "@material-ui/icons/PersonAdd";
 import styled from "styled-components/macro";
-import {NotepadEdit } from "@styled-icons/fluentui-system-filled/NotepadEdit"
+import { NotepadEdit } from "@styled-icons/fluentui-system-filled/NotepadEdit";
 import { AddLink } from "@styled-icons/material-outlined/AddLink";
 
- const SVGAddLinkIcon = styled(AddLink)`
+const SVGAddLinkIcon = styled(AddLink)`
   color: ${({ theme }) => theme.colors.white};
   width: 25px;
   height: 25px;
@@ -46,7 +46,7 @@ export const sidebarDataAuth: SideMenuValues[] = [
   },
   {
     title: "#### Add Links",
-    icon: <SVGAddLinkIcon/>,
+    icon: <SVGAddLinkIcon />,
     link: "/add-links",
     tooltip: "Add Links",
   },
@@ -99,7 +99,7 @@ export const sidebarDataAuth: SideMenuValues[] = [
 
 export const sidebarDataUnauth = [
   {
-    title: "#### Reset",
+    title: "#### Login",
     icon: <LockOpenIcon />,
     link: "/login",
     tooltip: "Login",

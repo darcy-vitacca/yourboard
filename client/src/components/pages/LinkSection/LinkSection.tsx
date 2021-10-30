@@ -26,6 +26,7 @@ import {
   ProjectContainer,
 } from "../../../shared/Layout.styles";
 import { LinkComponent } from "../../../shared/link";
+import { DragDrop } from "../../../shared/dragDrop";
 
 export const LinkSection = ({ currentProject }) => {
   const dispatch = useAuthDispatch();
@@ -43,78 +44,80 @@ export const LinkSection = ({ currentProject }) => {
 
   return (
     <>
-      {modal && <Modal setModal={setModal} modal={modal} />}
-      <ProjectContainer key={currentProject.project_id}>
-        <Markdown
-          children={`# ${currentProject.project_name}` || ""}
-          align="center"
-        />
+      <DragDrop>
+        {modal && <Modal setModal={setModal} modal={modal} />}
+        <ProjectContainer key={currentProject.project_id}>
+          <Markdown
+            children={`# ${currentProject.project_name}` || ""}
+            align="center"
+          />
 
-        <Markdown
-          children={`### ${currentProject.description}` || ""}
-          align="center"
-        />
-        <ProjectArrowContainer>
-          <SVGLeftIcon onClick={() => handlePrevious()} />
-          <ProjectIconContainer>
-            <ProjectNavContainer onClick={() => push("/add-links")}>
-              <SVGAddLinkIcon />
-              <Markdown
-                children="Add Link"
-                align="center"
-                className="arrowContainerIconText"
-              />
-            </ProjectNavContainer>
-            <ProjectNavContainer onClick={() => setModal(true)}>
-              <SVGAddFriendIcon />
-              <Markdown
-                children="Add User"
-                align="center"
-                className="arrowContainerIconText"
-              />
-            </ProjectNavContainer>
-            <ProjectNavContainer
-              onClick={() => {
-                dispatch("RETURN_INITIAL_STATE_CURRENT_PROJECT");
-                push("/");
-              }}
-            >
-              <SVGFolderIcon />
-              <Markdown
-                children="Projects"
-                align="center"
-                className="arrowContainerIconText"
-              />
-            </ProjectNavContainer>
-            <ProjectNavContainer onClick={() => push("/notes")}>
-              <SVGNotepadIcon />
-              <Markdown
-                children="Notes"
-                align="center"
-                className="arrowContainerIconText"
-              />
-            </ProjectNavContainer>
-          </ProjectIconContainer>
-          <SVGRightIcon onClick={() => handleForward()} />
-        </ProjectArrowContainer>
-        <PersonSectionContainer>
-          <PersonContainer>
-            {currentProject?.project_users &&
-              currentProject?.project_users.map((user) => (
-                <PersonSection project_user={user} />
-              ))}
-          </PersonContainer>
-        </PersonSectionContainer>
-        <LinkProjectSectionContainer>
-          {currentProject && !isEmpty(currentProject.links)
-            ? currentProject.links.map((link) => (
-                <LinkComponent link={link} key={link.link_id} />
-              ))
-            : defaultLinks.links.map((link) => (
-                <LinkComponent link={link} key={link.link_id} empty />
-              ))}
-        </LinkProjectSectionContainer>
-      </ProjectContainer>
+          <Markdown
+            children={`### ${currentProject.description}` || ""}
+            align="center"
+          />
+          <ProjectArrowContainer>
+            <SVGLeftIcon onClick={() => handlePrevious()} />
+            <ProjectIconContainer>
+              <ProjectNavContainer onClick={() => push("/add-links")}>
+                <SVGAddLinkIcon />
+                <Markdown
+                  children="Add Link"
+                  align="center"
+                  className="arrowContainerIconText"
+                />
+              </ProjectNavContainer>
+              <ProjectNavContainer onClick={() => setModal(true)}>
+                <SVGAddFriendIcon />
+                <Markdown
+                  children="Add User"
+                  align="center"
+                  className="arrowContainerIconText"
+                />
+              </ProjectNavContainer>
+              <ProjectNavContainer
+                onClick={() => {
+                  dispatch("RETURN_INITIAL_STATE_CURRENT_PROJECT");
+                  push("/");
+                }}
+              >
+                <SVGFolderIcon />
+                <Markdown
+                  children="Projects"
+                  align="center"
+                  className="arrowContainerIconText"
+                />
+              </ProjectNavContainer>
+              <ProjectNavContainer onClick={() => push("/notes")}>
+                <SVGNotepadIcon />
+                <Markdown
+                  children="Notes"
+                  align="center"
+                  className="arrowContainerIconText"
+                />
+              </ProjectNavContainer>
+            </ProjectIconContainer>
+            <SVGRightIcon onClick={() => handleForward()} />
+          </ProjectArrowContainer>
+          <PersonSectionContainer>
+            <PersonContainer>
+              {currentProject?.project_users &&
+                currentProject?.project_users.map((user) => (
+                  <PersonSection project_user={user} />
+                ))}
+            </PersonContainer>
+          </PersonSectionContainer>
+          <LinkProjectSectionContainer>
+            {currentProject && !isEmpty(currentProject.links)
+              ? currentProject.links.map((link) => (
+                  <LinkComponent link={link} key={link.link_id} />
+                ))
+              : defaultLinks.links.map((link) => (
+                  <LinkComponent link={link} key={link.link_id} empty />
+                ))}
+          </LinkProjectSectionContainer>
+        </ProjectContainer>
+      </DragDrop>
     </>
   );
 };
