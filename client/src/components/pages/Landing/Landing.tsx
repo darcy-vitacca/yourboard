@@ -7,12 +7,12 @@ import axios from "axios";
 import { useAuthDispatch, useAuthState } from "../../context/context";
 import { useHistory } from "react-router";
 import { Loader } from "../../../shared/loaders";
-import { LinkSection } from '../LinkSection/LinkSection';
-import { ProjectSection } from '../ProjectSection/ProjectSection';
+import { LinkSection } from "../LinkSection/LinkSection";
+import { ProjectSection } from "../ProjectSection/ProjectSection";
 
 export const Landing = () => {
   const dispatch = useAuthDispatch();
-  const { currentProject, loading, authenticated ,projects} = useAuthState();
+  const { currentProject, loading, authenticated, projects } = useAuthState();
   const { push } = useHistory();
   if (!authenticated && !loading) push("/login");
 
@@ -24,8 +24,8 @@ export const Landing = () => {
         dispatch("SET_PROJECTS", res.data);
       } catch (err: any) {
         dispatch("STOP_LOADING");
-        if(err?.response?.data?.project === "Projects not Found"){
-          push("/add-project")
+        if (err?.response?.data?.project === "Projects not Found") {
+          push("/add-project");
         }
         console.log(err.response);
       }
@@ -33,14 +33,18 @@ export const Landing = () => {
   }, []);
 
   return (
-      <PageLayoutContainer>
-        <SectionContainer>
-          {loading && <Loader />}
-          {!currentProject ? <ProjectSection projects={projects} /> :
-         <LinkSection currentProject={currentProject}/>
-          }
-        </SectionContainer>
-      </PageLayoutContainer>
+    <PageLayoutContainer>
+      <SectionContainer>
+        {loading && <Loader />}
+        {!currentProject ? (
+          <ProjectSection projects={projects} />
+        ) : (
+          <LinkSection
+            currentProject={currentProject}
+            key={currentProject?.project_id}
+          />
+        )}
+      </SectionContainer>
+    </PageLayoutContainer>
   );
 };
-

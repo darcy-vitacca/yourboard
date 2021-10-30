@@ -1,9 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
+
   <title>urboard</title>
   <meta http-equiv="refresh"content="0;URL=https://urboard.co/">
 </head>
+<script>
+  window.history.replaceState({}, document.title, "" + "");
+  window.history.pushState(null, null, window.location.pathname);
+</script>
 <body>
 </body>
 </html>

@@ -5,7 +5,7 @@ import {
   PageLayoutContainer,
   SectionContainer,
 } from "../../../shared/Layout.styles";
-import { yupResolver } from '@hookform/resolvers/yup';
+import { yupResolver } from "@hookform/resolvers/yup";
 import { useHistory } from "react-router";
 import { useForm, FormProvider } from "react-hook-form";
 import axios from "axios";
@@ -18,7 +18,7 @@ type FormValue = {
   url_name: string;
   project_name: string;
   description: string;
-}
+};
 const defaultValues = {
   url_name: "",
   project_name: "",
@@ -27,12 +27,13 @@ const defaultValues = {
 
 const validationSchema = Yup.object().shape({
   project_name: Yup.string().nullable().required("Required"),
-  url_name: Yup.string().nullable()
-  .required("Required")
-  .matches(/^[a-zA-Z0-9_]*$/, {
-    message: "Must contain letters and numbers only",
-    excludeEmptyString: true,
-  }),
+  url_name: Yup.string()
+    .nullable()
+    .required("Required")
+    .matches(/^[a-zA-Z0-9_]*$/, {
+      message: "Must contain letters and numbers only",
+      excludeEmptyString: true,
+    }),
   description: Yup.string().nullable().required("Required"),
 });
 
@@ -58,7 +59,6 @@ export const AddProject = () => {
     setError,
     formState: { errors },
   } = methods;
-
 
   const onSubmit = async (formData: any) => {
     try {
@@ -105,9 +105,7 @@ export const AddProject = () => {
                   validation={errors?.url_name?.message || ""}
                 />
                 <TextArea
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                    setValue("description", e.target.value)
-                  }
+                  setValue={setValue}
                   name="description"
                   onBlur={(e: React.ChangeEvent<HTMLInputElement>) => {}}
                   label="A short description about the project"
@@ -122,4 +120,3 @@ export const AddProject = () => {
     </>
   );
 };
-

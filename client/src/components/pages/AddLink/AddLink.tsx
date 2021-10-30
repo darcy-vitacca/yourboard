@@ -1,20 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import {
   PageLayoutContainer,
   SectionContainer,
 } from "../../../shared/Layout.styles";
-import { useHistory } from "react-router";
-import { useForm, FormProvider, useFieldArray } from "react-hook-form";
+import { useHistory, useLocation } from "react-router";
+import { FormProvider, useFieldArray, useForm } from "react-hook-form";
 import { useAuthDispatch, useAuthState } from "../../context/context";
 import { Markdown } from "../../../shared/markdown";
 import { TextArea } from "../../../shared/formElements/textArea";
 import { Button } from "../../../shared/formElements/button";
 import * as linkify from "linkifyjs";
 import {
-  AddLinkProjectContainer,
   AddLinkPreviewContainer,
+  AddLinkProjectContainer,
   AddLinkSection,
   LinkEditSection,
   LinkInputRow,
@@ -25,12 +25,13 @@ import _ from "lodash";
 import Input from "../../../shared/formElements/input";
 import axios from "axios";
 import { Loader } from "../../../shared/loaders";
-import { LinkComponent } from '../../../shared/link';
+import { LinkComponent } from "../../../shared/link";
 
 interface FormValue {
   linkText: string;
   uploadLinks: any;
 }
+
 const defaultValues = {
   linkText: "",
   uploadLinks: [],
@@ -44,16 +45,22 @@ export const validationSchema = Yup.object({
       url_name: Yup.string().nullable().required("Required"),
       url_image: Yup.string().nullable().required("Required"),
     })
-  )
+  ),
 });
 
 export const AddLink = () => {
   const dispatch = useAuthDispatch();
   const { authenticated, currentProject, loading, projects } = useAuthState();
   const { push } = useHistory();
+  const { state }: any = useLocation();
+  const parsedLinkRef: any = useRef();
+
   if (!authenticated) push("/login");
   if (!currentProject && projects) push("/");
   if (!currentProject && !projects) push("/add-project");
+
+  const [parsedLinkText, setParsedLinkText] = useState<any>();
+  const linksLength = currentProject?.links.length;
 
   const methods = useForm<any>({
     mode: "onSubmit",
@@ -75,28 +82,25 @@ export const AddLink = () => {
     formState: { errors },
   } = methods;
 
+  const watchedUploadLinks = watch("uploadLinks");
 
   const onSubmit = async (formData: any) => {
     try {
       dispatch("LOADING");
       const completedLinks = watchedUploadLinks.map((link, index) => {
-        return {...link , position: linksLength ? linksLength + index : index}
-      })
+        return { ...link, position: linksLength ? linksLength + index : index };
+      });
       const res = await axios.post(
         `/link/${currentProject?.project_id}`,
         completedLinks
       );
-      // dispatch("UPDATE_CURRENT_PROJECT", res.data);
+      dispatch("UPDATE_CURRENT_PROJECT", res.data);
       push("/");
     } catch (err: any) {
       console.log(err);
       // const error = err.response.data; //
     }
   };
-
-  const [parsedLinkText, setParsedLinkText] = useState<any>();
-  const watchedUploadLinks = watch("uploadLinks");
-  const linksLength = currentProject?.links.length;
 
   const handleLinkUpload = async (linkText: string) => {
     const parsedGetUrlsLinkText = linkify.find(linkText);
@@ -114,6 +118,7 @@ export const AddLink = () => {
       }
     );
     setParsedLinkText(parsedLinkObj);
+    parsedLinkRef.current = parsedLinkObj;
     setValue("linkText", linkText);
   };
 
@@ -130,12 +135,29 @@ export const AddLink = () => {
     if (!_.isEmpty(parsedLinkText)) {
       append(parsedLinkText);
       clearErrors("linkText");
+    } else if (!_.isEmpty(parsedLinkRef.current)) {
+      // @ts-ignore
+      append(parsedLinkRef.current);
+      clearErrors("linkText");
     } else {
       setError("linkText", {
         message: "Please add links to the text area for your project.",
       });
     }
   };
+  useEffect(() => {
+    (async () => {
+      try {
+        if (state?.droppedLink) {
+          setValue("linkText", state?.droppedLink);
+          await handleLinkUpload(state?.droppedLink);
+          await appendLinks();
+        }
+      } catch (err: any) {
+        console.log(err.response);
+      }
+    })();
+  }, [state?.droppedLink]);
 
   return (
     <>
@@ -147,16 +169,17 @@ export const AddLink = () => {
               <Markdown
                 children={`# Add Links to the ${currentProject?.project_name} Project 🔗`}
               />
-              {
-                _.isEmpty(watchedUploadLinks) &&   <TextArea
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                    handleLinkUpload(e.target.value)
-                  }
+              {_.isEmpty(watchedUploadLinks) && (
+                <TextArea
+                  change={handleLinkUpload}
+                  control={control}
+                  name="linkText"
+                  defaultValue={""}
                   onBlur={(e: React.ChangeEvent<HTMLInputElement>) => {}}
                   label="Upload links here, simply paste in whatever you want and click upload."
                   disabled={!_.isEmpty(watchedUploadLinks)}
                 />
-              }
+              )}
 
               {errors?.linkText?.message && (
                 <Markdown
@@ -178,7 +201,9 @@ export const AddLink = () => {
                               label="LINK"
                               control={control}
                               defaultValue={item.url}
-                              validation={errors?.uploadLinks?.[index]?.url?.message || ""}
+                              validation={
+                                errors?.uploadLinks?.[index]?.url?.message || ""
+                              }
                             />
                             <Input
                               type="text"
@@ -187,11 +212,13 @@ export const AddLink = () => {
                               label="LINK IMAGE"
                               control={control}
                               defaultValue={item.url_image}
-                              validation={errors?.uploadLinks?.[index]?.url_image?.message || ""}
+                              validation={
+                                errors?.uploadLinks?.[index]?.url_image
+                                  ?.message || ""
+                              }
                             />
                           </LinkInputRow>
                           <LinkInputRow>
-
                             <Input
                               type="text"
                               name={`uploadLinks.${index}.url_name`}
@@ -199,7 +226,10 @@ export const AddLink = () => {
                               label="LINK NAME"
                               control={control}
                               defaultValue={""}
-                              validation={errors?.uploadLinks?.[index]?.url_name?.message || ""}
+                              validation={
+                                errors?.uploadLinks?.[index]?.url_name
+                                  ?.message || ""
+                              }
                             />
                           </LinkInputRow>
                         </LinkInputSection>
@@ -208,11 +238,15 @@ export const AddLink = () => {
                           <LinkText>{item.url}</LinkText>
                         </AddLinkProjectContainer>
                       </LinkEditSection>
-<div>
-  <LinkComponent link={watchedUploadLinks[index]} />
-  <Button text="Remove" width="100%" type="button"  onClick={() => handleDelete(index)}/>
-</div>
-
+                      <div>
+                        <LinkComponent link={watchedUploadLinks[index]} />
+                        <Button
+                          text="Remove"
+                          width="100%"
+                          type="button"
+                          onClick={() => handleDelete(index)}
+                        />
+                      </div>
                     </AddLinkSection>
                   );
                 })}
@@ -225,7 +259,7 @@ export const AddLink = () => {
                   text="Add Links"
                 />
               ) : (
-                <Button type="submit" width="25%" text="Submit Links"   />
+                <Button type="submit" width="25%" text="Submit Links" />
               )}
             </form>
           </FormProvider>
@@ -234,5 +268,3 @@ export const AddLink = () => {
     </>
   );
 };
-
-

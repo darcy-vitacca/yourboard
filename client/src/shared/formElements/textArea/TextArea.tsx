@@ -1,5 +1,5 @@
 import React, { forwardRef } from "react";
-
+import { Controller } from "react-hook-form";
 import {
   TextAreaContainer,
   StyledTextArea,
@@ -9,7 +9,7 @@ import {
 import { Markdown } from "../../markdown";
 
 export interface ITextAreaProps extends IContainerProps, IStyledTextAreaProps {
-  name?: string;
+  name: string;
   label: string;
   id?: string;
   touched?: boolean;
@@ -19,7 +19,7 @@ export interface ITextAreaProps extends IContainerProps, IStyledTextAreaProps {
   className?: string;
   loading?: boolean;
   variant?: "standard" | "outlined" | "filled";
-  defaultValue?: string ;
+  defaultValue?: string;
   value?: string | number | readonly string[];
   onChange?: any;
   onBlur?: any;
@@ -29,6 +29,9 @@ export interface ITextAreaProps extends IContainerProps, IStyledTextAreaProps {
   disabled?: boolean;
   minRows?: number;
   error?: boolean;
+  control?: any;
+  change?: any;
+  setValue?: any;
 }
 
 export const TextArea = forwardRef<HTMLTextAreaElement, ITextAreaProps>(
@@ -42,6 +45,10 @@ export const TextArea = forwardRef<HTMLTextAreaElement, ITextAreaProps>(
       width,
       minRows,
       disabled,
+      control,
+      defaultValue,
+      change,
+      setValue,
       ...props
     },
     ref
@@ -58,18 +65,31 @@ export const TextArea = forwardRef<HTMLTextAreaElement, ITextAreaProps>(
     return (
       <TextAreaContainer className={className} width={width}>
         <Markdown children={label} props={labelProps} className="label" />
-        <StyledTextArea
-          {...props}
-          id={name}
-          disabled={disabled}
+        <Controller
           name={name}
-          ref={ref}
-          minRows={minRows}
-          error={validation}
-          style={{
-            minHeight: `${overrideTextAreaInitialHeight}px`,
-          }}
+          control={control}
+          defaultValue={""}
+          render={({ field }) => (
+            <StyledTextArea
+              {...field}
+              id={name}
+              disabled={disabled}
+              //@ts-ignore
+              onChange={(e: any) =>
+                setValue
+                  ? setValue(name, e.target.value)
+                  : change(e.target.value)
+              }
+              ref={ref}
+              minRows={minRows}
+              error={validation}
+              style={{
+                minHeight: `${overrideTextAreaInitialHeight}px`,
+              }}
+            />
+          )}
         />
+
         <Markdown children={validation} className="validationText" />
       </TextAreaContainer>
     );

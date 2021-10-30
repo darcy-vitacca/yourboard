@@ -2,8 +2,6 @@ import React from "react";
 import { Markdown } from '../../../shared/markdown';
 import { LinkProjectSectionContainer, ProjectContainer } from '../../../shared/Layout.styles';
 import {  ProjectComponent } from '../../../shared/project/ProjectComponent';
-import { DraftEditor } from '../Notes/Editor';
-import styled from 'styled-components/macro'
 
 
 
