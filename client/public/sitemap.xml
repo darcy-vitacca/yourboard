@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+        xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+    <!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
+
+
+    <url>
+        <loc>https://urboard.co/</loc>
+        <lastmod>2021-10-30T07:37:39+00:00</lastmod>
+    </url>
+    <url>
+        <loc>https://urboard.co/add-links</loc>
+        <lastmod>2021-10-30T07:37:39+00:00</lastmod>
+        <priority>0.80</priority>
+    </url>
+    <url>
+        <loc>https://urboard.co/add-project</loc>
+        <lastmod>2021-10-30T07:37:39+00:00</lastmod>
+        <priority>0.80</priority>
+    </url>
+    <url>
+        <loc>https://urboard.co/notes</loc>
+        <lastmod>2021-10-30T07:37:39+00:00</lastmod>
+        <priority>0.80</priority>
+    </url>
+    <url>
+        <loc>https://urboard.co/login</loc>
+        <lastmod>2021-10-30T07:37:39+00:00</lastmod>
+        <priority>0.80</priority>
+    </url>
+    <url>
+        <loc>https://urboard.co/register</loc>
+        <lastmod>2021-10-30T07:37:39+00:00</lastmod>
+        <priority>0.80</priority>
+    </url>
+    <url>
+        <loc>https://urboard.co/reset</loc>
+        <lastmod>2021-10-30T07:37:39+00:00</lastmod>
+        <priority>0.80</priority>
+    </url>
+    <url>
+        <loc>https://urboard.co/settings</loc>
+        <lastmod>2021-10-30T07:37:39+00:00</lastmod>
+        <priority>0.80</priority>
+    </url>
+    <url>
+        <loc>https://urboard.co/my-profile</loc>
+        <lastmod>2021-10-30T07:37:39+00:00</lastmod>
+        <priority>0.80</priority>
+    </url>
+    <url>
+        <loc>https://urboard.co/my-inbox</loc>
+        <lastmod>2021-10-30T07:37:39+00:00</lastmod>
+        <priority>0.80</priority>
+    </url>
+
+</urlset>
