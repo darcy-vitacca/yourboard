@@ -164,7 +164,7 @@ export const AddLink = () => {
     <>
       <DragDrop>
         <PageLayoutContainer>
-          <SectionContainer>
+          <SectionContainer align="center" className="addLinks">
             {loading && <Loader />}
             <FormProvider {...methods}>
               <form onSubmit={handleSubmit(onSubmit)}>

@@ -10,12 +10,12 @@ import { Loader } from "../../../shared/loaders";
 import { LinkSection } from "../LinkSection/LinkSection";
 import { ProjectSection } from "../ProjectSection/ProjectSection";
 import { DragDrop } from "../../../shared/dragDrop";
+import { LandingPage } from "./LandingPage";
 
 export const Landing = () => {
   const dispatch = useAuthDispatch();
   const { currentProject, loading, authenticated, projects } = useAuthState();
   const { push } = useHistory();
-  if (!authenticated && !loading) push("/login");
 
   useEffect(() => {
     (async () => {
@@ -28,7 +28,7 @@ export const Landing = () => {
         if (err?.response?.data?.project === "Projects not Found") {
           push("/add-project");
         }
-        console.log(err.response);
+        // console.log(err.response);
       }
     })();
   }, []);
@@ -39,7 +39,9 @@ export const Landing = () => {
         <PageLayoutContainer>
           <SectionContainer>
             {loading && <Loader />}
-            {!currentProject ? (
+            {!authenticated && !loading ? (
+              <LandingPage />
+            ) : !currentProject ? (
               <ProjectSection projects={projects} />
             ) : (
               <LinkSection

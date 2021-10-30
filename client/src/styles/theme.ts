@@ -100,6 +100,7 @@ export const theme = {
     mobileSml: 320,
     mobileMed: 480,
     mobileLrg: 560,
+    mobileXL: 650,
     tablet: 768,
     laptop: 1000,
     laptopLrg: 1160,

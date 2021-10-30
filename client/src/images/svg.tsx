@@ -1,4 +1,5 @@
-import React, { FC } from 'react';
+import React, { FC } from "react";
+
 export interface ISVGProps {
   className?: string;
   push: (type: any) => void;

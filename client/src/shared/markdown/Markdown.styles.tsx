@@ -81,6 +81,14 @@ export const MarkdownElement = styled(
     color: ${({ theme }) => theme.colors.green500};
     font-weight: bold;
   }
+  &.landingHeading > h1 {
+    color: ${({ theme }) => theme.colors.green500};
+    font-weight: bold;
+    @media ${device.mobileLrg} {
+      padding-left: 10px;
+    }
+    
+  }
 
   &.notesText {
    //cursor: pointer;

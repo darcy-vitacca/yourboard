@@ -63,6 +63,11 @@ export const SectionContainer = styled.div<ISectionContainerProps>`
       : align === "right"
       ? "flex-end"
       : "inherit"};
+  &.addLinks {
+    @media ${device.mobileLrg} {
+      margin-left: 70px;
+    }
+  }
 `;
 
 export const FormContainer = styled.div`

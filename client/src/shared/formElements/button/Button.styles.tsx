@@ -19,7 +19,6 @@ export const ButtonContainer = styled.button<IButtonPropStyles>`
       : width === "100%"
       ? "100%"
       : "inherit"};
-
   padding: 0 5px;
   //min-width: ${({ theme }) => theme.layout.buttonWidth};
   height: ${height}px;
