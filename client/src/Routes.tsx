@@ -11,7 +11,6 @@ import { MyProfile } from "./components/pages/MyProfile";
 import { Inbox } from "./components/pages/Inbox";
 import { Notes } from "./components/pages/Notes";
 import { Reset } from "./components/pages/Reset";
-import { DragDrop } from "./shared/dragDrop";
 
 declare global {
   interface Window {

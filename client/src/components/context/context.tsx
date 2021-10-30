@@ -3,7 +3,7 @@ import { createContext, useContext, useEffect, useReducer } from "react";
 import User from "../../../../server/src/entities/User";
 import Project from "../../../../server/src/entities/Project";
 import Friend from "../../../../server/src/entities/Friends";
-import Note from '../../../../server/src/entities/Notes';
+import Note from "../../../../server/src/entities/Notes";
 
 interface State {
   authenticated: boolean;
@@ -30,7 +30,7 @@ const StateContext = createContext<State>({
   currentProject: null,
   projects: null,
   currentProjectIndex: 0,
-  notes: null
+  notes: null,
 });
 const DispatchContext = createContext<any>(null);
 
@@ -56,7 +56,10 @@ const reducer: any = (state: State, { type, payload }: Action) => {
       return {
         ...state,
         currentProject: payload,
-        currentProjectIndex: state?.projects?.findIndex((project) => project.project_id === payload.project_id) ?? 0,
+        currentProjectIndex:
+          state?.projects?.findIndex(
+            (project) => project.project_id === payload.project_id
+          ) ?? 0,
       };
     case "RETURN_INITIAL_STATE_CURRENT_PROJECT":
       return {
@@ -105,19 +108,19 @@ const reducer: any = (state: State, { type, payload }: Action) => {
         loading: false,
       };
     case "UPDATE_CURRENT_PROJECT":
-      if(state.projects){
-        const projectCopy = [...state.projects]
-        projectCopy[state.currentProjectIndex] = payload
+      if (state.projects) {
+        const projectCopy = [...state.projects];
         return {
           ...state,
           loading: false,
-          projects: projectCopy
-        }
+          projects: projectCopy,
+          currentProject: payload,
+        };
       } else {
         return {
           ...state,
-          loading: false
-        }
+          loading: false,
+        };
       }
     case "SHOW_MENU":
       return { ...state, showMenu: true };
@@ -142,7 +145,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     currentProject: null,
     projects: null,
     currentProjectIndex: 0,
-    notes: null
+    notes: null,
   });
 
   //this one liner adds args to the dispatch so we don't have to keep writing type
