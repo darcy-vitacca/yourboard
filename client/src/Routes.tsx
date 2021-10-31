@@ -12,6 +12,9 @@ import { Inbox } from "./components/pages/Inbox";
 import { Notes } from "./components/pages/Notes";
 import { Reset } from "./components/pages/Reset";
 import { ChatWidget } from "@papercups-io/chat-widget";
+import { Footer } from "./shared/footer";
+import { Contact } from "./components/pages/Contact/Contact";
+import { Privacy } from "./components/pages/Privacy/Privacy";
 
 declare global {
   interface Window {
@@ -48,22 +51,11 @@ export const Routes = () => {
         <Route exact path="/settings" component={Settings} />
         <Route exact path="/my-profile" component={MyProfile} />
         <Route exact path="/my-inbox" component={Inbox} />
+        <Route exact path="/privacy" component={Privacy} />
+        <Route exact path="/contact" component={Contact} />
         <Route exact path="*" component={NotFound} />
       </Switch>
-      {/*<ChatWidget*/}
-      {/*  token="4f32ddf5-a054-4f69-90a9-b39f5d381dac"*/}
-      {/*  inbox="70f5af34-a300-4f2b-a7fa-cab4e3e2e14d"*/}
-      {/*  title="Welcome to urboard"*/}
-      {/*  subtitle="Ask us anything in the chat window below 😊"*/}
-      {/*  primaryColor="#10b981"*/}
-      {/*  greeting="Hello, Need Help with something? Have a feature request? See a bug? I'm a human so please be nice and I'll do my best to get back to you as soon as possible. 😊"*/}
-      {/*  newMessagePlaceholder="Start typing..."*/}
-      {/*  agentAvailableText="We're online right now!"*/}
-      {/*  agentUnavailableText="We're away at the moment."*/}
-      {/*  iconVariant="outlined"*/}
-      {/*  requireEmailUpfront={false}*/}
-      {/*  baseUrl="https://app.papercups.io"*/}
-      {/*/>*/}
+      <Footer />
       <ChatWidget
         token="4f32ddf5-a054-4f69-90a9-b39f5d381dac"
         inbox="70f5af34-a300-4f2b-a7fa-cab4e3e2e14d"

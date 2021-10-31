@@ -19,7 +19,7 @@ export const PageLayoutContainer = styled.div`
   min-width: 260px;
   background-color: ${({ theme }) => theme.layout.background};
   box-shadow: ${({ theme }) => theme.shadow.box};
-  padding: 10px 10px 10px;
+  padding: 0 10px 50px 10px;
   margin: 0 0 100px;
 
   @media ${device.laptopLrg} {

@@ -1,13 +1,13 @@
 import React, {  FC } from "react";
 import { Editor } from "react-draft-wysiwyg";
-import { convertToRaw} from "draft-js";
 import { Controller } from "react-hook-form";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-import draftToHtml from 'draftjs-to-html';
 import './Editor.css'
 import styled from 'styled-components/macro'
-import isEmpty from 'lodash/isEmpty'
-import { Markdown } from '../../../shared/markdown';
+// import { convertToRaw} from "draft-js";
+// import draftToHtml from 'draftjs-to-html';
+// import isEmpty from 'lodash/isEmpty'
+// import { Markdown } from '../../../shared/markdown';
 
 const EditorContainer = styled.div`
 `
@@ -46,9 +46,9 @@ export const DraftEditor: FC<DraftEditorValues> = ({name, defaultValue, control,
           )}
         />
       </div>
-      {!isEmpty(editorState) &&
-      <Markdown children={draftToHtml(convertToRaw(editorState?.getCurrentContent()))} />
-    }
+    {/*  {!isEmpty(editorState) &&*/}
+    {/*  <Markdown children={draftToHtml(convertToRaw(editorState?.getCurrentContent()))} />*/}
+    {/*}*/}
     </EditorContainer>
   );
 }
