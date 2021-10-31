@@ -22,7 +22,6 @@ export const Landing = () => {
       try {
         dispatch("LOADING");
         const res = await axios.get("/projects");
-        console.log("projects", projects);
         dispatch("SET_PROJECTS", res.data);
       } catch (err: any) {
         dispatch("STOP_LOADING");

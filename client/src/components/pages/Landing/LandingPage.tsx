@@ -102,8 +102,8 @@ export const LandingPage = () => {
         <div>
           <Markdown children="### Project Dashboard " />
           <Markdown children="The project dashboard is **where your links are**, simply click on any of these to **navigate to something**. In this example we at urboard use this project to store all of our recipes. " />
-          <Markdown children="Anytime you see a recipe you like, add it here. **No more trying to find links** for recipes you have in a a lot of different places. The best part is you wont have to bring your laptop as you can access this on your phone!" />
-          <Markdown children="You **can invite friends** to this project too! So now we have a community of where we can all post great recipes. Awesome! 🍔🍸🍔🍸 " />
+          <Markdown children="Anytime you see a recipe you like, add it here. **No more trying to find links** for recipes you have in  a lot of different places. The best part is you wont have to bring your laptop as you can access this on your phone!" />
+          <Markdown children="You **can invite friends** to this project too! So now we have a community where we can all post great recipes. Awesome! 🍔🍸🍔🍸 " />
         </div>
       </ImageSectionContainer>
       <ImageSectionContainer>
@@ -117,7 +117,7 @@ export const LandingPage = () => {
         <ExampleImages src={addLinks} />
         <div>
           <Markdown children="### Add Links" />
-          <Markdown children="**Add links** into a project, get rid of that pesky notepad of links on your computer. Simply drag and drop a link from another browser window or copy paste them all in here and 😮 see what happens!" />
+          <Markdown children="**Add links** into a project, get rid of that pesky notepad of links on your computer. Simply drag and drop a link from another browser window or copy paste them all in here 😮 and see what happens!" />
         </div>
       </ImageSectionContainer>
       <ImageSectionContainer>
