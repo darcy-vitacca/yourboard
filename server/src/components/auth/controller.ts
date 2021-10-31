@@ -137,7 +137,7 @@ export const forgot = async (req: Request, res: Response) => {
 
     const addPasswordRequest = await new PasswordRequest(request);
     if (addPasswordRequest) {
-     await  addPasswordRequest.save()
+      await addPasswordRequest.save();
       const emailToSend = {
         replyTo: `urboardinfo@gmail.com`,
         from: `urboardinfo@gmail.com`,
@@ -159,7 +159,9 @@ export const forgot = async (req: Request, res: Response) => {
         });
     }
 
-    return res.json({ email: 'Email successfully sent please reset password from link' });
+    return res.json({
+      email: 'Email successfully sent please reset password from link',
+    });
   } catch (err: any) {
     console.log(err);
     return res.json({ error: 'Something went wrong' });
@@ -168,23 +170,57 @@ export const forgot = async (req: Request, res: Response) => {
 
 export const reset = async (req: Request, res: Response) => {
   const { id, password } = req.body;
-  let errors :any = {}
+  let errors: any = {};
   try {
     if (isEmpty(password)) errors.password = 'Password must not be empty';
     if (isEmpty(id)) errors.id = 'Please try to reset your password again';
     if (Object.keys(errors).length > 0) return res.status(400).json(errors);
 
-    const resetRequest = await PasswordRequest.findOneOrFail(id)
+    const resetRequest = await PasswordRequest.findOneOrFail(id);
     if (!resetRequest) {
-      return res.status(404).json({ resetRequest: 'Please try to reset your password again' });
+      return res
+        .status(404)
+        .json({ resetRequest: 'Please try to reset your password again' });
     } else {
-      const user = await User.findOne({ email :resetRequest?.email });
+      const user = await User.findOne({ email: resetRequest?.email });
       if (!user) return res.status(404).json({ email: 'User not found' });
       user.password = await bcrypt.hash(password, 6);
-      await user.save()
-      await resetRequest.remove()
+      await user.save();
+      await resetRequest.remove();
     }
     return res.json({ email: 'Success' });
+  } catch (err: any) {
+    return res.json({ error: 'Something went wrong' });
+  }
+};
+
+export const contact = async (req: Request, res: Response) => {
+  const { email, name, message } = req.body;
+  try {
+    let errors: any = {};
+    const emailToSend = {
+      replyTo: `${email}`,
+      from: `urboardinfo@gmail.com`,
+      to: `urboardinfo@gmail.com`,
+      subject: `urboard message`,
+      html: `
+              <p>A message from : ${name}</p>
+              <p>The message they sent is : </p>
+              <p>${message}</p>
+              <p>Reply to this : ${email}</p>
+              <p>Thanks,</p>
+              <p>urboard team.</p>`,
+    };
+    const emailRes = await sgMail
+      .send(emailToSend)
+      .then((response) => console.log('response', response))
+      .catch((error) => {
+        return error;
+      });
+    return res.json({
+      success:
+        'Contacted successfully, we will endeavour to get back to you as soon as possible.',
+    });
   } catch (err: any) {
     return res.json({ error: 'Something went wrong' });
   }

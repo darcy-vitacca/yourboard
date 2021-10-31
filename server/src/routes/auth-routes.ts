@@ -10,4 +10,5 @@ module.exports = (app: Application): void => {
   app.route('/api/auth/logout').get(user, auth, authController.logout);
   app.route('/api/auth/forgot').post(authController.forgot);
   app.route('/api/auth/reset').patch(authController.reset);
+  app.route('/api/auth/contact').post(authController.contact);
 };
