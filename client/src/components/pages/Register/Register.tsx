@@ -152,7 +152,7 @@ export const Register = () => {
 
                   <Button text="Register" width="100%" type="submit" />
                   <LoginRegisterLinkProjectContainer>
-                    <Markdown children="Already a yourboard member?" />
+                    <Markdown children="Already a urboard member?" />
                     <StyledLink to="/login">LOGIN </StyledLink>
                   </LoginRegisterLinkProjectContainer>
                 </LoginRegisterSectionContainer>

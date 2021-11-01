@@ -118,7 +118,7 @@ export const Login = () => {
                     type="submit"
                   />
                   <LoginRegisterLinkProjectContainer>
-                    <Markdown children="New to yourboard?" />
+                    <Markdown children="New to urboard?" />
                     <StyledLink to="/register">REGISTER</StyledLink>
                   </LoginRegisterLinkProjectContainer>
                 </LoginRegisterSectionContainer>

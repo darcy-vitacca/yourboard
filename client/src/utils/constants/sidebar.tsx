@@ -3,6 +3,7 @@ import AddCircleIcon from "@material-ui/icons/AddCircle";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import LockOpenIcon from "@material-ui/icons/LockOpen";
 import PersonAddIcon from "@material-ui/icons/PersonAdd";
+import { RoadMap } from "@styled-icons/remix-fill/RoadMap";
 import styled from "styled-components/macro";
 import { NotepadEdit } from "@styled-icons/fluentui-system-filled/NotepadEdit";
 import { AddLink } from "@styled-icons/material-outlined/AddLink";
@@ -15,6 +16,12 @@ const SVGAddLinkIcon = styled(AddLink)`
 `;
 
 const SVGNotepadEditIcon = styled(NotepadEdit)`
+  color: ${({ theme }) => theme.colors.white};
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+`;
+const SVGRoadMap = styled(RoadMap)`
   color: ${({ theme }) => theme.colors.white};
   width: 25px;
   height: 25px;
@@ -55,6 +62,12 @@ export const sidebarDataAuth: SideMenuValues[] = [
     icon: <AddCircleIcon />,
     link: "/add-project",
     tooltip: "Add Project",
+  },
+  {
+    title: "#### Road Map",
+    icon: <SVGRoadMap />,
+    link: "/roadmap",
+    tooltip: "Road Map",
   },
   // {
   //   title: "#### Project Notes",
@@ -115,5 +128,11 @@ export const sidebarDataUnauth = [
     icon: <PersonAddIcon />,
     link: "/register",
     tooltip: "Register",
+  },
+  {
+    title: "#### Road Map",
+    icon: <SVGRoadMap />,
+    link: "/roadmap",
+    tooltip: "Road Map",
   },
 ];

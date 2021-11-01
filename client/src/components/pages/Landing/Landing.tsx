@@ -28,7 +28,6 @@ export const Landing: FC = () => {
         if (err?.response?.data?.project === "Projects not Found") {
           push("/add-project");
         }
-        // console.log(err.response);
       }
     })();
   }, []);

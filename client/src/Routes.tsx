@@ -20,6 +20,7 @@ const Reset = lazy(() => import("./components/pages/Reset"));
 const Footer = lazy(() => import("./shared/footer"));
 const Contact = lazy(() => import("./components/pages/Contact/Contact"));
 const Privacy = lazy(() => import("./components/pages/Privacy/Privacy"));
+const RoadMap = lazy(() => import("./components/pages/RoadMap"));
 
 declare global {
   interface Window {
@@ -57,6 +58,7 @@ export const Routes = () => {
           <Route exact path="/settings" component={Settings} />
           <Route exact path="/my-profile" component={MyProfile} />
           <Route exact path="/my-inbox" component={Inbox} />
+          <Route exact path="/roadmap" component={RoadMap} />
           <Route exact path="/privacy" component={Privacy} />
           <Route exact path="/contact" component={Contact} />
           <Route exact path="*" component={NotFound} />
