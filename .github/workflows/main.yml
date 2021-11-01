@@ -28,3 +28,4 @@ jobs:
           username: ${{ secrets.USERNAME }}
           privateKey: ${{ secrets.PRIVATE_KEY}}
           github-token: ${{ secrets.PA_TOKEN }}
+#  pm2 start --name "client" serve  -- -l 3000 -s build
