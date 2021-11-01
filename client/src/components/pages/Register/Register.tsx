@@ -27,7 +27,7 @@ interface FormValue {
 }
 const defaultValues = {
   email: "",
-  // username: "",
+  username: "",
   password: "",
   firstName: "",
   lastName: "",
