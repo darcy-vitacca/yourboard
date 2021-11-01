@@ -27,7 +27,7 @@ export const register = async (req: Request, res: Response) => {
 
     let errors: any = {};
     if (isEmpty(email)) errors.email = 'Email must not be empty';
-    // if (isEmpty(username)) errors.username = 'Username must not be empty';
+    if (isEmpty(username)) errors.username = 'Username must not be empty';
     if (isEmpty(password)) errors.password = 'Password must not be empty';
     if (isEmpty(firstName)) errors.firstName = 'First name must not be empty';
     if (isEmpty(lastName)) errors.lastName = 'Last must not be empty';
@@ -37,9 +37,9 @@ export const register = async (req: Request, res: Response) => {
     }
 
     const emailUserExists = await User.findOne({ email });
-    // const usernameUserExists = await User.findOne({ username });
+    const usernameUserExists = await User.findOne({ username });
     if (emailUserExists) errors.email = 'Email is already taken';
-    // if (usernameUserExists) errors.username = 'Username is already taken';
+    if (usernameUserExists) errors.username = 'Username is already taken';
 
     if (Object.keys(errors).length > 0) {
       return res.status(400).json(errors);
