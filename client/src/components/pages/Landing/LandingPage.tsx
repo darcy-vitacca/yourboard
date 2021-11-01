@@ -1,10 +1,6 @@
 import React from "react";
 import { Markdown } from "../../../shared/markdown";
 import landingSVG from "../../../images/landing.svg";
-import addLinks from "../../../images/addLinks.png";
-import addProjects from "../../../images/addProjects.png";
-import projects from "../../../images/projects.png";
-import recipeProject from "../../../images/recipeProject.png";
 import styled from "styled-components/macro";
 import { device } from "../../../styles/devices";
 import { Button } from "../../../shared/formElements/button";
@@ -95,10 +91,10 @@ export const LandingPage = () => {
             />
           </div>
         </LandingCTAContainer>
-        <StyledHeroImg src={landingSVG} />
+        <StyledHeroImg src="https://ik.imagekit.io/ticnymjalpq/tr:w-auto/landing_yk3VjPjlNNB.svg?updatedAt=1635751648479" />
       </LandingSectionContainer>
       <ImageSectionContainer>
-        <ExampleImages src={recipeProject} />
+        <ExampleImages src="https://ik.imagekit.io/ticnymjalpq/tr:w-auto/recipeProject_2HQSnlY2H9D.png?updatedAt=1635751114271" />
         <div>
           <Markdown children="### Project Dashboard " />
           <Markdown children="The project dashboard is **where your links are**, simply click on any of these to **navigate to something**. In this example we at urboard use this project to store all of our recipes. " />
@@ -107,21 +103,21 @@ export const LandingPage = () => {
         </div>
       </ImageSectionContainer>
       <ImageSectionContainer>
-        <ExampleImages src={projects} />
+        <ExampleImages src="https://ik.imagekit.io/ticnymjalpq/tr:w-auto/projects_aBmC5EMbSipD.png?updatedAt=1635751067952" />
         <div>
           <Markdown children="### urboard dashboard" />
           <Markdown children=" Navigate through all created projects here, this is **your** mission control" />
         </div>
       </ImageSectionContainer>
       <ImageSectionContainer>
-        <ExampleImages src={addLinks} />
+        <ExampleImages src="https://ik.imagekit.io/ticnymjalpq/tr:w-auto/addLinks_DuhczUdma2T.png?updatedAt=1635751023331" />
         <div>
           <Markdown children="### Add Links" />
           <Markdown children="**Add links** into a project, get rid of that pesky notepad of links on your computer. Simply drag and drop a link from another browser window or copy paste them all in here 😮 and see what happens!" />
         </div>
       </ImageSectionContainer>
       <ImageSectionContainer>
-        <ExampleImages src={addProjects} />
+        <ExampleImages src="https://ik.imagekit.io/ticnymjalpq/tr:w-auto/addProjects_wkWU725Lkuj.png?updatedAt=1635751063826" />
         <div>
           <Markdown children="### Add Project" />
           <Markdown children="**Add projects** of where you want your links to live, think of it like a subfolder." />
