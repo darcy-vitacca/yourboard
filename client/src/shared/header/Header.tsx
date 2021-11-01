@@ -9,7 +9,7 @@ import {
   HeaderRightContainer,
 } from "./Header.styles";
 
-export const Header = () => {
+const Header = () => {
   const { showMenu } = useAuthState();
 
   return (
@@ -31,3 +31,5 @@ export const Header = () => {
     </>
   );
 };
+
+export default Header;

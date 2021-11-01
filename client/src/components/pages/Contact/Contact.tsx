@@ -28,7 +28,7 @@ const defaultValues = {
   message: "",
 };
 
-export const Contact: FC = () => {
+const Contact: FC = () => {
   const dispatch = useAuthDispatch();
   const { loading } = useAuthState();
   const [success, setSuccess] = useState("");
@@ -106,3 +106,5 @@ const validationSchema = Yup.object().shape({
   email: Yup.string().email("Must be a valid email").required("Required"),
   message: Yup.string().required("Required"),
 });
+
+export default Contact;

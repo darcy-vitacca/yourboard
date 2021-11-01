@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, FC } from "react";
 import {
   SectionContainer,
   PageLayoutContainer,
@@ -12,7 +12,7 @@ import { ProjectSection } from "../ProjectSection/ProjectSection";
 import { DragDrop } from "../../../shared/dragDrop";
 import { LandingPage } from "./LandingPage";
 
-export const Landing = () => {
+export const Landing: FC = () => {
   const dispatch = useAuthDispatch();
   const { currentProject, loading, authenticated, projects } = useAuthState();
   const { push } = useHistory();

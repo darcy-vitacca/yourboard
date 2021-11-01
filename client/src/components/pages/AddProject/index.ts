@@ -1,1 +1,1 @@
-export { AddProject } from './AddProject'
+export { AddProject as default } from "./AddProject";

@@ -6,7 +6,7 @@ import {
 } from "../../../shared/Layout.styles";
 import { Markdown } from "../../../shared/markdown";
 
-export const Privacy: FC = () => {
+const Privacy: FC = () => {
   return (
     <PageLayoutContainer>
       <SectionContainer>
@@ -135,3 +135,5 @@ export const Privacy: FC = () => {
     </PageLayoutContainer>
   );
 };
+
+export default Privacy;

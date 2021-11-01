@@ -1,1 +1,1 @@
-export { AddLink } from './AddLink'
+export { AddLink as default } from "./AddLink";
