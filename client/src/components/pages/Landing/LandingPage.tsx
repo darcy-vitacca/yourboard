@@ -1,6 +1,6 @@
 import React from "react";
 import { Markdown } from "../../../shared/markdown";
-import landingSVG from "../../../images/landing_svg.svg";
+import landingSVG from "../../../images/landing.svg";
 import addLinks from "../../../images/addLinks.png";
 import addProjects from "../../../images/addProjects.png";
 import projects from "../../../images/projects.png";
@@ -16,10 +16,10 @@ export interface IImageContainerStyles {
 const StyledHeroImg = styled.img`
   width: 100%;
   @media ${device.mobileLrg} {
-    max-width: 200px;
+    max-width: 280px;
   }
   @media ${device.laptop} {
-    max-width: 360px;
+    max-width: 420px;
   }
   margin: 10px 0;
 `;

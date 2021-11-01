@@ -23,13 +23,13 @@ export const Footer = () => {
   const { push } = useHistory();
   return (
     <FooterLinkSection>
+      <FooterLinks onClick={() => push("/contact")}>Contact</FooterLinks>
       <a href="https://www.facebook.com/urboard">
         <FacebookIcon />
       </a>
       <a href="https://twitter.com/urboard">
         <TwitterIcon />
       </a>
-      <FooterLinks onClick={() => push("/contact")}>Contact</FooterLinks>
       <FooterLinks onClick={() => push("/privacy")}>Privacy Policy</FooterLinks>
     </FooterLinkSection>
   );
