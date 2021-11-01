@@ -27,7 +27,7 @@ export const register = async (req: Request, res: Response) => {
 
     let errors: any = {};
     if (isEmpty(email)) errors.email = 'Email must not be empty';
-    if (isEmpty(username)) errors.username = 'Username must not be empty';
+    // if (isEmpty(username)) errors.username = 'Username must not be empty';
     if (isEmpty(password)) errors.password = 'Password must not be empty';
     if (isEmpty(firstName)) errors.firstName = 'First name must not be empty';
     if (isEmpty(lastName)) errors.lastName = 'Last must not be empty';
@@ -37,19 +37,40 @@ export const register = async (req: Request, res: Response) => {
     }
 
     const emailUserExists = await User.findOne({ email });
-    const usernameUserExists = await User.findOne({ username });
+    // const usernameUserExists = await User.findOne({ username });
     if (emailUserExists) errors.email = 'Email is already taken';
-    if (usernameUserExists) errors.username = 'Username is already taken';
+    // if (usernameUserExists) errors.username = 'Username is already taken';
 
     if (Object.keys(errors).length > 0) {
       return res.status(400).json(errors);
     }
-    const user = new User({ email, username, password, firstName, lastName });
+    const user = new User({
+      email,
+      username,
+      password,
+      firstName,
+      lastName,
+    });
     errors = await validate(user);
     if (errors.length > 0) {
       return res.status(400).json(mapErrors(errors));
     }
     await user.save();
+
+    const token = jwt.sign({ email }, process.env.JWT_SECRET!);
+
+    //res.set sets the header. Http only sets it so it can't be accessed by javascript
+    //means it should only pass through https is true, the path says online
+    res.set(
+      'Set-Cookie',
+      cookie.serialize('token', token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'strict',
+        maxAge: 60 * 60 * 24 * 7,
+        path: '/',
+      })
+    );
 
     await getConnection()
       .createQueryBuilder()

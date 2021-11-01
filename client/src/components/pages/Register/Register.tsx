@@ -27,7 +27,7 @@ interface FormValue {
 }
 const defaultValues = {
   email: "",
-  username: "",
+  // username: "",
   password: "",
   firstName: "",
   lastName: "",
@@ -65,8 +65,11 @@ export const Register = () => {
     try {
       dispatch("LOADING");
       const res = await axios.post("/auth/register", formData);
+      debugger;
+      const resAuth = await axios.get("/auth/me");
+      dispatch("LOGIN", resAuth.data);
       dispatch("STOP_LOADING");
-      push("/login");
+      push("/");
     } catch (err: any) {
       dispatch("STOP_LOADING");
       const error = err.response.data;
@@ -74,7 +77,7 @@ export const Register = () => {
       if (error.firstName) setError("firstName", { message: error.firstName });
       if (error.lastName) setError("lastName", { message: error.lastName });
       if (error.password) setError("password", { message: error.password });
-      if (error.username) setError("username", { message: error.username });
+      // if (error.username) setError("username", { message: error.username });
     }
   };
 
@@ -106,16 +109,16 @@ export const Register = () => {
                     validation={errors?.email?.message || ""}
                     disabled={params !== null && !isEmpty(params)}
                   />
-                  <Input
-                    type="text"
-                    name="username"
-                    width="100%"
-                    helperText="Username (6 characters or more without spaces)"
-                    label="USERNAME"
-                    control={control}
-                    defaultValue={""}
-                    validation={errors?.username?.message || ""}
-                  />
+                  {/*<Input*/}
+                  {/*  type="text"*/}
+                  {/*  name="username"*/}
+                  {/*  width="100%"*/}
+                  {/*  helperText="Username (6 characters or more without spaces)"*/}
+                  {/*  label="USERNAME"*/}
+                  {/*  control={control}*/}
+                  {/*  defaultValue={""}*/}
+                  {/*  validation={errors?.username?.message || ""}*/}
+                  {/*/>*/}
                   <Input
                     type="password"
                     name="password"

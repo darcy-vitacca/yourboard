@@ -32,8 +32,8 @@ export default class User extends Entity {
   email: string;
 
   @Index()
-  @Length(6, 255, { message: 'Must be 6 characters or more without spaces.' })
-  @Column({ unique: true })
+  // @Length(6, 255, { message: 'Must be 6 characters or more without spaces.' })
+  @Column({ unique: true, nullable: true })
   username: string;
 
   @Column()

@@ -178,7 +178,7 @@ export const AddLink = () => {
                     name="linkText"
                     defaultValue={""}
                     onBlur={(e: React.ChangeEvent<HTMLInputElement>) => {}}
-                    label="Upload links here, simply paste in whatever you want and click upload."
+                    label="Upload links here, simply drag and drop a link from another browser window or copy paste in whatever you want and click Add Links."
                     disabled={!_.isEmpty(watchedUploadLinks)}
                   />
                 )}
