@@ -89,6 +89,13 @@ export const MarkdownElement = styled(
     }
     
   }
+  &.projectCardMainText > h4 {
+    width: 100%;
+    font-size: ${({ theme }) => theme.font.size.smallest};
+    @media ${device.mobileLrg} {
+      font-size: ${({ theme }) => theme.font.size.medium};
+    }
+  }
 
   &.notesText {
    //cursor: pointer;
@@ -127,5 +134,7 @@ export const MarkdownElement = styled(
       font-size: ${({ theme }) => theme.font.size.medium};
     }
   }
+
+    
 
 `;

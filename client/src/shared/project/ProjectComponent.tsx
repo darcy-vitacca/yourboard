@@ -1,21 +1,24 @@
 import React, { FC } from "react";
 import { useHistory } from "react-router";
-import Link from '../../../../server/src/entities/Link';
-import ProjectUser from '../../../../server/src/entities/ProjectUser';
-import { LinkProjectBottomRow, LinkImg, LinkProjectContainer, LinkProjectRow, LinkProjectTopRow } from '../link/Link.tsx.styles';
-import { Markdown } from '../markdown';
+import Link from "../../../../server/src/entities/Link";
+import ProjectUser from "../../../../server/src/entities/ProjectUser";
+import {
+  LinkProjectBottomRow,
+  LinkImg,
+  LinkProjectContainer,
+  LinkProjectRow,
+  LinkProjectTopRow,
+} from "../link/Link.tsx.styles";
+import { Markdown } from "../markdown";
 import moment from "moment";
-import { useAuthDispatch } from '../../components/context/context';
-import { AddCircleIcon } from '../personSection/PersonSection.styles';
-
-
-
+import { useAuthDispatch } from "../../components/context/context";
+import { AddCircleIcon } from "../personSection/PersonSection.styles";
 
 export interface ProjectValues {
   project_id: string;
   project_name: string;
-  updatedAt: Date |null;
-  createdAt: Date |null;
+  updatedAt: Date | null;
+  createdAt: Date | null;
   description: string | null;
   url_name: string;
   links?: Link[];
@@ -23,15 +26,12 @@ export interface ProjectValues {
   position?: number;
   // subfolders: Subfolder[];
 }
-interface Projects{
+interface Projects {
   project: ProjectValues;
   empty?: boolean;
 }
 
-export const ProjectComponent: FC<Projects> = ({
-                                  empty,
-                                  project
-                                }) => {
+export const ProjectComponent: FC<Projects> = ({ empty, project }) => {
   const {
     project_id,
     project_name,
@@ -42,42 +42,43 @@ export const ProjectComponent: FC<Projects> = ({
     links,
     project_users,
     position,
-  } = project
+  } = project;
   const dispatch = useAuthDispatch();
-
-
 
   const selectProject = (project) => {
     dispatch("SET_CURRENT_PROJECT", project);
   };
 
-
   const { push } = useHistory();
   return (
-    <LinkProjectContainer onClick={() => empty? push('/add-project') : selectProject(project)}>
+    <LinkProjectContainer
+      onClick={() => (empty ? push("/add-project") : selectProject(project))}
+    >
       <LinkProjectTopRow>
-        <Markdown children={`#### ${project_name}`} className="linkCardMainText" />
-        { empty && <AddCircleIcon />    }
-        <Markdown children={`📁`}  />
+        <Markdown
+          children={`#### ${project_name}`}
+          className="projectCardMainText"
+        />
+        {empty && <AddCircleIcon />}
+        <Markdown children={`📁`} />
       </LinkProjectTopRow>
       <LinkProjectBottomRow>
         <LinkProjectRow>
-          {
-            project_users &&
+          {project_users && (
             <Markdown
-              children={`🤖 ${project_users?.length} ${project_users?.length === 1  ? "User" : "Users"}`}
+              children={`🤖 ${project_users?.length} ${
+                project_users?.length === 1 ? "User" : "Users"
+              }`}
               className="linkCardSubText"
             />
-          }
+          )}
 
-          {
-            createdAt &&      <Markdown
+          {createdAt && (
+            <Markdown
               children={`Created  ${moment(createdAt).fromNow()}`}
               className="linkCardSubText"
             />
-          }
-
-
+          )}
         </LinkProjectRow>
         {/*<LinkProjectRow>*/}
         {/*  <Markdown children={`${url}`} className="linkCardSubText" />*/}
