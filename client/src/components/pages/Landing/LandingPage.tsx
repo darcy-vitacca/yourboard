@@ -80,7 +80,7 @@ export const LandingPage = () => {
       </LandingSectionContainer>
       <LandingSectionContainer>
         <LandingCTAContainer>
-          <Markdown children=" **urboard** is a personal dashboard designed to help you **navigate the web easier**. Access it **across all your devices**  to manage your favorite links/bookmarks and **navigate faster to what matters most**. Collaborate with friends and organize your projects, ideas, and inspiration in one place. " />
+          <Markdown children=" **urboard** is a personal dashboard designed to help you **navigate the web easier**. Access it **across all your devices**  to manage your favourite links/bookmarks and **navigate faster to what matters most**. Collaborate with friends and organize your projects, ideas, and inspiration in one place. " />
           <div>
             <Markdown
               children="
