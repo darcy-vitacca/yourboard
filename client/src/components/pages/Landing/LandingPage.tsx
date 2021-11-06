@@ -98,7 +98,7 @@ export const LandingPage = () => {
         <div>
           <Markdown children="### Project Dashboard " />
           <Markdown children="The project dashboard is **where your links are**, simply click on any of these to **navigate to something**. In this example we at urboard use this project to store all of our recipes. " />
-          <Markdown children="Anytime you see a recipe you like, add it here. **No more trying to find links** for recipes you have in  a lot of different places. The best part is you wont have to bring your laptop as you can access this on your phone!" />
+          <Markdown children="Anytime you see a recipe you like, add it here. **No more trying to find links** for recipes you have in  a lot of different places. The best part is when it's time to cook you wont have to bring your laptop as you can access this on your phone!" />
           <Markdown children="You **can invite friends** to this project too! So now we have a community where we can all post great recipes. Awesome! 🍔🍸🍔🍸 " />
         </div>
       </ImageSectionContainer>

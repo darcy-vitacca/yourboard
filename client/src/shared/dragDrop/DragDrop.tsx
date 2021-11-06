@@ -4,10 +4,14 @@ import {
 } from "../../components/context/context";
 import * as linkify from "linkifyjs";
 import { useHistory } from "react-router";
+import { useDragDropManager } from "react-dnd";
 
 export const DragDrop = ({ children }) => {
   const { currentProject } = useAuthState();
   const { push } = useHistory();
+  const dragDropManager = useDragDropManager();
+
+  console.log("dragDropManager", dragDropManager && dragDropManager);
   const handleDragEnter = (e) => {
     e.preventDefault();
     e.stopPropagation();

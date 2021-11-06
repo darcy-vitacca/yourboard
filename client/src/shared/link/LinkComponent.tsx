@@ -10,6 +10,8 @@ import { Markdown } from "../markdown";
 import moment from "moment";
 import { useHistory } from "react-router";
 import { AddCircleIcon } from "../personSection/PersonSection.styles";
+import { useDrag } from "react-dnd";
+import { ItemTypes } from "../../utils/dnd/item";
 
 export interface LinkValues {
   clicked?: number;
@@ -30,13 +32,24 @@ interface Links {
 }
 
 export const LinkComponent: FC<Links> = ({ empty, link }) => {
+  const [{ isDragging }, drag] = useDrag({
+    type: ItemTypes.CARD,
+    item: {
+      id: link?.link_id,
+    },
+    collect: (monitor) => ({ isDragging: !!monitor.isDragging() }),
+  });
   const { push } = useHistory();
+
   return (
     <LinkProjectContainer
+      ref={!empty ? drag : null}
       key={link?.link_id}
+      id={link?.link_id}
       onClick={() =>
         link?.url ? window.open(link?.url, "_blank") : push("/add-links")
       }
+      opacity={isDragging}
     >
       <LinkProjectTopRow>
         <Markdown

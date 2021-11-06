@@ -1,4 +1,6 @@
 import React, { useEffect, lazy, Suspense } from "react";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 import { useLocation } from "react-router";
 import ReactGA from "react-ga";
 import { Route, Switch } from "react-router-dom";
@@ -46,23 +48,25 @@ export const Routes = () => {
   return (
     <>
       <Suspense fallback={<Loader />}>
-        <Header />
-        <Switch>
-          <Route exact path="/" component={Landing} />
-          <Route exact path="/add-links" component={AddLink} />
-          <Route exact path="/add-project" component={AddProject} />
-          <Route exact path="/notes" component={Notes} />
-          <Route exact path="/login" component={Login} />
-          <Route exact path="/register" component={Register} />
-          <Route exact path="/reset/:id?" component={Reset} />
-          <Route exact path="/settings" component={Settings} />
-          <Route exact path="/my-profile" component={MyProfile} />
-          <Route exact path="/my-inbox" component={Inbox} />
-          <Route exact path="/roadmap" component={RoadMap} />
-          <Route exact path="/privacy" component={Privacy} />
-          <Route exact path="/contact" component={Contact} />
-          <Route exact path="*" component={NotFound} />
-        </Switch>
+        <DndProvider backend={HTML5Backend}>
+          <Header />
+          <Switch>
+            <Route exact path="/" component={Landing} />
+            <Route exact path="/add-links" component={AddLink} />
+            <Route exact path="/add-project" component={AddProject} />
+            <Route exact path="/notes" component={Notes} />
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/register" component={Register} />
+            <Route exact path="/reset/:id?" component={Reset} />
+            <Route exact path="/settings" component={Settings} />
+            <Route exact path="/my-profile" component={MyProfile} />
+            <Route exact path="/my-inbox" component={Inbox} />
+            <Route exact path="/roadmap" component={RoadMap} />
+            <Route exact path="/privacy" component={Privacy} />
+            <Route exact path="/contact" component={Contact} />
+            <Route exact path="*" component={NotFound} />
+          </Switch>
+        </DndProvider>
         <Footer />
         <ChatWidget
           token="4f32ddf5-a054-4f69-90a9-b39f5d381dac"
@@ -80,7 +84,6 @@ export const Routes = () => {
           baseUrl="https://app.papercups.io"
         />
       </Suspense>
-      3
     </>
   );
 };

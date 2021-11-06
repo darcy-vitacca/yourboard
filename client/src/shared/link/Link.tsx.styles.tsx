@@ -1,7 +1,10 @@
 import styled from "styled-components/macro";
 import { device } from "../../styles/devices";
 
-export const LinkProjectContainer = styled.div`
+export interface ILinkProps {
+  opacity?: boolean;
+}
+export const LinkProjectContainer = styled.div<ILinkProps>`
   margin: 10px;
   width: 120px;
   height: 100px;
@@ -9,6 +12,7 @@ export const LinkProjectContainer = styled.div`
     width: 200px;
     height: 160px;
   }
+  opacity: ${({ opacity }) => (opacity ? "0.5" : "1")};
 
   border-radius: 5px;
   padding: 10px;
