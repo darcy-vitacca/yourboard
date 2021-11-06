@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import User from '../../entities/User';
-import isEmpty from 'lodash/isEmpty'
+import isEmpty from 'lodash/isEmpty';
 import Project from '../../entities/Project';
 import Link from '../../entities/Link';
 import ProjectUser from '../../entities/ProjectUser';
@@ -67,7 +67,13 @@ export const createProject = async (req: Request, res: Response) => {
     });
     await projectUsers.save();
 
-    return res.json(project);
+    const fullProject = await Project.findOne({
+      where: { project_id: project.project_id },
+      order: { createdAt: 'DESC' },
+      relations: ['links', 'project_users'],
+    });
+
+    return res.status(200).json({ project: fullProject });
   } catch (err: any) {
     console.log(err);
     return res.status(500).json({ error: 'Something went wrong' });
@@ -76,7 +82,6 @@ export const createProject = async (req: Request, res: Response) => {
 
 export const getProjects = async (_: Request, res: Response) => {
   try {
-
     const user: User = res.locals.user;
     let projects;
 
@@ -93,7 +98,7 @@ export const getProjects = async (_: Request, res: Response) => {
         relations: ['links', 'project_users'],
       });
     } else {
-      projects = [defaultProject]
+      projects = [defaultProject];
     }
 
     return res.status(200).json(projects);
@@ -137,7 +142,6 @@ export const inviteUserToProject = async (req: Request, res: Response) => {
         select: ['user_id', 'firstName', 'lastName', 'user_id'],
         where: { email: email },
       });
-
 
       if (!invitedUserDetails) {
         return res.status(404).json({ user: 'User not found' });
@@ -198,14 +202,15 @@ export const inviteUserToProject = async (req: Request, res: Response) => {
         return error;
       });
 
-
     const projectUsers = await new ProjectUser({
       status: !isEmpty(invitedUserDetails),
       project_id: project_id,
       owner: false,
       email: email,
-      ...(!isEmpty(invitedUserDetails) && { user_id:   invitedUserDetails?.user_id,
-        full_name: `${invitedUserDetails?.firstName} ${invitedUserDetails?.lastName}` })
+      ...(!isEmpty(invitedUserDetails) && {
+        user_id: invitedUserDetails?.user_id,
+        full_name: `${invitedUserDetails?.firstName} ${invitedUserDetails?.lastName}`,
+      }),
     });
 
     await projectUsers.save();
@@ -221,7 +226,7 @@ export const inviteUserToProject = async (req: Request, res: Response) => {
 export const getNotes = async (req: Request, res: Response) => {
   try {
     const project_id = req.params.projectId;
-    let notes = await Note.findOne({ project_id});
+    let notes = await Note.findOne({ project_id });
 
     if (!notes) return res.status(404).json({ notes: 'Notes not found' });
 
@@ -235,21 +240,22 @@ export const updateNotes = async (req: Request, res: Response) => {
   try {
     const project_id = req.params.projectId;
     const user: User = res.locals.user;
-    const note = req.body.note
+    const note = req.body.note;
 
-
-    let notes = await Note.findOne({ project_id: project_id});
-    if(!notes){
-      notes = new Note({ project_id: project_id, note: note, user_id: user.user_id })
-    }else {
-     notes.note = note
+    let notes = await Note.findOne({ project_id: project_id });
+    if (!notes) {
+      notes = new Note({
+        project_id: project_id,
+        note: note,
+        user_id: user.user_id,
+      });
+    } else {
+      notes.note = note;
     }
-    await notes.save()
+    await notes.save();
     return res.status(200).json(notes);
   } catch (err: any) {
     console.log(err);
     return res.status(404).json({ project: 'Projects not found' });
   }
 };
-
-

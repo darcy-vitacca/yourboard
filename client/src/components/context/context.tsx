@@ -122,6 +122,23 @@ const reducer: any = (state: State, { type, payload }: Action) => {
           loading: false,
         };
       }
+    case "ADD_NEW_PROJECT":
+      if (state.projects) {
+        const projectCopy = [...state.projects];
+        return {
+          ...state,
+          loading: false,
+          projects: projectCopy,
+          currentProject: payload,
+        };
+      } else {
+        return {
+          ...state,
+          loading: false,
+          projects: [payload],
+          currentProject: payload,
+        };
+      }
     case "SHOW_MENU":
       return { ...state, showMenu: true };
     case "HIDE_MENU":

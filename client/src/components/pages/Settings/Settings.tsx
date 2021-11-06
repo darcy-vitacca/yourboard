@@ -37,7 +37,6 @@ export const Settings = () => {
 
   const onSubmit = async (formData: any) => {
     try {
-      console.log("formData", formData);
       const res = await axios.post("/auth/login", formData);
       dispatch("LOGIN", res.data);
       push("/");

@@ -42,10 +42,13 @@ const RoadMapContainer = styled.div`
 
 export const Line = styled.div`
   border-left: 6px solid white;
-  height: 200px;
+  height: 400px;
   left: 50%;
   margin-left: 10px;
   top: 0;
+  @media ${device.tablet} {
+    height: 300px;
+  }
 `;
 const RoadMapArrowContainer = styled.div`
   display: flex;
@@ -96,6 +99,7 @@ export const RoadMap = () => {
                 <Markdown children="• Customization of how the dashboard looks" />
                 <Markdown children="• Further functionality added to notes" />
                 <Markdown children="• Establish Branding" />
+                <Markdown children="• Notifications" />
               </RoadMapTextContainer>
             </RoadMapSection>
             <RoadMapSection>

@@ -65,7 +65,7 @@ export const AddProject = () => {
     try {
       dispatch("LOADING");
       const res = await axios.post("/project", formData);
-      dispatch("STOP_LOADING");
+      dispatch("ADD_NEW_PROJECT", res?.data?.project);
       push("/");
     } catch (err: any) {
       const error = err.response.data;

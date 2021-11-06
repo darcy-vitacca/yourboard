@@ -65,7 +65,6 @@ export const Register = () => {
     try {
       dispatch("LOADING");
       const res = await axios.post("/auth/register", formData);
-      debugger;
       const resAuth = await axios.get("/auth/me");
       dispatch("LOGIN", resAuth.data);
       dispatch("STOP_LOADING");
