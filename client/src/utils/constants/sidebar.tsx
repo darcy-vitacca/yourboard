@@ -3,6 +3,7 @@ import AddCircleIcon from "@material-ui/icons/AddCircle";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import LockOpenIcon from "@material-ui/icons/LockOpen";
 import PersonAddIcon from "@material-ui/icons/PersonAdd";
+import { Trash } from "@styled-icons/bootstrap/Trash";
 import { RoadMap } from "@styled-icons/remix-fill/RoadMap";
 import styled from "styled-components/macro";
 import { NotepadEdit } from "@styled-icons/fluentui-system-filled/NotepadEdit";
@@ -22,6 +23,13 @@ const SVGNotepadEditIcon = styled(NotepadEdit)`
   cursor: pointer;
 `;
 const SVGRoadMap = styled(RoadMap)`
+  color: ${({ theme }) => theme.colors.white};
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+`;
+
+const TrashIcon = styled(Trash)`
   color: ${({ theme }) => theme.colors.white};
   width: 25px;
   height: 25px;
@@ -68,6 +76,12 @@ export const sidebarDataAuth: SideMenuValues[] = [
     icon: <SVGRoadMap />,
     link: "/roadmap",
     tooltip: "Road Map",
+  },
+  {
+    title: "#### Delete Item",
+    icon: <TrashIcon />,
+    link: "/delete",
+    tooltip: "Drag Item to here to delete",
   },
   // {
   //   title: "#### Project Notes",

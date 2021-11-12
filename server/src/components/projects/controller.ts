@@ -259,3 +259,30 @@ export const updateNotes = async (req: Request, res: Response) => {
     return res.status(404).json({ project: 'Projects not found' });
   }
 };
+
+
+export const deleteProject = async (req: Request, res: Response) => {
+  // const { url_name, url, url_image, position } = req.body[0];
+  const user: User = res.locals.user;
+  const project_id = req.params.projectId;
+  try {
+    let errors: any = {};
+
+
+
+    // const project = await Project.findOne({ project_id});
+    // if (project){
+    //   const projectLinks = await Link.find({
+    //     where: { project_id: project_id },
+    //     order: { position: 'ASC' },
+    //   });
+    //   project.links = projectLinks ? projectLinks: [];
+    // }
+
+
+    return res.status(200).json("");
+  } catch (err: any) {
+    console.log(err);
+    return res.status(500).json({ error: 'Something went wrong' });
+  }
+};
