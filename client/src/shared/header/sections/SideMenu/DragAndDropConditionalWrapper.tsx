@@ -21,11 +21,19 @@ export const DragAnDropWrapper = (children) => {
   const { push } = useHistory();
   const deleteItem = async (props) => {
     try {
+      console.log('props', props);
       dispatch("LOADING");
-      const res = await axios.delete(
-        `/link/${props.id}/${props.project_id}`
-      );
-      dispatch("UPDATE_CURRENT_PROJECT", res.data);
+      if(props?.link_id){
+        const res = await axios.delete(
+          `/link/${props.link_id}/${props.project_id}`
+        );
+        dispatch("UPDATE_CURRENT_PROJECT", res.data);
+      } else {
+        const res = await axios.delete(
+          `/link/${props.link_id}/${props.project_id}`
+        );
+      }
+
       push("/");
     } catch (err: any) {
       console.log(err);

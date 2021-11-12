@@ -35,7 +35,7 @@ export const LinkComponent: FC<Links> = ({ empty, link }) => {
   const [{ isDragging }, drag] = useDrag({
     type: ItemTypes.CARD,
     item: {
-      id: link?.link_id,
+      link_id: link?.link_id,
       project_id:   link?.project_id
     },
     collect: (monitor) => ({ isDragging: !!monitor.isDragging() }),

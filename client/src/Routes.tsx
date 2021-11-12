@@ -1,11 +1,13 @@
 import React, { useEffect, lazy, Suspense } from "react";
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
 import { useLocation } from "react-router";
 import ReactGA from "react-ga";
 import { Route, Switch } from "react-router-dom";
 import { ChatWidget } from "@papercups-io/chat-widget";
 import { Loader } from "./shared/loaders";
+import { HTML5Backend } from "react-dnd-html5-backend";
+import { TouchBackend } from 'react-dnd-touch-backend'
+import { DndProvider } from "react-dnd";
+import {isMobile} from "react-device-detect";
 
 const Landing = lazy(() => import("./components/pages/Landing"));
 const NotFound = lazy(() => import("./components/pages/NotFound"));
@@ -45,10 +47,11 @@ const usePageViews = () => {
 
 export const Routes = () => {
   usePageViews();
+
   return (
     <>
       <Suspense fallback={<Loader />}>
-        <DndProvider backend={HTML5Backend}>
+        <DndProvider backend={isMobile ? TouchBackend : HTML5Backend}>
           <Header />
           <Switch>
             <Route exact path="/" component={Landing} />
