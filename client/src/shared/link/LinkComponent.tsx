@@ -36,6 +36,7 @@ export const LinkComponent: FC<Links> = ({ empty, link }) => {
     type: ItemTypes.CARD,
     item: {
       id: link?.link_id,
+      project_id:   link?.project_id
     },
     collect: (monitor) => ({ isDragging: !!monitor.isDragging() }),
   });

@@ -1,6 +1,9 @@
 import { FC } from "react";
 import { useDrop } from "react-dnd";
 import { ItemTypes } from "../../../../utils/dnd/item";
+import { useHistory} from "react-router";
+import { useAuthDispatch } from '../../../../components/context/context';
+import axios from "axios";
 export interface DragAndDropCondition {
   condition: boolean;
   children: any;
@@ -14,8 +17,20 @@ export const ConditionalDragAndDropWrapper: FC<DragAndDropCondition> = ({
 };
 
 export const DragAnDropWrapper = (children) => {
-  const deleteItem = (props) => {
-    console.log(props);
+  const dispatch = useAuthDispatch();
+  const { push } = useHistory();
+  const deleteItem = async (props) => {
+    try {
+      dispatch("LOADING");
+      const res = await axios.delete(
+        `/link/${props.id}/${props.project_id}`
+      );
+      dispatch("UPDATE_CURRENT_PROJECT", res.data);
+      push("/");
+    } catch (err: any) {
+      console.log(err);
+      // const error = err.response.data; //
+    }
   };
   const [{ isOver }, drop] = useDrop({
     accept: ItemTypes.CARD,
