@@ -33,7 +33,9 @@ export const getProject = async (req: Request, res: Response) => {
 };
 
 export const createProject = async (req: Request, res: Response) => {
-  const { description, project_name, url_name } = req.body;
+  const { description, project_name,
+    // url_name
+  } = req.body;
   const user: User = res.locals.user;
   try {
     let errors: any = {};
@@ -41,19 +43,19 @@ export const createProject = async (req: Request, res: Response) => {
       errors.description = 'Description must not be empty';
     if (isEmpty(project_name))
       errors.project_name = 'Project name must not be empty';
-    if (isEmpty(url_name)) errors.url_name = 'URL name must not be empty';
+    // if (isEmpty(url_name)) errors.url_name = 'URL name must not be empty';
     if (Object.keys(errors).length > 0) return res.status(400).json(errors);
 
-    const projectCheck = await Project.findOne({ url_name });
-    if (projectCheck)
-      errors.url_name =
-        'URL name already exists please choose a different one.';
-    if (Object.keys(errors).length > 0) return res.status(400).json(errors);
+    // const projectCheck = await Project.findOne({ url_name });
+    // if (projectCheck)
+    //   errors.url_name =
+    //     'URL name already exists please choose a different one.';
+    // if (Object.keys(errors).length > 0) return res.status(400).json(errors);
 
     const project = await new Project({
       description,
       project_name,
-      url_name,
+      // url_name,
       user,
     });
     await project.save();

@@ -23,7 +23,7 @@ export interface ProjectValues {
   updatedAt: Date | null;
   createdAt: Date | null;
   description: string | null;
-  url_name: string;
+  // url_name: string;
   links?: Link[];
   project_users: ProjectUser[] | null;
   position?: number;
@@ -41,7 +41,7 @@ export const ProjectComponent: FC<Projects> = ({ empty, project }) => {
     updatedAt,
     createdAt,
     description,
-    url_name,
+    // url_name,
     links,
     project_users,
     position,

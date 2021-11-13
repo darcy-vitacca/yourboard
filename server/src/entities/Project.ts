@@ -33,7 +33,7 @@ export default class Project extends Entity {
   @Column()
   description: string;
 
-  @Column({ unique: true })
+  @Column({ unique: true, nullable: true  })
   url_name: string;
 
   @Column()

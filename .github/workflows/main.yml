@@ -1,31 +1,31 @@
-name: Pull code, rebuild files and restart pm2 processes
-
-on:
-  push:
-    branches: [main]
-
-jobs:
-  update:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Rebuild server
-
-        uses: garygrossgarten/github-action-ssh@release
-        with:
-          command: |
-            pm2 stop server client
-            cd urboard.co
-            git pull https://${{ secrets.PA_TOKEN }}@github.com/darcy-vitacca/yourboard.git
-            cd server
-            npm install
-            npx tsc
-            cd ../
-            cd client
-            npm install
-            npm run build
-            pm2 restart server client
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
-          privateKey: ${{ secrets.PRIVATE_KEY}}
-          github-token: ${{ secrets.PA_TOKEN }}
-#  pm2 start --name "client" serve  -- -l 3000 -s build
+#name: Pull code, rebuild files and restart pm2 processes
+#
+#on:
+#  push:
+#    branches: [main]
+#
+#jobs:
+#  update:
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Rebuild server
+#
+#        uses: garygrossgarten/github-action-ssh@release
+#        with:
+#          command: |
+#            pm2 stop server client
+#            cd urboard.co
+#            git pull https://${{ secrets.PA_TOKEN }}@github.com/darcy-vitacca/yourboard.git
+#            cd server
+#            npm install
+#            npx tsc
+#            cd ../
+#            cd client
+#            npm install
+#            npm run build
+#            pm2 restart server client
+#          host: ${{ secrets.HOST }}
+#          username: ${{ secrets.USERNAME }}
+#          privateKey: ${{ secrets.PRIVATE_KEY}}
+#          github-token: ${{ secrets.PA_TOKEN }}
+##  pm2 start --name "client" serve  -- -l 3000 -s build

@@ -16,25 +16,25 @@ import { Button } from "../../../shared/formElements/button";
 import { DragDrop } from "../../../shared/dragDrop";
 
 type FormValue = {
-  url_name: string;
+  // url_name: string;
   project_name: string;
   description: string;
 };
 const defaultValues = {
-  url_name: "",
+  // url_name: "",
   project_name: "",
   description: "",
 };
 
 const validationSchema = Yup.object().shape({
   project_name: Yup.string().nullable().required("Required"),
-  url_name: Yup.string()
-    .nullable()
-    .required("Required")
-    .matches(/^[a-zA-Z0-9_]*$/, {
-      message: "Must contain letters and numbers only",
-      excludeEmptyString: true,
-    }),
+  // url_name: Yup.string()
+  //   .nullable()
+  //   .required("Required")
+  //   .matches(/^[a-zA-Z0-9_]*$/, {
+  //     message: "Must contain letters and numbers only",
+  //     excludeEmptyString: true,
+  //   }),
   description: Yup.string().nullable().required("Required"),
 });
 
@@ -69,7 +69,7 @@ export const AddProject = () => {
       push("/");
     } catch (err: any) {
       const error = err.response.data;
-      if (error.url_name) setError("url_name", { message: error.url_name });
+      // if (error.url_name) setError("url_name", { message: error.url_name });
       if (error.project_name)
         setError("project_name", { message: error.project_name });
       if (error.description)
@@ -95,16 +95,16 @@ export const AddProject = () => {
                     defaultValue={defaultValues.project_name}
                     validation={errors?.project_name?.message || ""}
                   />
-                  <Input
-                    type="text"
-                    name="url_name"
-                    width="100%"
-                    helperText="URL Name (Alphanumeric only) *"
-                    label="URL NAME"
-                    control={control}
-                    defaultValue={defaultValues.url_name}
-                    validation={errors?.url_name?.message || ""}
-                  />
+                  {/*<Input*/}
+                  {/*  type="text"*/}
+                  {/*  name="url_name"*/}
+                  {/*  width="100%"*/}
+                  {/*  helperText="URL Name (Alphanumeric only) *"*/}
+                  {/*  label="URL NAME"*/}
+                  {/*  control={control}*/}
+                  {/*  defaultValue={defaultValues.url_name}*/}
+                  {/*  validation={errors?.url_name?.message || ""}*/}
+                  {/*/>*/}
                   <TextArea
                     setValue={setValue}
                     name="description"
