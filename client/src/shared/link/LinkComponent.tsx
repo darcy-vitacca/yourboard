@@ -14,7 +14,7 @@ import { useDrag } from "react-dnd";
 import { ItemTypes } from "../../utils/dnd/item";
 import {isMobile} from "react-device-detect";
 //@ts-ignore
-import { usePreview } from 'react-dnd-preview';
+import Preview from 'react-dnd-preview';
 
 
 export interface LinkValues {
@@ -37,7 +37,10 @@ interface Links {
 
 export const LinkComponent: FC<Links> = ({ empty, link }) => {
 
-
+  const generatePreview = ({itemType, item, style}) => {
+    console.log({itemType, item, style});
+    return <div className="item-list__item" style={style}>{itemType}</div>;
+  };
 
   const [{ isDragging }, drag] = useDrag({
     type: ItemTypes.CARD,
@@ -57,6 +60,7 @@ export const LinkComponent: FC<Links> = ({ empty, link }) => {
 
   return (
     <>
+        {!isMobile  &&<Preview  generator={generatePreview} />}
     <LinkProjectContainer
       ref={!empty ? drag : null}
       key={link?.link_id}
