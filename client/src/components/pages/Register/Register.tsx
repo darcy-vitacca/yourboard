@@ -79,7 +79,6 @@ export const Register = () => {
       // if (error.username) setError("username", { message: error.username });
     }
   };
-
   useEffect(() => {
     if (params) {
       setValue("email", params.user);
