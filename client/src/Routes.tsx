@@ -8,8 +8,7 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 import { TouchBackend } from 'react-dnd-touch-backend'
 import { DndProvider } from "react-dnd";
 import {isMobile} from "react-device-detect";
-//@ts-ignore
-import { usePreview } from 'react-dnd-preview';
+
 
 const Landing = lazy(() => import("./components/pages/Landing"));
 const NotFound = lazy(() => import("./components/pages/NotFound"));
@@ -47,13 +46,7 @@ const usePageViews = () => {
   }, [location]);
 };
 
-export const MyPreview = () => {
-  const {display, itemType, item, style} = usePreview();
-  if (!display) {
-    return null;
-  }
-  return <div className="item-list__item" style={style}></div>;
-};
+
 
 
 export const Routes = () => {

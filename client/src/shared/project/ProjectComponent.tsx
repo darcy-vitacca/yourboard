@@ -15,7 +15,6 @@ import { useAuthDispatch } from "../../components/context/context";
 import { AddCircleIcon } from "../personSection/PersonSection.styles";
 import { ItemTypes } from '../../utils/dnd/item';
 import { useDrag } from "react-dnd";
-import { MyPreview } from '../../Routes';
 import {isMobile} from "react-device-detect";
 
 export interface ProjectValues {
@@ -64,7 +63,7 @@ export const ProjectComponent: FC<Projects> = ({ empty, project }) => {
   const { push } = useHistory();
   return (
     <>
-    {!isMobile  &&<MyPreview />}
+    {/*{!isMobile  &&<MyPreview />}*/}
     <LinkProjectContainer
       ref={!empty ? drag : null}
       key={project_id}

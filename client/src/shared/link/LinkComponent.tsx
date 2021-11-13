@@ -13,8 +13,8 @@ import { AddCircleIcon } from "../personSection/PersonSection.styles";
 import { useDrag } from "react-dnd";
 import { ItemTypes } from "../../utils/dnd/item";
 import {isMobile} from "react-device-detect";
-import { MyPreview } from '../../Routes';
-
+//@ts-ignore
+import { usePreview } from 'react-dnd-preview';
 
 
 export interface LinkValues {
@@ -36,13 +36,49 @@ interface Links {
 }
 
 export const LinkComponent: FC<Links> = ({ empty, link }) => {
+  console.log('link', link);
 
+  const MobileLinkPreview = () => {
+    const { display, itemType, item, style } = usePreview();
+    if (!display) {
+      return null;
+    }
+    return(
+   <LinkProjectContainer
+      key={item?.link_id}
+    >
+      <LinkProjectTopRow>
+        <Markdown
+          children={`#### ${item?.url_name}`}
+          className="itemCardMainText"
+        />
+        {empty ? <AddCircleIcon /> : <LinkImg src={item?.url_image} />}
+      </LinkProjectTopRow>
+      <LinkProjectBottomRow>
+        <LinkProjectRow>
+          {item?.updatedAt && (
+            <Markdown
+              children={`Last updated ${moment(item?.updatedAt).fromNow()}`}
+              className="linkCardSubText"
+            />
+          )}
+        </LinkProjectRow>
+      </LinkProjectBottomRow>
+    </LinkProjectContainer>
+    )
+  }
 
   const [{ isDragging }, drag] = useDrag({
     type: ItemTypes.CARD,
     item: {
       link_id: link?.link_id,
-      project_id:   link?.project_id
+      project_id:   link?.project_id,
+      createdAt:link?.createdAt,
+      position:  link?.position,
+      updatedAt:  link?.updatedAt,
+      url:  link?.url,
+      url_image:  link?.url_image,
+      url_name:  link?.url_name,
     },
     collect: (monitor) => ({ isDragging: !!monitor.isDragging() }),
   });
@@ -50,7 +86,7 @@ export const LinkComponent: FC<Links> = ({ empty, link }) => {
 
   return (
     <>
-        {!isMobile  &&<MyPreview />}
+        {isMobile  &&<MobileLinkPreview/>}
     <LinkProjectContainer
       ref={!empty ? drag : null}
       key={link?.link_id}
