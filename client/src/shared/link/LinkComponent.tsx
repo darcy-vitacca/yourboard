@@ -37,11 +37,6 @@ interface Links {
 
 export const LinkComponent: FC<Links> = ({ empty, link }) => {
 
-  const generatePreview = ({itemType, item, style}) => {
-    console.log({itemType, item, style});
-    return <div className="item-list__item" style={style}>{itemType}</div>;
-  };
-
   const [{ isDragging }, drag] = useDrag({
     type: ItemTypes.CARD,
     item: {
@@ -60,7 +55,6 @@ export const LinkComponent: FC<Links> = ({ empty, link }) => {
 
   return (
     <>
-        {!isMobile  &&<Preview  generator={generatePreview} />}
     <LinkProjectContainer
       ref={!empty ? drag : null}
       key={link?.link_id}

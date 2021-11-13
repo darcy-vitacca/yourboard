@@ -62,8 +62,7 @@ export const ProjectComponent: FC<Projects> = ({ empty, project }) => {
 
   const { push } = useHistory();
   return (
-    <>
-    {/*{!isMobile  &&<MyPreview />}*/}
+
     <LinkProjectContainer
       ref={!empty ? drag : null}
       key={project_id}
@@ -97,11 +96,7 @@ export const ProjectComponent: FC<Projects> = ({ empty, project }) => {
             />
           )}
         </LinkProjectRow>
-        {/*<LinkProjectRow>*/}
-        {/*  <Markdown children={`${url}`} className="linkCardSubText" />*/}
-        {/*</LinkProjectRow>*/}
       </LinkProjectBottomRow>
     </LinkProjectContainer>
-    </>
   );
 };

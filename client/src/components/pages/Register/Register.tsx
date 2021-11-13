@@ -20,14 +20,14 @@ import isEmpty from "lodash/isEmpty";
 
 interface FormValue {
   email: string;
-  username: string;
+  // username: string;
   password: string;
   firstName: string;
   lastName: string;
 }
 const defaultValues = {
   email: "",
-  username: "",
+  // username: "",
   password: "",
   firstName: "",
   lastName: "",
@@ -76,7 +76,7 @@ export const Register = () => {
       if (error.firstName) setError("firstName", { message: error.firstName });
       if (error.lastName) setError("lastName", { message: error.lastName });
       if (error.password) setError("password", { message: error.password });
-      if (error.username) setError("username", { message: error.username });
+      // if (error.username) setError("username", { message: error.username });
     }
   };
 
@@ -108,16 +108,16 @@ export const Register = () => {
                     validation={errors?.email?.message || ""}
                     disabled={params !== null && !isEmpty(params)}
                   />
-                  <Input
-                    type="text"
-                    name="username"
-                    width="100%"
-                    helperText="Username (6 characters or more without spaces)"
-                    label="USERNAME"
-                    control={control}
-                    defaultValue={""}
-                    validation={errors?.username?.message || ""}
-                  />
+                  {/*<Input*/}
+                  {/*  type="text"*/}
+                  {/*  name="username"*/}
+                  {/*  width="100%"*/}
+                  {/*  helperText="Username (6 characters or more without spaces)"*/}
+                  {/*  label="USERNAME"*/}
+                  {/*  control={control}*/}
+                  {/*  defaultValue={""}*/}
+                  {/*  validation={errors?.username?.message || ""}*/}
+                  {/*/>*/}
                   <Input
                     type="password"
                     name="password"
