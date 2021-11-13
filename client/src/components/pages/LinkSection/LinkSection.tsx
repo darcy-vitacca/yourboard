@@ -83,7 +83,7 @@ export const LinkSection = ({ currentProject }) => {
               >
                 <SVGFolderIcon />
                 <Markdown
-                  children="Projects"
+                  children="Folders"
                   align="center"
                   className="arrowContainerIconText"
                 />

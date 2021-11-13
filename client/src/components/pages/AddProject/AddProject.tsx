@@ -84,13 +84,13 @@ export const AddProject = () => {
             <FormContainer>
               <FormProvider {...methods}>
                 <form onSubmit={handleSubmit(onSubmit)}>
-                  <h1>Add Project 📁 </h1>
+                  <h1>Add Folder 📁 </h1>
                   <Input
                     type="text"
                     name="project_name"
                     width="100%"
-                    helperText="Project Name"
-                    label="PROJECT NAME"
+                    helperText="Folder Name"
+                    label="FOLDER NAME"
                     control={control}
                     defaultValue={defaultValues.project_name}
                     validation={errors?.project_name?.message || ""}
@@ -113,7 +113,7 @@ export const AddProject = () => {
                     validation={errors?.description?.message || ""}
                     placeholder="TYPE HERE..."
                   />
-                  <Button text="Add Project" width="100%" type="submit" />
+                  <Button text="Add Folder" width="100%" type="submit" />
                 </form>
               </FormProvider>
             </FormContainer>

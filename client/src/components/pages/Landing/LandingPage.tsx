@@ -119,8 +119,8 @@ export const LandingPage = () => {
       <ImageSectionContainer>
         <ExampleImages src="https://ik.imagekit.io/ticnymjalpq/tr:w-500,h-416/addProjects_wkWU725Lkuj.png?updatedAt=1635751063826" />
         <div>
-          <Markdown children="### Add Project" />
-          <Markdown children="**Add projects** of where you want your links to live, think of it like a subfolder." />
+          <Markdown children="### Add Folder" />
+          <Markdown children="**Add Folders** of where you want your links to live, think of it like a subfolder." />
         </div>
       </ImageSectionContainer>
     </>

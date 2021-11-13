@@ -26,7 +26,7 @@ export const Landing: FC = () => {
       } catch (err: any) {
         dispatch("STOP_LOADING");
         if (err?.response?.data?.project === "Projects not Found") {
-          push("/add-project");
+          push("/add-folder");
         }
       }
     })();

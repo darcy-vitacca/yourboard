@@ -37,7 +37,7 @@ export const Notes = () => {
   const { push } = useHistory();
   if (!authenticated) push("/login");
   if (!currentProject && projects) push("/");
-  if (!currentProject && !projects) push("/add-project");
+  if (!currentProject && !projects) push("/add-folder");
 
   const methods = useForm<any>({
     mode: "onSubmit",

@@ -2,6 +2,7 @@ import styled from "styled-components/macro";
 import { ArrowLeftCircleFill } from "@styled-icons/bootstrap/ArrowLeftCircleFill";
 import { ArrowRightCircleFill } from "@styled-icons/bootstrap/ArrowRightCircleFill";
 import { Folder} from "@styled-icons/bootstrap/Folder";
+import { FolderPlus} from "@styled-icons/bootstrap/FolderPlus";
 import { PersonAdd } from "@styled-icons/ionicons-solid/PersonAdd";
 import {NotepadEdit } from "@styled-icons/fluentui-system-filled/NotepadEdit"
 import { Edit } from "@styled-icons/feather/Edit";
@@ -78,6 +79,17 @@ export const SVGFolderIcon = styled(Folder)`
   padding: 3px;
   cursor: pointer;
 `;
+
+export const SVGFolderPlusIcon = styled(FolderPlus)`
+  color: ${({ theme }) => theme.colors.white};
+  border-radius: 5px;
+  width: 40px;
+  height: 45px;
+  padding: 3px;
+  cursor: pointer;
+`;
+
+
 
 export const SVGNotepadIcon = styled(NotepadEdit)`
   color: ${({ theme }) => theme.colors.white};

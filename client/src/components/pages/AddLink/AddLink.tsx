@@ -58,7 +58,7 @@ export const AddLink = () => {
 
   if (!authenticated) push("/login");
   if (!currentProject && projects) push("/");
-  if (!currentProject && !projects) push("/add-project");
+  if (!currentProject && !projects) push("/add-folder");
 
   const [parsedLinkText, setParsedLinkText] = useState<any>();
   const linksLength = currentProject?.links.length;
@@ -169,7 +169,7 @@ export const AddLink = () => {
             <FormProvider {...methods}>
               <form onSubmit={handleSubmit(onSubmit)}>
                 <Markdown
-                  children={`# Add Links to the ${currentProject?.project_name} Project 🔗`}
+                  children={`# Add Links to the ${currentProject?.project_name} Folder 🔗`}
                 />
                 {_.isEmpty(watchedUploadLinks) && (
                   <TextArea

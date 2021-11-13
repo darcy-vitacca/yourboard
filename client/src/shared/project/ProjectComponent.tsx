@@ -62,12 +62,11 @@ export const ProjectComponent: FC<Projects> = ({ empty, project }) => {
 
   const { push } = useHistory();
   return (
-
     <LinkProjectContainer
       ref={!empty ? drag : null}
       key={project_id}
       id={project_id}
-      onClick={() => (empty ? push("/add-project") : selectProject(project))}
+      onClick={() => (empty ? push("/add-folder") : selectProject(project))}
       opacity={isDragging}
     >
       <LinkProjectTopRow>

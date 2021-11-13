@@ -66,10 +66,10 @@ export const sidebarDataAuth: SideMenuValues[] = [
     tooltip: "Add Links",
   },
   {
-    title: "#### Add Project",
+    title: "#### Add Folder",
     icon: <AddCircleIcon />,
-    link: "/add-project",
-    tooltip: "Add Project",
+    link: "/add-folder",
+    tooltip: "Add Folder",
   },
   {
     title: "#### Road Map",
