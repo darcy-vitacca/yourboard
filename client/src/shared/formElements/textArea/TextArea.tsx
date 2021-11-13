@@ -49,6 +49,7 @@ export const TextArea = forwardRef<HTMLTextAreaElement, ITextAreaProps>(
       defaultValue,
       change,
       setValue,
+      placeholder,
       ...props
     },
     ref
@@ -74,6 +75,7 @@ export const TextArea = forwardRef<HTMLTextAreaElement, ITextAreaProps>(
               {...field}
               id={name}
               disabled={disabled}
+              placeholder={placeholder}
               //@ts-ignore
               onChange={(e: any) =>
                 setValue

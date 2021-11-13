@@ -20,7 +20,7 @@ export const TextAreaContainer = styled.div<IContainerProps>`
   width: 100%;
   position: relative;
   margin-top: 10px;
-
+  textarea::placeholder {color: #7D8A98;}
   input::-webkit-outer-spin-button,
   input::-webkit-inner-spin-button {
     -webkit-appearance: none;

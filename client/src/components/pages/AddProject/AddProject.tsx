@@ -111,6 +111,7 @@ export const AddProject = () => {
                     onBlur={(e: React.ChangeEvent<HTMLInputElement>) => {}}
                     label="A short description about the project"
                     validation={errors?.description?.message || ""}
+                    placeholder="TYPE HERE..."
                   />
                   <Button text="Add Project" width="100%" type="submit" />
                 </form>
