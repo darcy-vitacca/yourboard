@@ -36,37 +36,8 @@ interface Links {
 }
 
 export const LinkComponent: FC<Links> = ({ empty, link }) => {
-  console.log('link', link);
 
-  const MobileLinkPreview = () => {
-    const { display, itemType, item, style } = usePreview();
-    if (!display) {
-      return null;
-    }
-    return(
-   <LinkProjectContainer
-      key={item?.link_id}
-    >
-      <LinkProjectTopRow>
-        <Markdown
-          children={`#### ${item?.url_name}`}
-          className="itemCardMainText"
-        />
-        {empty ? <AddCircleIcon /> : <LinkImg src={item?.url_image} />}
-      </LinkProjectTopRow>
-      <LinkProjectBottomRow>
-        <LinkProjectRow>
-          {item?.updatedAt && (
-            <Markdown
-              children={`Last updated ${moment(item?.updatedAt).fromNow()}`}
-              className="linkCardSubText"
-            />
-          )}
-        </LinkProjectRow>
-      </LinkProjectBottomRow>
-    </LinkProjectContainer>
-    )
-  }
+
 
   const [{ isDragging }, drag] = useDrag({
     type: ItemTypes.CARD,
@@ -86,7 +57,6 @@ export const LinkComponent: FC<Links> = ({ empty, link }) => {
 
   return (
     <>
-        {isMobile  &&<MobileLinkPreview/>}
     <LinkProjectContainer
       ref={!empty ? drag : null}
       key={link?.link_id}
