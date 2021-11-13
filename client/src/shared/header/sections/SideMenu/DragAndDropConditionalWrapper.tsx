@@ -1,18 +1,19 @@
-import { FC } from "react";
-import { useDrop } from "react-dnd";
-import { ItemTypes } from "../../../../utils/dnd/item";
-import { useHistory} from "react-router";
+import { FC } from 'react';
+import { useDrop } from 'react-dnd';
+import { ItemTypes } from '../../../../utils/dnd/item';
+import { useHistory } from 'react-router';
 import { useAuthDispatch } from '../../../../components/context/context';
-import axios from "axios";
+import axios from 'axios';
+
 export interface DragAndDropCondition {
   condition: boolean;
   children: any;
 }
 
 export const ConditionalDragAndDropWrapper: FC<DragAndDropCondition> = ({
-  condition,
-  children,
-}) => {
+                                                                          condition,
+                                                                          children,
+                                                                        }) => {
   return condition ? DragAnDropWrapper(children) : children;
 };
 
@@ -22,21 +23,21 @@ export const DragAnDropWrapper = (children) => {
 
   const deleteItem = async (props) => {
     try {
-      dispatch("LOADING");
-      if(props?.link_id){
+      dispatch('LOADING');
+      if (props?.link_id) {
         const res = await axios.delete(
-          `/link/${props.link_id}/${props.project_id}`
+          `/link/${props.link_id}/${props.project_id}`,
         );
-        dispatch("UPDATE_CURRENT_PROJECT", res.data);
+        dispatch('UPDATE_CURRENT_PROJECT', res.data);
       } else {
         const res = await axios.delete(
-          `/project/${props.project_id}`
+          `/project/${props.project_id}`,
         );
-      dispatch("SET_PROJECTS", res?.data);
+        dispatch('SET_PROJECTS', res?.data);
       }
-      push("/");
+      push('/');
     } catch (err: any) {
-      dispatch("STOP_LOADING");
+      dispatch('STOP_LOADING');
       console.log(err);
     }
   };

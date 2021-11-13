@@ -12,6 +12,10 @@ import { useHistory } from "react-router";
 import { AddCircleIcon } from "../personSection/PersonSection.styles";
 import { useDrag } from "react-dnd";
 import { ItemTypes } from "../../utils/dnd/item";
+import {isMobile} from "react-device-detect";
+import { MyPreview } from '../../Routes';
+
+
 
 export interface LinkValues {
   clicked?: number;
@@ -32,6 +36,8 @@ interface Links {
 }
 
 export const LinkComponent: FC<Links> = ({ empty, link }) => {
+
+
   const [{ isDragging }, drag] = useDrag({
     type: ItemTypes.CARD,
     item: {
@@ -43,6 +49,8 @@ export const LinkComponent: FC<Links> = ({ empty, link }) => {
   const { push } = useHistory();
 
   return (
+    <>
+        {!isMobile  &&<MyPreview />}
     <LinkProjectContainer
       ref={!empty ? drag : null}
       key={link?.link_id}
@@ -70,5 +78,6 @@ export const LinkComponent: FC<Links> = ({ empty, link }) => {
         </LinkProjectRow>
       </LinkProjectBottomRow>
     </LinkProjectContainer>
+      </>
   );
 };
