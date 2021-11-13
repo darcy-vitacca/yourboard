@@ -19,9 +19,9 @@ export const ConditionalDragAndDropWrapper: FC<DragAndDropCondition> = ({
 export const DragAnDropWrapper = (children) => {
   const dispatch = useAuthDispatch();
   const { push } = useHistory();
+
   const deleteItem = async (props) => {
     try {
-      console.log('props', props);
       dispatch("LOADING");
       if(props?.link_id){
         const res = await axios.delete(
@@ -30,14 +30,14 @@ export const DragAnDropWrapper = (children) => {
         dispatch("UPDATE_CURRENT_PROJECT", res.data);
       } else {
         const res = await axios.delete(
-          `/link/${props.link_id}/${props.project_id}`
+          `/project/${props.project_id}`
         );
+      dispatch("SET_PROJECTS", res?.data);
       }
-
       push("/");
     } catch (err: any) {
+      dispatch("STOP_LOADING");
       console.log(err);
-      // const error = err.response.data; //
     }
   };
   const [{ isOver }, drop] = useDrop({

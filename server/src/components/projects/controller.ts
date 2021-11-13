@@ -262,25 +262,38 @@ export const updateNotes = async (req: Request, res: Response) => {
 
 
 export const deleteProject = async (req: Request, res: Response) => {
-  // const { url_name, url, url_image, position } = req.body[0];
   const user: User = res.locals.user;
   const project_id = req.params.projectId;
+  let projects;
   try {
-    let errors: any = {};
+
+    const project = await Project.findOne({ project_id});
+    if (!project){
+      return res.status(404).json({ project: 'Project not found' });
+    }
+    await ProjectUser.delete({ project_id });
+    await Link.delete({ project_id });
+    await Project.delete({ project_id });
+
+    const projectsUser = await ProjectUser.find({
+      select: ['project_id'],
+      where: { user_id: user.user_id },
+      order: { createdAt: 'DESC' },
+    });
+
+    if (!isEmpty(projectsUser)) {
+      projects = await Project.find({
+        where: projectsUser,
+        order: { createdAt: 'DESC' },
+        relations: ['links', 'project_users'],
+      });
+    } else {
+      projects = [defaultProject];
+    }
 
 
 
-    // const project = await Project.findOne({ project_id});
-    // if (project){
-    //   const projectLinks = await Link.find({
-    //     where: { project_id: project_id },
-    //     order: { position: 'ASC' },
-    //   });
-    //   project.links = projectLinks ? projectLinks: [];
-    // }
-
-
-    return res.status(200).json("");
+    return res.status(200).json(projects);
   } catch (err: any) {
     console.log(err);
     return res.status(500).json({ error: 'Something went wrong' });

@@ -2,7 +2,6 @@ import { Application } from 'express';
 import * as projectController from '../components/projects/controller';
 import user from '../components/middleware/user';
 import auth from '../components/middleware/auth';
-import * as linkController from '../components/link/controller';
 
 module.exports = (app: Application): void => {
   app.route('/api/project/:name').get(user, auth, projectController.getProject);
@@ -13,5 +12,5 @@ module.exports = (app: Application): void => {
     .post(user, auth, projectController.inviteUserToProject);
   app.route('/api/notes/:projectId').get(user, auth, projectController.getNotes);
   app.route('/api/notes/:projectId').post(user, auth, projectController.updateNotes);
-  app.route('/api/project/:project_id').delete(user, auth, projectController.deleteProject);
+  app.route('/api/project/:projectId').delete(user, auth, projectController.deleteProject);
 };
