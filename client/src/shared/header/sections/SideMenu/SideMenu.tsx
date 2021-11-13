@@ -54,10 +54,13 @@ export const SideMenu: FC<ISideMenuProps> = ({ className }) => {
     //   dispatch('HIDE_MENU');
     // } else
     if (route === "/logout") {
-      await axios.get("/auth/logout");
-      await dispatch("LOGOUT");
-      window.location.reload();
-      push("/login");
+      const logoutConfirmed = window.confirm("Are you sure you want to logout?");
+      if(logoutConfirmed){
+        await axios.get("/auth/logout");
+        await dispatch("LOGOUT");
+        window.location.reload();
+        push("/login");
+      }
     } else if (route === "/") {
       dispatch("RETURN_INITIAL_STATE_CURRENT_PROJECT");
       push(route);
