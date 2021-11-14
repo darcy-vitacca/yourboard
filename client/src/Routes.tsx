@@ -5,10 +5,9 @@ import { Route, Switch } from "react-router-dom";
 import { ChatWidget } from "@papercups-io/chat-widget";
 import { Loader } from "./shared/loaders";
 import { HTML5Backend } from "react-dnd-html5-backend";
-import { TouchBackend } from 'react-dnd-touch-backend'
+import { TouchBackend } from "react-dnd-touch-backend";
 import { DndProvider } from "react-dnd";
-import {isMobile} from "react-device-detect";
-
+import { isMobile } from "react-device-detect";
 
 const Landing = lazy(() => import("./components/pages/Landing"));
 const NotFound = lazy(() => import("./components/pages/NotFound"));
@@ -17,6 +16,8 @@ const Register = lazy(() => import("./components/pages/Register"));
 const Header = lazy(() => import("./shared/header/Header"));
 const AddLink = lazy(() => import("./components/pages/AddLink"));
 const AddProject = lazy(() => import("./components/pages/AddProject"));
+const EditLink = lazy(() => import("./components/pages/EditLink"));
+const EditProject = lazy(() => import("./components/pages/EditProject"));
 const Settings = lazy(() => import("./components/pages/Settings"));
 const MyProfile = lazy(() => import("./components/pages/MyProfile"));
 const Inbox = lazy(() => import("./components/pages/Inbox"));
@@ -46,9 +47,6 @@ const usePageViews = () => {
   }, [location]);
 };
 
-
-
-
 export const Routes = () => {
   usePageViews();
 
@@ -61,6 +59,8 @@ export const Routes = () => {
             <Route exact path="/" component={Landing} />
             <Route exact path="/add-links" component={AddLink} />
             <Route exact path="/add-folder" component={AddProject} />
+            <Route exact path="/edit-link" component={EditLink} />
+            <Route exact path="/edit-folder" component={EditProject} />
             <Route exact path="/notes" component={Notes} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/register" component={Register} />

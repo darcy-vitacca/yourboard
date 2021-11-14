@@ -8,19 +8,20 @@ import axios from 'axios';
 export interface DragAndDropCondition {
   condition: boolean;
   children: any;
+  link: string;
 }
 
 export const ConditionalDragAndDropWrapper: FC<DragAndDropCondition> = ({
                                                                           condition,
                                                                           children,
+                                                                          link
                                                                         }) => {
-  return condition ? DragAnDropWrapper(children) : children;
+  return condition ? DragAnDropWrapper(children, link) : children;
 };
 
-export const DragAnDropWrapper = (children) => {
+export const DragAnDropWrapper = (children, link) => {
   const dispatch = useAuthDispatch();
   const { push } = useHistory();
-
   const deleteItem = async (props) => {
     try {
       dispatch('LOADING');
@@ -41,10 +42,29 @@ export const DragAnDropWrapper = (children) => {
       console.log(err);
     }
   };
+
+  const editItem = async (props) => {
+    try {
+      console.log('hit');
+      console.log('props', props);
+      if (props?.link_id) {
+        push('/edit-link');
+      } else {
+        push('/edit-folder');
+      }
+
+
+    } catch (err: any) {
+      dispatch('STOP_LOADING');
+      console.log(err);
+    }
+  };
+
+
   const [{ isOver }, drop] = useDrop({
     accept: ItemTypes.CARD,
     // @ts-ignore
-    drop: (item, monitor) => deleteItem(item),
+    drop: (item, monitor) => link === "/delete" ? deleteItem(item) : editItem(item),
     collect: (monitor) => ({
       isOver: !!monitor.isOver(),
     }),

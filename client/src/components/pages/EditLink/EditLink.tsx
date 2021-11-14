@@ -20,7 +20,7 @@ import {
   LinkInputRow,
   LinkInputSection,
   LinkText,
-} from "./AddLink.styles";
+} from "../AddLink/AddLink.styles";
 import _ from "lodash";
 import Input from "../../../shared/formElements/input";
 import axios from "axios";
@@ -49,7 +49,7 @@ export const validationSchema = Yup.object({
   ),
 });
 
-export const AddLink = () => {
+export const EditLink = () => {
   const dispatch = useAuthDispatch();
   const { authenticated, currentProject, loading, projects } = useAuthState();
   const { push } = useHistory();
@@ -169,7 +169,7 @@ export const AddLink = () => {
             <FormProvider {...methods}>
               <form onSubmit={handleSubmit(onSubmit)}>
                 <Markdown
-                  children={`# Add Links to the ${currentProject?.project_name} folder 🔗`}
+                  children={`# Edit Link in ${currentProject?.project_name} folder 🔗`}
                 />
                 {_.isEmpty(watchedUploadLinks) && (
                   <TextArea
