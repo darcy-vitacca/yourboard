@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import * as Yup from "yup";
 import {
   FormContainer,
@@ -39,11 +39,13 @@ const validationSchema = Yup.object().shape({
   description: Yup.string().nullable().required("Required"),
 });
 
-export const AddProject = () => {
+export const EditProject = () => {
   const dispatch = useAuthDispatch();
-  const { authenticated, loading } = useAuthState();
+  const { authenticated, editingProject, loading } = useAuthState();
   const { push } = useHistory();
+  const [projectId, setProjectId] = useState("");
   if (!authenticated) push("/login");
+  if (!editingProject) push("/");
 
   const methods = useForm<any>({
     mode: "onSubmit",
@@ -65,18 +67,35 @@ export const AddProject = () => {
   const onSubmit = async (formData: any) => {
     try {
       dispatch("LOADING");
-      const res = await axios.post("/project", formData);
-      dispatch("ADD_NEW_PROJECT", res?.data?.project);
+      const res = await axios.patch(`/project/${projectId}`, formData);
+      dispatch("UPDATE_CURRENT_PROJECT", res?.data?.project);
       push("/");
     } catch (err: any) {
+      dispatch("STOP_LOADING");
       const error = err.response.data;
-      // if (error.url_name) setError("url_name", { message: error.url_name });
       if (error.project_name)
         setError("project_name", { message: error.project_name });
       if (error.description)
         setError("description", { message: error.description });
     }
   };
+
+  useEffect(() => {
+    (async () => {
+      try {
+        if (editingProject) {
+          setProjectId(editingProject.project_id);
+          setValue("project_name", editingProject.project_name);
+          setValue("description", editingProject.description);
+        }
+      } catch (err: any) {
+        console.log(err.response);
+      }
+    })();
+    return () => {
+      dispatch("REMOVE_EDIT_PROJECT");
+    };
+  }, []);
   return (
     <>
       <DragDrop>
@@ -86,7 +105,7 @@ export const AddProject = () => {
             <FormContainer>
               <FormProvider {...methods}>
                 <form onSubmit={handleSubmit(onSubmit)}>
-                  <h1>Add Folder 📁 </h1>
+                  <h1>Edit Folder 📁 </h1>
                   <Input
                     type="text"
                     name="project_name"
@@ -97,16 +116,6 @@ export const AddProject = () => {
                     defaultValue={defaultValues.project_name}
                     validation={errors?.project_name?.message || ""}
                   />
-                  {/*<Input*/}
-                  {/*  type="text"*/}
-                  {/*  name="url_name"*/}
-                  {/*  width="100%"*/}
-                  {/*  helperText="URL Name (Alphanumeric only) *"*/}
-                  {/*  label="URL NAME"*/}
-                  {/*  control={control}*/}
-                  {/*  defaultValue={defaultValues.url_name}*/}
-                  {/*  validation={errors?.url_name?.message || ""}*/}
-                  {/*/>*/}
                   <TextArea
                     setValue={setValue}
                     name="description"
@@ -115,7 +124,7 @@ export const AddProject = () => {
                     validation={errors?.description?.message || ""}
                     placeholder="TYPE HERE..."
                   />
-                  <Button text="Add Folder" width="100%" type="submit" />
+                  <Button text="Update Folder" width="100%" type="submit" />
                 </form>
               </FormProvider>
             </FormContainer>

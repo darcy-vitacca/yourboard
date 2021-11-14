@@ -13,9 +13,8 @@ import { Markdown } from "../markdown";
 import moment from "moment";
 import { useAuthDispatch } from "../../components/context/context";
 import { AddCircleIcon } from "../personSection/PersonSection.styles";
-import { ItemTypes } from '../../utils/dnd/item';
+import { ItemTypes } from "../../utils/dnd/item";
 import { useDrag } from "react-dnd";
-import {isMobile} from "react-device-detect";
 
 export interface ProjectValues {
   project_id: string;
@@ -51,7 +50,9 @@ export const ProjectComponent: FC<Projects> = ({ empty, project }) => {
   const [{ isDragging }, drag] = useDrag({
     type: ItemTypes.CARD,
     item: {
-      project_id:  project_id
+      project_id: project_id,
+      project_name: project_name,
+      description: description,
     },
     collect: (monitor) => ({ isDragging: !!monitor.isDragging() }),
   });

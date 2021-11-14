@@ -8,6 +8,7 @@ import { RoadMap } from "@styled-icons/remix-fill/RoadMap";
 import styled from "styled-components/macro";
 import { NotepadEdit } from "@styled-icons/fluentui-system-filled/NotepadEdit";
 import { AddLink } from "@styled-icons/material-outlined/AddLink";
+import { Edit } from "@styled-icons/boxicons-regular/Edit";
 
 const SVGAddLinkIcon = styled(AddLink)`
   color: ${({ theme }) => theme.colors.white};
@@ -16,7 +17,7 @@ const SVGAddLinkIcon = styled(AddLink)`
   cursor: pointer;
 `;
 
-const SVGNotepadEditIcon = styled(NotepadEdit)`
+const SVGEditIcon = styled(Edit)`
   color: ${({ theme }) => theme.colors.white};
   width: 25px;
   height: 25px;
@@ -72,6 +73,12 @@ export const sidebarDataAuth: SideMenuValues[] = [
     tooltip: "Add Folder",
   },
   {
+    title: "#### Edit Item",
+    icon: < SVGEditIcon/>,
+    link: "/edit",
+    tooltip: "Drag item here to edit",
+  },
+  {
     title: "#### Road Map",
     icon: <SVGRoadMap />,
     link: "/roadmap",
@@ -81,8 +88,9 @@ export const sidebarDataAuth: SideMenuValues[] = [
     title: "#### Delete Item",
     icon: <TrashIcon />,
     link: "/delete",
-    tooltip: "Drag Item to here to delete",
+    tooltip: "Drag item here to delete",
   },
+
   // {
   //   title: "#### Project Notes",
   //   icon: <SVGNotepadEditIcon />,

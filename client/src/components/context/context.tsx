@@ -4,6 +4,7 @@ import User from "../../../../server/src/entities/User";
 import Project from "../../../../server/src/entities/Project";
 import Friend from "../../../../server/src/entities/Friends";
 import Note from "../../../../server/src/entities/Notes";
+import Link from "../../../../server/src/entities/Link";
 
 interface State {
   authenticated: boolean;
@@ -15,6 +16,8 @@ interface State {
   projects: Project[] | null;
   currentProjectIndex: number;
   notes: Note | null;
+  editingLink: Link | null;
+  editingProject: Project | null;
 }
 interface Action {
   type: string;
@@ -31,6 +34,8 @@ const StateContext = createContext<State>({
   projects: null,
   currentProjectIndex: 0,
   notes: null,
+  editingLink: null,
+  editingProject: null,
 });
 const DispatchContext = createContext<any>(null);
 
@@ -107,6 +112,26 @@ const reducer: any = (state: State, { type, payload }: Action) => {
         notes: null,
         loading: false,
       };
+    case "SET_EDIT_LINK":
+      return {
+        ...state,
+        editingLink: payload,
+      };
+    case "REMOVE_EDIT_LINK":
+      return {
+        ...state,
+        editingLink: null,
+      };
+    case "SET_EDIT_PROJECT":
+      return {
+        ...state,
+        editingProject: payload,
+      };
+    case "REMOVE_EDIT_PROJECT":
+      return {
+        ...state,
+        editingProject: null,
+      };
     case "UPDATE_CURRENT_PROJECT":
       if (state.projects) {
         const projectCopy = [...state.projects];
@@ -163,6 +188,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     projects: null,
     currentProjectIndex: 0,
     notes: null,
+    editingLink: null,
+    editingProject: null,
   });
 
   //this one liner adds args to the dispatch so we don't have to keep writing type

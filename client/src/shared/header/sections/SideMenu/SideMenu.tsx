@@ -49,10 +49,6 @@ export const SideMenu: FC<ISideMenuProps> = ({ className }) => {
   const sideBarData = authenticated ? sidebarDataAuth : sidebarDataUnauth;
 
   const handleMenuRoute = async (route: string) => {
-    // if (route !== '/my-inbox' && !showMenu) {
-    //   push(route);
-    //   dispatch('HIDE_MENU');
-    // } else
     if (route === "/logout") {
       const logoutConfirmed = window.confirm("Are you sure you want to logout?");
       if(logoutConfirmed){
@@ -66,6 +62,8 @@ export const SideMenu: FC<ISideMenuProps> = ({ className }) => {
       push(route);
     } else if (route === "/delete") {
       alert("Please drag and drop an item onto the trash icon to delete");
+    }  else if (route === "/edit") {
+      alert("Please drag and drop an item onto the edit icon to edit");
     } else {
       dispatch("HIDE_MENU");
       push(route);
@@ -109,7 +107,8 @@ export const SideMenu: FC<ISideMenuProps> = ({ className }) => {
             return (
               <>
                 <ConditionalDragAndDropWrapper
-                  condition={item?.link === "/delete"}
+                  condition={item?.link === "/delete" || item?.link === "/edit"}
+                  link={item?.link}
                 >
                   <SideBarRowContainer key={item.title}>
                     <NavRow

@@ -9,7 +9,6 @@ export const AddLinkPreviewContainer = styled.div`
 export const AddLinkProjectContainer = styled.div`
   display: flex;
   flex-direction: row;
-
   margin: 10px;
 `;
 
