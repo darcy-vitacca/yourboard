@@ -14,6 +14,7 @@ import Input from "../../../shared/formElements/input";
 import { TextArea } from "../../../shared/formElements/textArea";
 import { Button } from "../../../shared/formElements/button";
 import { DragDrop } from "../../../shared/dragDrop";
+import { Loader } from "../../../shared/loaders";
 
 type FormValue = {
   // url_name: string;
@@ -40,7 +41,7 @@ const validationSchema = Yup.object().shape({
 
 export const AddProject = () => {
   const dispatch = useAuthDispatch();
-  const { authenticated } = useAuthState();
+  const { authenticated, loading } = useAuthState();
   const { push } = useHistory();
   if (!authenticated) push("/login");
 
@@ -80,6 +81,7 @@ export const AddProject = () => {
     <>
       <DragDrop>
         <PageLayoutContainer>
+          {loading && <Loader />}
           <SectionContainer align="center">
             <FormContainer>
               <FormProvider {...methods}>

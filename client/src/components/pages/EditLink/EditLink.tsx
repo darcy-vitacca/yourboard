@@ -51,7 +51,8 @@ export const validationSchema = Yup.object({
 
 export const EditLink = () => {
   const dispatch = useAuthDispatch();
-  const { authenticated, currentProject, loading, projects } = useAuthState();
+  const { authenticated, currentProject, loading, projects, editingLink } =
+    useAuthState();
   const { push } = useHistory();
   const { state }: any = useLocation();
   const parsedLinkRef: any = useRef();
@@ -59,6 +60,7 @@ export const EditLink = () => {
   if (!authenticated) push("/login");
   if (!currentProject && projects) push("/");
   if (!currentProject && !projects) push("/add-folder");
+  if (!editingLink) push("/");
 
   const [parsedLinkText, setParsedLinkText] = useState<any>();
   const linksLength = currentProject?.links.length;
@@ -89,9 +91,13 @@ export const EditLink = () => {
     try {
       dispatch("LOADING");
       const completedLinks = watchedUploadLinks.map((link, index) => {
-        return { ...link, position: linksLength ? linksLength + index : index };
+        return {
+          ...link,
+          position: linksLength ? linksLength + index : index,
+          link_id: link.link_id,
+        };
       });
-      const res = await axios.post(
+      const res = await axios.patch(
         `/link/${currentProject?.project_id}`,
         completedLinks
       );
@@ -115,6 +121,7 @@ export const EditLink = () => {
           url: link.href,
           url_image: parsedIco,
           url_name: "",
+          link_id: editingLink?.link_id,
         };
       }
     );
@@ -149,16 +156,20 @@ export const EditLink = () => {
   useEffect(() => {
     (async () => {
       try {
-        if (state?.droppedLink) {
-          setValue("linkText", state?.droppedLink);
-          await handleLinkUpload(state?.droppedLink);
+        if (editingLink) {
+          setValue("linkText", editingLink?.url);
+          await handleLinkUpload(editingLink?.url);
           await appendLinks();
+          setValue("uploadLinks.0.url_name", editingLink?.url_name);
         }
       } catch (err: any) {
         console.log(err.response);
       }
     })();
-  }, [state?.droppedLink]);
+    return () => {
+      dispatch("REMOVE_EDIT_LINK");
+    };
+  }, []);
 
   return (
     <>
@@ -247,7 +258,10 @@ export const EditLink = () => {
                             text="Remove"
                             width="100%"
                             type="button"
-                            onClick={() => handleDelete(index)}
+                            onClick={() => {
+                              handleDelete(index);
+                              dispatch("REMOVE_EDIT_LINK");
+                            }}
                           />
                         </div>
                       </AddLinkSection>
@@ -262,7 +276,7 @@ export const EditLink = () => {
                     text="Add Links"
                   />
                 ) : (
-                  <Button type="submit" width="25%" text="Submit Links" />
+                  <Button type="submit" width="25%" text="Update Link" />
                 )}
               </form>
             </FormProvider>

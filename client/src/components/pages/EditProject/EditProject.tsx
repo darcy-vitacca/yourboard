@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import * as Yup from "yup";
 import {
   FormContainer,
@@ -14,6 +14,7 @@ import Input from "../../../shared/formElements/input";
 import { TextArea } from "../../../shared/formElements/textArea";
 import { Button } from "../../../shared/formElements/button";
 import { DragDrop } from "../../../shared/dragDrop";
+import { Loader } from "../../../shared/loaders";
 
 type FormValue = {
   // url_name: string;
@@ -40,9 +41,11 @@ const validationSchema = Yup.object().shape({
 
 export const EditProject = () => {
   const dispatch = useAuthDispatch();
-  const { authenticated } = useAuthState();
+  const { authenticated, editingProject, loading } = useAuthState();
   const { push } = useHistory();
+  const [projectId, setProjectId] = useState("");
   if (!authenticated) push("/login");
+  if (!editingProject) push("/");
 
   const methods = useForm<any>({
     mode: "onSubmit",
@@ -64,22 +67,40 @@ export const EditProject = () => {
   const onSubmit = async (formData: any) => {
     try {
       dispatch("LOADING");
-      const res = await axios.post("/project", formData);
-      dispatch("ADD_NEW_PROJECT", res?.data?.project);
+      const res = await axios.patch(`/project/${projectId}`, formData);
+      dispatch("UPDATE_CURRENT_PROJECT", res?.data?.project);
       push("/");
     } catch (err: any) {
+      dispatch("STOP_LOADING");
       const error = err.response.data;
-      // if (error.url_name) setError("url_name", { message: error.url_name });
       if (error.project_name)
         setError("project_name", { message: error.project_name });
       if (error.description)
         setError("description", { message: error.description });
     }
   };
+
+  useEffect(() => {
+    (async () => {
+      try {
+        if (editingProject) {
+          setProjectId(editingProject.project_id);
+          setValue("project_name", editingProject.project_name);
+          setValue("description", editingProject.description);
+        }
+      } catch (err: any) {
+        console.log(err.response);
+      }
+    })();
+    return () => {
+      dispatch("REMOVE_EDIT_PROJECT");
+    };
+  }, []);
   return (
     <>
       <DragDrop>
         <PageLayoutContainer>
+          {loading && <Loader />}
           <SectionContainer align="center">
             <FormContainer>
               <FormProvider {...methods}>
@@ -95,16 +116,6 @@ export const EditProject = () => {
                     defaultValue={defaultValues.project_name}
                     validation={errors?.project_name?.message || ""}
                   />
-                  {/*<Input*/}
-                  {/*  type="text"*/}
-                  {/*  name="url_name"*/}
-                  {/*  width="100%"*/}
-                  {/*  helperText="URL Name (Alphanumeric only) *"*/}
-                  {/*  label="URL NAME"*/}
-                  {/*  control={control}*/}
-                  {/*  defaultValue={defaultValues.url_name}*/}
-                  {/*  validation={errors?.url_name?.message || ""}*/}
-                  {/*/>*/}
                   <TextArea
                     setValue={setValue}
                     name="description"
@@ -113,7 +124,7 @@ export const EditProject = () => {
                     validation={errors?.description?.message || ""}
                     placeholder="TYPE HERE..."
                   />
-                  <Button text="Edit Folder" width="100%" type="submit" />
+                  <Button text="Update Folder" width="100%" type="submit" />
                 </form>
               </FormProvider>
             </FormContainer>

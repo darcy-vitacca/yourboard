@@ -33,7 +33,9 @@ export const getProject = async (req: Request, res: Response) => {
 };
 
 export const createProject = async (req: Request, res: Response) => {
-  const { description, project_name,
+  const {
+    description,
+    project_name,
     // url_name
   } = req.body;
   const user: User = res.locals.user;
@@ -262,15 +264,13 @@ export const updateNotes = async (req: Request, res: Response) => {
   }
 };
 
-
 export const deleteProject = async (req: Request, res: Response) => {
   const user: User = res.locals.user;
   const project_id = req.params.projectId;
   let projects;
   try {
-
-    const project = await Project.findOne({ project_id});
-    if (!project){
+    const project = await Project.findOne({ project_id });
+    if (!project) {
       return res.status(404).json({ project: 'Project not found' });
     }
     await ProjectUser.delete({ project_id });
@@ -292,10 +292,43 @@ export const deleteProject = async (req: Request, res: Response) => {
     } else {
       projects = [defaultProject];
     }
-
-
-
     return res.status(200).json(projects);
+  } catch (err: any) {
+    console.log(err);
+    return res.status(500).json({ error: 'Something went wrong' });
+  }
+};
+
+export const updateProject = async (req: Request, res: Response) => {
+  const { description, project_name } = req.body;
+  const project_id = req.params.projectId;
+  const user: User = res.locals.user;
+  try {
+    let errors: any = {};
+    if (isEmpty(description))
+      errors.description = 'Description must not be empty';
+    if (isEmpty(project_name))
+      errors.project_name = 'Project name must not be empty';
+    if (Object.keys(errors).length > 0) return res.status(400).json(errors);
+
+    const fullProject = await Project.findOne({
+      where: { project_id },
+      order: { createdAt: 'DESC' },
+      relations: ['links', 'project_users'],
+    });
+    if (!fullProject) {
+      return res.status(404).json({ project: 'Project not found' });
+    }
+    if (description) {
+      fullProject.description = description;
+    }
+    if (project_name) {
+      fullProject.project_name = project_name;
+    }
+
+    await Project.save(fullProject);
+
+    return res.status(200).json({ project: fullProject });
   } catch (err: any) {
     console.log(err);
     return res.status(500).json({ error: 'Something went wrong' });
