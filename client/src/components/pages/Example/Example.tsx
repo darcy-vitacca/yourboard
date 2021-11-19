@@ -29,8 +29,7 @@ export const Example: FC = () => {
       updatedAt: "2021-11-19T05:26:26.672Z",
       project_id: "84f1de63-a888-43ff-87ef-4313eb0a7650",
       project_name: "Best TV/ Movies",
-      description:
-        "A curated list of tv shows / movies that will open straight into the app on your phone or browser",
+      description: "Tv shows/Movies that will open straight ready to play",
       url_name: null,
       user_id: "af066bda-37d4-4ab3-a936-7d4dc3cf30f2",
       links: [

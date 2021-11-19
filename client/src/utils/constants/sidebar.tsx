@@ -9,6 +9,7 @@ import styled from "styled-components/macro";
 import { NotepadEdit } from "@styled-icons/fluentui-system-filled/NotepadEdit";
 import { AddLink } from "@styled-icons/material-outlined/AddLink";
 import { Edit } from "@styled-icons/boxicons-regular/Edit";
+import { Link } from "@styled-icons/boxicons-regular/Link";
 
 const SVGAddLinkIcon = styled(AddLink)`
   color: ${({ theme }) => theme.colors.white};
@@ -18,6 +19,13 @@ const SVGAddLinkIcon = styled(AddLink)`
 `;
 
 const SVGEditIcon = styled(Edit)`
+  color: ${({ theme }) => theme.colors.white};
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+`;
+
+const SVGLinkIcon = styled(Link)`
   color: ${({ theme }) => theme.colors.white};
   width: 25px;
   height: 25px;
@@ -135,5 +143,11 @@ export const sidebarDataUnauth = [
     icon: <SVGRoadMap />,
     link: "/roadmap",
     tooltip: "Road Map",
+  },
+  {
+    title: "#### urboard example",
+    icon: <SVGLinkIcon />,
+    link: "/example",
+    tooltip: "urboard example",
   },
 ];

@@ -19,18 +19,18 @@ export const Landing: FC = () => {
 
   useEffect(() => {
     (async () => {
-      if (authenticated) {
-        try {
-          dispatch("LOADING");
-          const res = await axios.get("/projects");
-          dispatch("SET_PROJECTS", res.data);
-        } catch (err: any) {
-          dispatch("STOP_LOADING");
-          if (err?.response?.data?.project === "Projects not Found") {
-            push("/add-folder");
-          }
+      // if (authenticated || loading) {
+      try {
+        dispatch("LOADING");
+        const res = await axios.get("/projects");
+        dispatch("SET_PROJECTS", res.data);
+      } catch (err: any) {
+        dispatch("STOP_LOADING");
+        if (err?.response?.data?.project === "Projects not Found") {
+          push("/add-folder");
         }
       }
+      // }
     })();
   }, []);
 
