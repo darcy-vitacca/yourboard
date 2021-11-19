@@ -27,6 +27,7 @@ const Footer = lazy(() => import("./shared/footer"));
 const Contact = lazy(() => import("./components/pages/Contact/Contact"));
 const Privacy = lazy(() => import("./components/pages/Privacy/Privacy"));
 const RoadMap = lazy(() => import("./components/pages/RoadMap"));
+const Example = lazy(() => import("./components/pages/Example"));
 
 declare global {
   interface Window {
@@ -71,6 +72,7 @@ export const Routes = () => {
             <Route exact path="/roadmap" component={RoadMap} />
             <Route exact path="/privacy" component={Privacy} />
             <Route exact path="/contact" component={Contact} />
+            <Route exact path="/example" component={Example} />
             <Route exact path="*" component={NotFound} />
           </Switch>
         </DndProvider>

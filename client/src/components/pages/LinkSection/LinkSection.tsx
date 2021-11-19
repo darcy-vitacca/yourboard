@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useAuthDispatch } from "../../context/context";
+import { useAuthDispatch, useAuthState } from "../../context/context";
 import { useHistory } from "react-router";
 import { landingConstants } from "../../../utils/constants/landing";
 import isEmpty from "lodash/isEmpty";
@@ -27,13 +27,16 @@ import {
 } from "../../../shared/Layout.styles";
 import { LinkComponent } from "../../../shared/link";
 import { DragDrop } from "../../../shared/dragDrop";
+import { ModalCommon } from "../../../shared/modal/ModalCommon";
 
 export const LinkSection = ({ currentProject }) => {
   const dispatch = useAuthDispatch();
+  const { authenticated } = useAuthState();
   const { defaultLinks } = landingConstants;
   const { push } = useHistory();
 
   const [modal, setModal] = useState(false);
+  const [modalExample, setModalExample] = useState(false);
 
   const handlePrevious = () => {
     dispatch("PREVIOUS_PROJECT");
@@ -46,6 +49,9 @@ export const LinkSection = ({ currentProject }) => {
     <>
       <DragDrop>
         {modal && <Modal setModal={setModal} modal={modal} />}
+        {modalExample && (
+          <ModalCommon setModal={setModalExample} modal={modalExample} />
+        )}
         <ProjectContainer key={currentProject.project_id}>
           <Markdown
             children={`# ${currentProject.project_name}` || ""}
@@ -59,7 +65,11 @@ export const LinkSection = ({ currentProject }) => {
           <ProjectArrowContainer>
             <SVGLeftIcon onClick={() => handlePrevious()} />
             <ProjectIconContainer>
-              <ProjectNavContainer onClick={() => push("/add-links")}>
+              <ProjectNavContainer
+                onClick={() =>
+                  authenticated ? push("/add-links") : setModalExample(true)
+                }
+              >
                 <SVGAddLinkIcon />
                 <Markdown
                   children="Add Link"
@@ -67,7 +77,11 @@ export const LinkSection = ({ currentProject }) => {
                   className="arrowContainerIconText"
                 />
               </ProjectNavContainer>
-              <ProjectNavContainer onClick={() => setModal(true)}>
+              <ProjectNavContainer
+                onClick={() =>
+                  authenticated ? setModal(true) : setModalExample(true)
+                }
+              >
                 <SVGAddFriendIcon />
                 <Markdown
                   children="Add User"
@@ -78,20 +92,12 @@ export const LinkSection = ({ currentProject }) => {
               <ProjectNavContainer
                 onClick={() => {
                   dispatch("RETURN_INITIAL_STATE_CURRENT_PROJECT");
-                  push("/");
+                  authenticated ? push("/") : push("/example");
                 }}
               >
                 <SVGFolderIcon />
                 <Markdown
                   children="Folders"
-                  align="center"
-                  className="arrowContainerIconText"
-                />
-              </ProjectNavContainer>
-              <ProjectNavContainer onClick={() => push("/notes")}>
-                <SVGNotepadIcon />
-                <Markdown
-                  children="Notes"
                   align="center"
                   className="arrowContainerIconText"
                 />

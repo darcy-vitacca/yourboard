@@ -115,7 +115,7 @@ export const AddProject = () => {
                     validation={errors?.description?.message || ""}
                     placeholder="TYPE HERE..."
                   />
-                  <Button text="Add Folder" width="100%" type="submit" />
+                  <Button text="Add Folder 📁" width="100%" type="submit" />
                 </form>
               </FormProvider>
             </FormContainer>

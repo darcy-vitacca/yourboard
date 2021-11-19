@@ -50,8 +50,10 @@ export const SideMenu: FC<ISideMenuProps> = ({ className }) => {
 
   const handleMenuRoute = async (route: string) => {
     if (route === "/logout") {
-      const logoutConfirmed = window.confirm("Are you sure you want to logout?");
-      if(logoutConfirmed){
+      const logoutConfirmed = window.confirm(
+        "Are you sure you want to logout?"
+      );
+      if (logoutConfirmed) {
         await axios.get("/auth/logout");
         await dispatch("LOGOUT");
         window.location.reload();
@@ -62,7 +64,7 @@ export const SideMenu: FC<ISideMenuProps> = ({ className }) => {
       push(route);
     } else if (route === "/delete") {
       alert("Please drag and drop an item onto the trash icon to delete");
-    }  else if (route === "/edit") {
+    } else if (route === "/edit") {
       alert("Please drag and drop an item onto the edit icon to edit");
     } else {
       dispatch("HIDE_MENU");
@@ -110,7 +112,7 @@ export const SideMenu: FC<ISideMenuProps> = ({ className }) => {
                   condition={item?.link === "/delete" || item?.link === "/edit"}
                   link={item?.link}
                 >
-                  <SideBarRowContainer key={item.title}>
+                  <SideBarRowContainer key={item?.link}>
                     <NavRow
                       className="sidebar-row"
                       onClick={() => handleMenuRoute(item.link)}

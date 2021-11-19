@@ -79,7 +79,10 @@ export const RoadMap = () => {
                 <Line />
               </RoadMapArrowContainer>
               <RoadMapTextContainer>
-                <Markdown children="• Soft Launch Beta" />
+                <Markdown children="• Soft Launch Beta ✅" />
+                <Markdown children="• Drag and reorder functionality on projects and links ✅" />
+                <Markdown children="• Edit functionality on projects and links ✅" />
+                <Markdown children="• Delete functionality on projects and links ✅" />
                 <Markdown children="• Go through user interviews to gain feedback about products and what features users need." />
               </RoadMapTextContainer>
             </RoadMapSection>
@@ -91,10 +94,7 @@ export const RoadMap = () => {
               </RoadMapArrowContainer>
               <RoadMapTextContainer>
                 <Markdown children="• Chrome extension for ease of use" />
-                <Markdown children="• Drag and reorder functionality on projects and links" />
                 <Markdown children="• Allow tagging, sorting, searching and filtering  on projects and links" />
-                <Markdown children="• Edit functionality on projects and links" />
-                <Markdown children="• Delete functionality on projects and links" />
                 <Markdown children="• Allow more customization of how projects and links look" />
                 <Markdown children="• Customization of how the dashboard looks" />
                 <Markdown children="• Further functionality added to notes" />

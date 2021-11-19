@@ -36,6 +36,12 @@ const TrashIcon = styled(Trash)`
   height: 25px;
   cursor: pointer;
 `;
+const NotepadIcon = styled(NotepadEdit)`
+  color: ${({ theme }) => theme.colors.white};
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+`;
 
 export interface SideMenuValues {
   title: string;
@@ -73,8 +79,14 @@ export const sidebarDataAuth: SideMenuValues[] = [
     tooltip: "Add Folder",
   },
   {
+    title: "#### Notes",
+    icon: <NotepadIcon />,
+    link: "/notes",
+    tooltip: "Notes",
+  },
+  {
     title: "#### Edit Item",
-    icon: < SVGEditIcon/>,
+    icon: <SVGEditIcon />,
     link: "/edit",
     tooltip: "Drag item here to edit",
   },
@@ -91,39 +103,6 @@ export const sidebarDataAuth: SideMenuValues[] = [
     tooltip: "Drag item here to delete",
   },
 
-  // {
-  //   title: "#### Project Notes",
-  //   icon: <SVGNotepadEditIcon />,
-  //   link: "/notes",
-  //   tooltip: "Project Notes",
-  // },
-  // {
-  //   title: "#### Settings",
-  //   icon: <SettingsIcon />,
-  //   link: "/settings",
-  //   tooltip: "Settings",
-  // },
-  // {
-  //   title: "#### My Inbox",
-  //   icon: <MailIcon />,
-  //   link: "/my-inbox",
-  //   tooltip: "My Inbox",
-  //   expand: <ArrowDropDownIcon />,
-  // subMenuName: 'Inbox',
-  // subMenuItems: [
-  //   { label: '#### Compose', link: 'compose', icon: <CreateIcon /> },
-  //   { label: '#### Inbox', link: 'inbox', icon: <InboxIcon /> },
-  //   { label: '#### Sent Items', link: 'sent-items', icon: <MailIcon /> },
-  //   { label: '#### Archive', link: '/archive', icon: <ArchiveIcon /> },
-  //   { label: '#### Trash', link: 'trash', icon: <DeleteIcon /> },
-  // ],
-  // },
-  // {
-  //   title: "#### My Profile",
-  //   icon: <AccountBoxIcon />,
-  //   link: "/my-profile",
-  //   tooltip: "My Profile",
-  // },
   {
     title: "#### Logout",
     icon: <ExitToAppIcon />,

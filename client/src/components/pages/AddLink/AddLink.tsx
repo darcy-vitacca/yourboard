@@ -142,7 +142,7 @@ export const AddLink = () => {
       clearErrors("linkText");
     } else {
       setError("linkText", {
-        message: "Please add links to the text area for your project.",
+        message: "Please add links to the text area for your folder.",
       });
     }
   };
@@ -259,7 +259,7 @@ export const AddLink = () => {
                     onClick={() => appendLinks()}
                     type="button"
                     width="25%"
-                    text="Add Links"
+                    text="Add Links 🔗"
                   />
                 ) : (
                   <Button type="submit" width="25%" text="Submit Links" />

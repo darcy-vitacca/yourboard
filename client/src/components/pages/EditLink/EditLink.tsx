@@ -149,7 +149,7 @@ export const EditLink = () => {
       clearErrors("linkText");
     } else {
       setError("linkText", {
-        message: "Please add links to the text area for your project.",
+        message: "Please add links to the text area for your folder.",
       });
     }
   };

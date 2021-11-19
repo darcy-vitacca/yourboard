@@ -19,10 +19,16 @@ import { Loader } from "../../../shared/loaders";
 import { DraftEditor } from "./Editor";
 import { Button } from "../../../shared/formElements/button";
 import { DragDrop } from "../../../shared/dragDrop";
+import styled from "styled-components/macro";
 
 const defaultValues = {
   description: "",
 };
+
+const ButtonContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
 
 export const Notes = () => {
   const dispatch = useAuthDispatch();
@@ -103,12 +109,21 @@ export const Notes = () => {
                 <Markdown
                   children={`# Notes for ${currentProject?.project_name} Project`}
                 />
-                <Button
-                  text={editMode ? "Update Notes" : "Edit Notes"}
-                  width="25%"
-                  onClick={() => handleEditMode()}
-                  type="button"
-                />
+                <ButtonContainer>
+                  <Button
+                    text="Return to project ↩️"
+                    width="25%"
+                    onClick={() => push("/")}
+                    type="button"
+                  />
+                  <Button
+                    text={editMode ? "Update Notes ✅️" : "Edit Notes ✍️"}
+                    width="25%"
+                    onClick={() => handleEditMode()}
+                    type="button"
+                  />
+                </ButtonContainer>
+
                 {editMode ? (
                   <DraftEditor
                     name="description"
