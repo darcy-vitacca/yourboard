@@ -19,7 +19,7 @@ export const Landing: FC = () => {
 
   useEffect(() => {
     (async () => {
-      // if (authenticated || loading) {
+      // if (authenticated) {
       try {
         dispatch("LOADING");
         const res = await axios.get("/projects");

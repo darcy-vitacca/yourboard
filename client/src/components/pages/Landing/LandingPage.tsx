@@ -118,7 +118,7 @@ export const LandingPage = () => {
               children="
 #### Want to check out an example urboard? "
             />
-            <Markdown children="This is just one of the many customizable way you could use urboard. See an example of how you would use it and improve your web browsing experience today.  " />
+            <Markdown children="This is just one of the many customizable ways you can use urboard. See a setup of how you can improve your web browsing experience today.  " />
           </div>
           <Button
             text="View urboard 👀"
