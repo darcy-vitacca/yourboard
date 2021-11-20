@@ -119,14 +119,17 @@ export const LandingPage = () => {
 #### Want to check out an example urboard? "
             />
             <Markdown children="This is just one of the many customizable ways you can use urboard. See a setup of how you can improve your web browsing experience today.  " />
+            <Markdown children="# 👇" />
           </div>
-          <Button
-            text="View urboard 👀"
-            width="100%"
-            type="button"
-            onClick={() => push("/example")}
-            bkgColor="green"
-          />
+          <div>
+            <Button
+              text="View urboard 👀"
+              width="100%"
+              type="button"
+              onClick={() => push("/example")}
+              bkgColor="green"
+            />
+          </div>
         </LandingCTAContainer>
       </LandingSectionContainer>
       <LandingProjectExamples />

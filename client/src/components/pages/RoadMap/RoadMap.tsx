@@ -100,24 +100,23 @@ export const RoadMap = () => {
                 <Markdown children="• Further functionality added to notes" />
                 <Markdown children="• Establish Branding" />
                 <Markdown children="• Notifications" />
-              </RoadMapTextContainer>
-            </RoadMapSection>
-            <RoadMapSection>
-              <RoadMapArrowContainer>
-                <Dot />
-                <Markdown children="V1.2-2022" />
-                <Line />
-              </RoadMapArrowContainer>
-              <RoadMapTextContainer>
                 <Markdown children="• Public mode, allow a board to be displayed to even non-members" />
               </RoadMapTextContainer>
             </RoadMapSection>
-            <RoadMapSection>
-              <RoadMapArrowContainer>
-                <Dot />
-              </RoadMapArrowContainer>
-              <RoadMapTextContainer></RoadMapTextContainer>
-            </RoadMapSection>
+            {/*<RoadMapSection>*/}
+            {/*  <RoadMapArrowContainer>*/}
+            {/*    <Dot />*/}
+            {/*    <Markdown children="V1.2-2022" />*/}
+            {/*    <Line />*/}
+            {/*  </RoadMapArrowContainer>*/}
+            {/*  <RoadMapTextContainer></RoadMapTextContainer>*/}
+            {/*</RoadMapSection>*/}
+            {/*<RoadMapSection>*/}
+            {/*  <RoadMapArrowContainer>*/}
+            {/*    <Dot />*/}
+            {/*  </RoadMapArrowContainer>*/}
+            {/*  <RoadMapTextContainer></RoadMapTextContainer>*/}
+            {/*</RoadMapSection>*/}
           </RoadMapContainer>
         </SectionContainer>
       </PageLayoutContainer>

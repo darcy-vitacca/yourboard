@@ -1,11 +1,6 @@
 import React, { useState, useEffect } from "react";
 import draftToHtml from "draftjs-to-html";
-import {
-  convertToRaw,
-  EditorState,
-  convertFromRaw,
-  ContentState,
-} from "draft-js";
+import { convertToRaw, EditorState, convertFromRaw } from "draft-js";
 import {
   PageLayoutContainer,
   SectionContainer,
@@ -20,6 +15,7 @@ import { DraftEditor } from "./Editor";
 import { Button } from "../../../shared/formElements/button";
 import { DragDrop } from "../../../shared/dragDrop";
 import styled from "styled-components/macro";
+import { Size, useWindowSize } from "../../../hooks/useWindowSize";
 
 const defaultValues = {
   description: "",
@@ -32,6 +28,9 @@ const ButtonContainer = styled.div`
 
 export const Notes = () => {
   const dispatch = useAuthDispatch();
+  const size: Size = useWindowSize();
+  // @ts-ignore
+  const mobile = size?.width < 500;
   const { authenticated, currentProject, loading, projects, notes } =
     useAuthState();
 
@@ -98,6 +97,7 @@ export const Notes = () => {
       console.log(err);
     }
   };
+
   return (
     <>
       <DragDrop>
@@ -112,13 +112,13 @@ export const Notes = () => {
                 <ButtonContainer>
                   <Button
                     text="Return to project ↩️"
-                    width="25%"
+                    width={mobile ? "100%" : "25%"}
                     onClick={() => push("/")}
                     type="button"
                   />
                   <Button
                     text={editMode ? "Update Notes ✅️" : "Edit Notes ✍️"}
-                    width="25%"
+                    width={mobile ? "100%" : "25%"}
                     onClick={() => handleEditMode()}
                     type="button"
                   />
