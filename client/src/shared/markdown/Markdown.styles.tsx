@@ -81,6 +81,9 @@ export const MarkdownElement = styled(
     color: ${({ theme }) => theme.colors.green500};
     font-weight: bold;
   }
+  &.heroText > h3 {
+    font-weight: 500;
+  }
   &.landingHeading > h1 {
     color: ${({ theme }) => theme.colors.green500};
     font-weight: bold;
@@ -89,13 +92,15 @@ export const MarkdownElement = styled(
     }
     
   }
-  &.projectCardMainText > h4 {
+  &.projectCardMainText > h3 {
     width: 100%;
     font-size: ${({ theme }) => theme.font.size.smallest};
     @media ${device.mobileLrg} {
       font-size: ${({ theme }) => theme.font.size.medium};
     }
   }
+
+
 
   &.notesText {
    //cursor: pointer;

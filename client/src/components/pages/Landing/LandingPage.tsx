@@ -1,11 +1,13 @@
 import React from "react";
 import { Markdown } from "../../../shared/markdown";
-import landingSVG from "../../../images/landing.svg";
 import styled from "styled-components/macro";
 import { device } from "../../../styles/devices";
 import { Button } from "../../../shared/formElements/button";
 import { useHistory } from "react-router";
 import { LandingProjectExamples } from "./LandingProjectExamples";
+
+import { LandingCarousel } from "./LandingCarousel";
+import { Size, useWindowSize } from "../../../hooks/useWindowSize";
 
 export interface IImageContainerStyles {
   display: boolean;
@@ -30,11 +32,12 @@ export const StyledHeroImg = styled.img`
 export const LandingSectionContainer = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 30px 30px;
+  padding: 10px 10px;
   margin: 30px 0;
   background-color: ${({ theme }) => theme.colors.blue500};
   @media ${device.mobileLrg} {
     flex-direction: row;
+    padding: 30px 30px;
   }
   border: 8px solid ${({ theme }) => theme.colors.blue500};
   border-radius: 10px;
@@ -43,7 +46,11 @@ export const LandingSectionContainer = styled.div`
 export const ImageSectionContainer = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 30px 30px;
+  padding: 10px 10px;
+  @media ${device.mobileLrg} {
+    flex-direction: row;
+    padding: 30px 30px;
+  }
   margin: 30px 0;
   background-color: ${({ theme }) => theme.colors.blue500};
   @media ${device.tablet} {
@@ -80,33 +87,75 @@ export const ExampleImages = styled.img`
   }
 `;
 
+const ButtonContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  @media ${device.tablet} {
+    flex-direction: row;
+  }
+`;
+
+const HeaderSectionContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 10px 10px;
+  @media ${device.mobileLrg} {
+    padding: 30px 30px;
+  }
+  margin: 30px 0;
+  background-color: ${({ theme }) => theme.colors.blue500};
+  border: 8px solid ${({ theme }) => theme.colors.blue500};
+  border-radius: 10px;
+`;
+const HeaderTextContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  @media ${device.mobileXL} {
+    flex-direction: row;
+  }
+`;
 export const LandingPage = () => {
   const { push } = useHistory();
+  const size: Size = useWindowSize();
+  // @ts-ignore
+  const mobile = size?.width < 500;
   return (
     <>
-      <LandingSectionContainer>
-        <Markdown children="# Welcome to" />
-        <Markdown children="# urboard" className="landingHeading" />
-      </LandingSectionContainer>
-      <LandingSectionContainer>
-        <LandingCTAContainer className="firstSection">
-          <Markdown children=" **urboard** is a personal dashboard designed to help you **navigate the web easier**. Access it **across all your devices**  to manage your favourite links/bookmarks and **navigate faster to what matters most**. Collaborate with friends and organize your projects, ideas, and inspiration in one place. " />
-          <div>
-            <Markdown
-              children="
+      <HeaderSectionContainer>
+        <HeaderTextContainer>
+          <Markdown children="# Welcome to" />
+          <Markdown children="# urboard" className="landingHeading" />
+        </HeaderTextContainer>
+        <Markdown
+          children="### Navigate, share, save your links, bookmarks and ideas across all your devices. This is your mission control 🚀"
+          className="heroText"
+        />
+        {mobile ? (
+          <StyledHeroImg src="https://ik.imagekit.io/ticnymjalpq/tr:w-500,h-416/landing_yk3VjPjlNNB.svg?updatedAt=1635751648479" />
+        ) : (
+          <LandingCarousel />
+        )}
+        <Markdown
+          children="
 #### Enhance your web browsing experience today. "
-            />
-            <Button
-              text="Register Now ➥️"
-              width="100%"
-              type="button"
-              onClick={() => push("/register")}
-              bkgColor="green"
-            />
-          </div>
-        </LandingCTAContainer>
-        <StyledHeroImg src="https://ik.imagekit.io/ticnymjalpq/tr:w-500,h-416/landing_yk3VjPjlNNB.svg?updatedAt=1635751648479" />
-      </LandingSectionContainer>
+        />
+        <ButtonContainer>
+          <Button
+            text="Register Now ➥️"
+            width="100%"
+            type="button"
+            onClick={() => push("/register")}
+            bkgColor="green"
+          />
+          <Button
+            text="Login ️"
+            width="100%"
+            type="button"
+            onClick={() => push("/login")}
+            bkgColor="green"
+          />
+        </ButtonContainer>
+      </HeaderSectionContainer>
       <LandingSectionContainer>
         <StyledHeroImg
           src="https://ik.imagekit.io/ticnymjalpq/undraw_launching_re_tomg__1__6e5DGtbObSj.svg?updatedAt=1637294212371"
@@ -132,6 +181,7 @@ export const LandingPage = () => {
           </div>
         </LandingCTAContainer>
       </LandingSectionContainer>
+
       <LandingProjectExamples />
     </>
   );
