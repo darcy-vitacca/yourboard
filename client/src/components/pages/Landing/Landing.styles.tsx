@@ -1,17 +1,22 @@
 import styled from "styled-components/macro";
 import { ArrowLeftCircleFill } from "@styled-icons/bootstrap/ArrowLeftCircleFill";
 import { ArrowRightCircleFill } from "@styled-icons/bootstrap/ArrowRightCircleFill";
-import { Folder} from "@styled-icons/bootstrap/Folder";
-import { FolderPlus} from "@styled-icons/bootstrap/FolderPlus";
+import { Folder } from "@styled-icons/bootstrap/Folder";
+import { FolderPlus } from "@styled-icons/bootstrap/FolderPlus";
 import { PersonAdd } from "@styled-icons/ionicons-solid/PersonAdd";
-import {NotepadEdit } from "@styled-icons/fluentui-system-filled/NotepadEdit"
+import { NotepadEdit } from "@styled-icons/fluentui-system-filled/NotepadEdit";
 import { Edit } from "@styled-icons/feather/Edit";
 import { AddLink } from "@styled-icons/material-outlined/AddLink";
 
 import { device } from "../../../styles/devices";
 
-export const SVGLeftIcon = styled(ArrowLeftCircleFill)`
-  color: ${({ theme }) => theme.colors.white};
+export interface IArrowProps {
+  moreThanOneProject: boolean | null;
+}
+
+export const SVGLeftIcon = styled(ArrowLeftCircleFill)<IArrowProps>`
+  color: ${({ theme, moreThanOneProject }) =>
+    !moreThanOneProject ? theme.colors.blue100 : theme.colors.white};
   // background-color: ${({ theme }) => theme.colors.green500};
   // border-radius: 50px;
   width: 35px;
@@ -21,13 +26,14 @@ export const SVGLeftIcon = styled(ArrowLeftCircleFill)`
     height: 45px;
   }
   padding: 3px;
-  
-  cursor: pointer;
-  // margin-top: -2px;
+
+  cursor: ${({ moreThanOneProject }) =>
+    !moreThanOneProject ? "inherit" : "pointer"};
 `;
 
-export const SVGRightIcon = styled(ArrowRightCircleFill)`
-  color: ${({ theme }) => theme.colors.white};
+export const SVGRightIcon = styled(ArrowRightCircleFill)<IArrowProps>`
+  color: ${({ theme, moreThanOneProject }) =>
+    !moreThanOneProject ? theme.colors.blue100 : theme.colors.white};
   // background-color: ${({ theme }) => theme.colors.green500};
   // border-radius: 50px;
   width: 35px;
@@ -37,9 +43,8 @@ export const SVGRightIcon = styled(ArrowRightCircleFill)`
     height: 45px;
   }
   padding: 3px;
-  cursor: pointer;
-
-  // margin-top: -2px;
+  cursor: ${({ moreThanOneProject }) =>
+    !moreThanOneProject ? "inherit" : "pointer"};
 `;
 
 export const SVGAddFriendIcon = styled(PersonAdd)`
@@ -70,7 +75,6 @@ export const SVGAddLinkIcon = styled(AddLink)`
   cursor: pointer;
 `;
 
-
 export const SVGFolderIcon = styled(Folder)`
   color: ${({ theme }) => theme.colors.white};
   border-radius: 5px;
@@ -88,8 +92,6 @@ export const SVGFolderPlusIcon = styled(FolderPlus)`
   padding: 3px;
   cursor: pointer;
 `;
-
-
 
 export const SVGNotepadIcon = styled(NotepadEdit)`
   color: ${({ theme }) => theme.colors.white};
@@ -121,9 +123,9 @@ export const ProjectIconContainer = styled.div`
 `;
 
 export const ProjectNavContainer = styled.div`
-  width:80px;
-display:flex;
-justify-content: center;
+  width: 80px;
+  display: flex;
+  justify-content: center;
   align-items: center;
-flex-direction: column;`
-
+  flex-direction: column;
+`;

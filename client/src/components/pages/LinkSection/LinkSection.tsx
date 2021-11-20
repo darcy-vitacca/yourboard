@@ -31,7 +31,7 @@ import { ModalCommon } from "../../../shared/modal/ModalCommon";
 
 export const LinkSection = ({ currentProject }) => {
   const dispatch = useAuthDispatch();
-  const { authenticated } = useAuthState();
+  const { authenticated, projects } = useAuthState();
   const { defaultLinks } = landingConstants;
   const { push } = useHistory();
 
@@ -44,6 +44,7 @@ export const LinkSection = ({ currentProject }) => {
   const handleForward = () => {
     dispatch("NEXT_PROJECT");
   };
+  const moreThanOneProject = projects && projects?.length > 1;
 
   return (
     <>
@@ -63,7 +64,13 @@ export const LinkSection = ({ currentProject }) => {
             align="center"
           />
           <ProjectArrowContainer>
-            <SVGLeftIcon onClick={() => handlePrevious()} />
+            {moreThanOneProject && (
+              <SVGLeftIcon
+                onClick={() => handlePrevious()}
+                moreThanOneProject={moreThanOneProject}
+              />
+            )}
+
             <ProjectIconContainer>
               <ProjectNavContainer
                 onClick={() =>
@@ -103,7 +110,12 @@ export const LinkSection = ({ currentProject }) => {
                 />
               </ProjectNavContainer>
             </ProjectIconContainer>
-            <SVGRightIcon onClick={() => handleForward()} />
+            {moreThanOneProject && (
+              <SVGRightIcon
+                onClick={() => handleForward()}
+                moreThanOneProject={moreThanOneProject}
+              />
+            )}
           </ProjectArrowContainer>
           <PersonSectionContainer>
             <PersonContainer>

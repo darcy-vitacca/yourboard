@@ -27,6 +27,7 @@ import axios from "axios";
 import { Loader } from "../../../shared/loaders";
 import { LinkComponent } from "../../../shared/link";
 import { DragDrop } from "../../../shared/dragDrop";
+import { Size, useWindowSize } from "../../../hooks/useWindowSize";
 
 interface FormValue {
   linkText: string;
@@ -160,6 +161,9 @@ export const AddLink = () => {
     })();
   }, [state?.droppedLink]);
 
+  const size: Size = useWindowSize();
+  // @ts-ignore
+  const mobile = size?.width < 500;
   return (
     <>
       <DragDrop>
@@ -258,7 +262,7 @@ export const AddLink = () => {
                   <Button
                     onClick={() => appendLinks()}
                     type="button"
-                    width="25%"
+                    width={mobile ? "100%" : "25%"}
                     text="Add Links 🔗"
                   />
                 ) : (

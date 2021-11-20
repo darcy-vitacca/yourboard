@@ -132,8 +132,8 @@ export const MarkdownElement = styled(
     
     
   &.linkCardMainText > h4 {
-    width: 80%;
-    font-size: ${({ theme }) => theme.font.size.smallest};
+    width: 100%;
+    font-size: ${({ theme }) => theme.font.size.tinySmall};
     @media ${device.mobileLrg} {
       width: 100%;
       font-size: ${({ theme }) => theme.font.size.medium};

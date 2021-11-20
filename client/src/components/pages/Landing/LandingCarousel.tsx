@@ -23,7 +23,7 @@ export const LandingCarousel = () => {
     <Carousel
       autoPlay={true}
       infiniteLoop={true}
-      interval={4000}
+      interval={3500}
       showStatus={false}
     >
       <ImageContainer onClick={() => push("/example")}>
