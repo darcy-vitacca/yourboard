@@ -13,8 +13,8 @@ import { AddCircleIcon } from "../personSection/PersonSection.styles";
 import { useDrag } from "react-dnd";
 import { ItemTypes } from "../../utils/dnd/item";
 //@ts-ignore
-import Preview from 'react-dnd-preview';
-
+import Preview from "react-dnd-preview";
+import Input from "../formElements/input";
 
 export interface LinkValues {
   clicked?: number;
@@ -35,18 +35,17 @@ interface Links {
 }
 
 export const LinkComponent: FC<Links> = ({ empty, link }) => {
-
   const [{ isDragging }, drag] = useDrag({
     type: ItemTypes.CARD,
     item: {
       link_id: link?.link_id,
-      project_id:   link?.project_id,
-      createdAt:link?.createdAt,
-      position:  link?.position,
-      updatedAt:  link?.updatedAt,
-      url:  link?.url,
-      url_image:  link?.url_image,
-      url_name:  link?.url_name,
+      project_id: link?.project_id,
+      createdAt: link?.createdAt,
+      position: link?.position,
+      updatedAt: link?.updatedAt,
+      url: link?.url,
+      url_image: link?.url_image,
+      url_name: link?.url_name,
     },
     collect: (monitor) => ({ isDragging: !!monitor.isDragging() }),
   });

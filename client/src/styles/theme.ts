@@ -105,6 +105,7 @@ export const theme = {
     laptop: 1000,
     laptopLrg: 1160,
     desktopSml: 1350,
+    desktopSmlMed: 1800,
     desktop: 2560,
   },
   zIndex: {

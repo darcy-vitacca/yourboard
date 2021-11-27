@@ -8,7 +8,7 @@ import {
 
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useParams, useHistory} from "react-router";
+import { useParams, useHistory } from "react-router";
 import { useForm, FormProvider } from "react-hook-form";
 import Input from "../../../shared/formElements/input";
 import { Markdown } from "../../../shared/markdown";
@@ -33,7 +33,7 @@ export const Reset = () => {
   const { push } = useHistory();
   const { id }: any = useParams();
 
-  if(isEmpty(id)) push('/login')
+  if (isEmpty(id)) push("/login");
   if (authenticated) push("/");
 
   const methods = useForm<any>({
@@ -55,9 +55,12 @@ export const Reset = () => {
   const onSubmit = async (formData: any) => {
     try {
       dispatch("LOADING");
-        const res = await axios.patch("/auth/reset", { password: formData.password , id: id });
+      const res = await axios.patch("/auth/reset", {
+        password: formData.password,
+        id: id,
+      });
       dispatch("STOP_LOADING");
-      push('/login')
+      push("/login");
     } catch (err: any) {
       dispatch("STOP_LOADING");
       const error = err.response.data;
@@ -97,9 +100,7 @@ export const Reset = () => {
                     validation={errors?.confirmPassword?.message || ""}
                   />
 
-                  <Button text= "UPDATE PASSWORD" width="100%" type="submit" />
-
-
+                  <Button text="UPDATE PASSWORD" width="100%" type="submit" />
                 </LoginRegisterSectionContainer>
               </form>
             </FormProvider>
@@ -112,12 +113,13 @@ export const Reset = () => {
 
 export const validationSchema = Yup.object({
   password: Yup.string()
-    .required('Please Enter your password')
+    .required("Please Enter your password")
     .matches(
       /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$/,
       "Must Contain 8 Characters, One Uppercase, One Lowercase and One Number"
     ),
-  confirmPassword:Yup.string()
-    .oneOf([Yup.ref('password'), null], 'Passwords must match')
-
+  confirmPassword: Yup.string().oneOf(
+    [Yup.ref("password"), null],
+    "Passwords must match"
+  ),
 });

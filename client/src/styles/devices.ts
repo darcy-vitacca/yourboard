@@ -9,5 +9,6 @@ export const device = {
   laptop: `(min-width: ${theme.mQ.laptop}px)`,
   laptopLrg: `(min-width: ${theme.mQ.laptopLrg}px)`,
   desktopSml: `(min-width: ${theme.mQ.desktopSml}px)`,
+  desktopSmlMed: `(min-width: ${theme.mQ.desktopSmlMed}px)`,
   desktop: `(min-width: ${theme.mQ.desktop}px)`,
 };

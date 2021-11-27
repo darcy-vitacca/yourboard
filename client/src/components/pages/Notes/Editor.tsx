@@ -4,10 +4,6 @@ import { Controller } from "react-hook-form";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import "./Editor.css";
 import styled from "styled-components/macro";
-// import { convertToRaw} from "draft-js";
-// import draftToHtml from 'draftjs-to-html';
-// import isEmpty from 'lodash/isEmpty'
-// import { Markdown } from '../../../shared/markdown';
 
 const EditorContainer = styled.div``;
 

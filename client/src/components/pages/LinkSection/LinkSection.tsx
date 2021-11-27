@@ -28,6 +28,7 @@ import {
 import { LinkComponent } from "../../../shared/link";
 import { DragDrop } from "../../../shared/dragDrop";
 import { ModalCommon } from "../../../shared/modal/ModalCommon";
+import styled from "styled-components/macro";
 
 export const LinkSection = ({ currentProject }) => {
   const dispatch = useAuthDispatch();
@@ -45,6 +46,12 @@ export const LinkSection = ({ currentProject }) => {
     dispatch("NEXT_PROJECT");
   };
   const moreThanOneProject = projects && projects?.length > 1;
+
+  const HeaderNavContainer = styled.div`
+    // background-color: ${({ theme }) => theme.colors.blue400};
+    // border-radius: 10px;
+    // margin: 0 10px;
+  `;
 
   return (
     <>
