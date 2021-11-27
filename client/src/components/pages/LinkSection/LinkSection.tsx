@@ -116,6 +116,14 @@ export const LinkSection = ({ currentProject }) => {
                   className="arrowContainerIconText"
                 />
               </ProjectNavContainer>
+              <ProjectNavContainer onClick={() => push("/notes")}>
+                <SVGNotepadIcon />
+                <Markdown
+                  children="Notes"
+                  align="center"
+                  className="arrowContainerIconText"
+                />
+              </ProjectNavContainer>
             </ProjectIconContainer>
             {moreThanOneProject && (
               <SVGRightIcon

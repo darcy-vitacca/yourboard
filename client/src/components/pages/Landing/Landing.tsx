@@ -1,7 +1,7 @@
 import React, { useEffect, FC } from "react";
 import {
   SectionContainer,
-  PageLayoutContainer,
+  PageDashboardContainer,
 } from "../../../shared/Layout.styles";
 import axios from "axios";
 import { useAuthDispatch, useAuthState } from "../../context/context";
@@ -37,7 +37,7 @@ export const Landing: FC = () => {
   return (
     <>
       <DragDrop>
-        <PageLayoutContainer>
+        <PageDashboardContainer>
           <SectionContainer>
             {loading && <Loader />}
             {!authenticated && !loading ? (
@@ -51,7 +51,7 @@ export const Landing: FC = () => {
               />
             )}
           </SectionContainer>
-        </PageLayoutContainer>
+        </PageDashboardContainer>
       </DragDrop>
     </>
   );

@@ -99,7 +99,7 @@ export const theme = {
   mQ: {
     mobileSml: 320,
     mobileMed: 480,
-    mobileLrg: 560,
+    mobileLrg: 590,
     mobileXL: 650,
     tablet: 768,
     laptop: 1000,

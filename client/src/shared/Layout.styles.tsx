@@ -45,13 +45,34 @@ export const Row = styled.div`
     }
   }
 `;
+
+export const PageDashboardContainer = styled.div`
+  width: 100%;
+  min-width: 260px;
+  background-color: ${({ theme }) => theme.layout.background};
+  box-shadow: ${({ theme }) => theme.shadow.box};
+  padding: 0 10px 50px 10px;
+  margin: 0 0 100px;
+
+  @media ${device.laptopLrg} {
+    width: 1160px;
+    margin: 0 auto 100px;
+  }
+  @media ${device.desktopSmlMed} {
+    width: 1560px;
+    margin: 0 auto 100px;
+  }
+`;
+
 export const SectionContainer = styled.div<ISectionContainerProps>`
   min-height: 520px;
   min-width: 280px;
   margin-left: 70px;
   @media ${device.mobileLrg} {
     padding: 15px 20px;
-    margin-left: 0;
+  }
+  @media ${device.laptopLrg} {
+    margin: 0;
   }
   display: ${({ align }) => (align ? "flex" : "inherit")};
   flex-direction: ${({ align }) => (align ? "column" : "inherit")};

@@ -124,6 +124,7 @@ export const ProjectIconContainer = styled.div`
 
 export const ProjectNavContainer = styled.div`
   width: 80px;
+  margin: 0 5px;
   display: flex;
   justify-content: center;
   align-items: center;
