@@ -59,7 +59,7 @@ export const PageDashboardContainer = styled.div`
     margin: 0 auto 100px;
   }
   @media ${device.desktopSmlMed} {
-    width: 1560px;
+    width: 1380px;
     margin: 0 auto 100px;
   }
 `;

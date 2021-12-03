@@ -92,7 +92,7 @@ export const MarkdownElement = styled(
     }
     
   }
-  &.projectCardMainText > h3 {
+  &.projectCardMainText > h4 {
     width: 100%;
     font-size: ${({ theme }) => theme.font.size.smallest};
     @media ${device.mobileLrg} {
