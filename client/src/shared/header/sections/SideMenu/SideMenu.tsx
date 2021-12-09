@@ -16,6 +16,12 @@ import {
   NavRowLeftContainer,
   NavRowRightContainer,
   NavSubRowLeftContainer,
+  TodoContainer,
+  TodoItemContainer,
+  TodoFuncContainer,
+  TodoItemText,
+  TodoInput,
+  TodoButtonTime,
 } from "./SideMenu.styles";
 import {
   sidebarDataAuth,
@@ -30,6 +36,7 @@ import {
 } from "../../../../components/context/context";
 import axios from "axios";
 import { ConditionalDragAndDropWrapper } from "./DragAndDropConditionalWrapper";
+import { TaskList } from "../../../todo/TaskList";
 
 interface ISideMenuProps {
   className: string;
@@ -168,6 +175,7 @@ export const SideMenu: FC<ISideMenuProps> = ({ className }) => {
               </>
             );
           })}
+          {showMenu && <TaskList />}
         </SideBarList>
       </SideBar>
     </SideNavContainer>

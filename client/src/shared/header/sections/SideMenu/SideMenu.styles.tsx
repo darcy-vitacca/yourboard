@@ -1,6 +1,6 @@
-import styled from 'styled-components/macro';
-import { CloseOutline } from '@styled-icons/evaicons-outline/CloseOutline';
-import { Menu } from '@styled-icons/boxicons-regular/Menu';
+import styled from "styled-components/macro";
+import { CloseOutline } from "@styled-icons/evaicons-outline/CloseOutline";
+import { Menu } from "@styled-icons/boxicons-regular/Menu";
 
 export const SideNavContainer = styled.div`
   height: 100%;
@@ -10,11 +10,10 @@ export const SideNavContainer = styled.div`
   left: 0;
   z-index: 2;
   background-color: ${({ theme }) => theme.colors.blue700};
-  overflow-x: hidden;
   padding-top: 20px;
   transition: all 0.75s ease;
   &.hideMenu {
-    width: 270px;
+    width: 300px;
   }
 `;
 export const SideBarMenuContainer = styled.div`
@@ -30,23 +29,23 @@ export const ExpandIconContainer = styled.div`
   }
 `;
 export const SVGMenuIcon = styled(Menu)`
-color: ${({ theme }) => theme.colors.white};
-background-color: ${({ theme }) => theme.colors.green500};
-border-radius:50px;
-width: 35px;
-padding:3px;
-cursor: pointer;
-position: fixed;
-margin-left: 15px;
-margin-top: -2px;
+  color: ${({ theme }) => theme.colors.white};
+  background-color: ${({ theme }) => theme.colors.green500};
+  border-radius: 50px;
+  width: 35px;
+  padding: 3px;
+  cursor: pointer;
+  position: fixed;
+  margin-left: 15px;
+  margin-top: -2px;
 `;
 export const SVGCloseIcon = styled(CloseOutline)`
   color: ${({ theme }) => theme.colors.white};
   background-color: ${({ theme }) => theme.colors.green500};
-  border-radius:50px;
-  width :35px;
-  padding:3px;
-  cursor: pointer; 
+  border-radius: 50px;
+  width: 35px;
+  padding: 3px;
+  cursor: pointer;
   position: fixed;
   margin-left: 15px;
   margin-top: -2px;
@@ -54,13 +53,33 @@ export const SVGCloseIcon = styled(CloseOutline)`
 export const SideBar = styled.ul`
   display: flex;
   justify-content: center;
-  padding-top: 60px;
+  padding-top: 20px;
   background-color: ${({ theme }) => theme.colors.blue700};
 `;
 
 export const SideBarList = styled.ul`
   background-color: ${({ theme }) => theme.colors.blue700};
-min-width: 90%`;
+  min-width: 90%;
+`;
+
+export const TodoContainer = styled.div`
+  background-color: ${({ theme }) => theme.colors.blue400};
+  min-width: 90%;
+  border-radius: 5px;
+  height: 370px;
+  padding: 15px 0;
+  overflow-y: scroll;
+`;
+export const TodoItemContainer = styled.div`
+  background-color: ${({ theme }) => theme.colors.white};
+  min-width: 80%;
+  border-radius: 5px;
+  margin: 15px 5px;
+  height: 80px;
+  display: flex;
+  flex-direction: row;
+  padding: 5px;
+`;
 
 export const SideBarRowContainer = styled.div``;
 
@@ -140,4 +159,37 @@ export const Tooltip = styled.p`
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   transition: all 1s ease;
   font-weight: ${({ theme }) => theme.font.weight.semiBold};
+`;
+
+export const TodoFuncContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 50px;
+`;
+
+export const TodoItemText = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 190px;
+`;
+
+export const TodoInput = styled.input`
+  width: 70px;
+`;
+
+export const TodoButtonTime = styled.button`
+  width: 70px;
+  background-color: transparent;
+  border-radius: 5px;
+  border: 1px solid grey;
+`;
+
+export const TodoButtonName = styled.input`
+  width: 180px;
+  background-color: transparent;
+  border-radius: 5px;
+  border: 1px solid grey;
+  margin-bottom: 17px;
+  padding: 4px 5px;
 `;

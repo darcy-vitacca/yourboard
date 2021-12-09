@@ -71,6 +71,17 @@ export const MarkdownElement = styled(
   &.sidebar-nav-text > h4 {
     color: ${({ theme }) => theme.colors.white};
   }
+  &.timerText > p {
+    color: ${({ theme }) => theme.colors.black};
+    font-weight: bold;
+  }
+  &.timerIcons > h3 {
+    font-size: ${({ theme }) => theme.font.size.mediumLarge};
+    cursor: pointer;
+  }
+}
+
+  
   &.hideMenu {
     display: block;
   }

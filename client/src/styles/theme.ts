@@ -60,6 +60,7 @@ export const theme = {
       small: "14px",
       default: "15px",
       medium: "17px",
+      mediumLarge: "20px",
       large: "24px",
       heading: "30px",
       largeHeading: "35px",
