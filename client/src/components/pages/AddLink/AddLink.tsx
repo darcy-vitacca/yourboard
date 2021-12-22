@@ -161,7 +161,6 @@ export const AddLink = () => {
     })();
   }, [state?.droppedLink]);
 
-
   const size: Size = useWindowSize();
   // @ts-ignore
   const mobile = size?.width < 500;
