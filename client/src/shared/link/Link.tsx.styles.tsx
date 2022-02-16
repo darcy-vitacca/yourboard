@@ -21,6 +21,9 @@ export const LinkProjectContainer = styled.div<ILinkProps>`
   flex-direction: column;
   cursor: pointer;
   justify-content: space-between;
+  @media ${device.mobileLrg} {
+    padding: 10px;
+  }
   * {
     background-color: ${({ theme }) => theme.colors.blue400};
   }
