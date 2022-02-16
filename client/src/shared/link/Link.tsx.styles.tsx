@@ -15,7 +15,7 @@ export const LinkProjectContainer = styled.div<ILinkProps>`
   opacity: ${({ opacity }) => (opacity ? "0.5" : "1")};
 
   border-radius: 5px;
-  padding: 10px;
+  padding: 7px;
   display: flex;
   background-color: ${({ theme }) => theme.colors.blue400};
   flex-direction: column;
